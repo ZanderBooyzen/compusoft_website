@@ -1,6 +1,6 @@
-# Solv-IT Computer Solutions
+# CompuSoft Computer Support
 
-Business website for Solv-IT Computer Solutions, with service and contact pages.
+Business website for CompuSoft Computer Support, with service and contact pages.
 
 ## Cloudflare deployment
 

@@ -3,7 +3,7 @@ export default {
     const url = new URL(request.url);
 
     if (url.pathname === '/api/contact') {
-      if (request.method === 'OPTIONS') return new Response(null, { headers: corsHeaders() });
+      if (request.method === 'OPTIONS') return new Response(null, { headers: { ...corsHeaders(), ...securityHeaders(), 'Cache-Control': 'no-store' } });
       if (request.method !== 'POST') return json({ error: 'Method not allowed.' }, 405);
 
       let data;
@@ -45,21 +45,31 @@ export default {
     }
 
     const assetResponse = await env.ASSETS.fetch(request);
+    const headers = new Headers(assetResponse.headers);
+    for (const [name, value] of Object.entries(securityHeaders())) headers.set(name, value);
     if (url.pathname === '/styles.css') {
-      const headers = new Headers(assetResponse.headers);
       headers.set('Cache-Control', 'no-store, max-age=0');
-      return new Response(assetResponse.body, { status: assetResponse.status, statusText: assetResponse.statusText, headers });
     }
-    return assetResponse;
+    return new Response(assetResponse.body, { status: assetResponse.status, statusText: assetResponse.statusText, headers });
   },
 };
 
 function json(body, status = 200) {
-  return new Response(JSON.stringify(body), { status, headers: { ...corsHeaders(), 'Content-Type': 'application/json' } });
+  return new Response(JSON.stringify(body), { status, headers: { ...corsHeaders(), ...securityHeaders(), 'Cache-Control': 'no-store', 'Content-Type': 'application/json' } });
 }
 
 function corsHeaders() {
   return { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST, OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type' };
+}
+
+function securityHeaders() {
+  return {
+    'X-Content-Type-Options': 'nosniff',
+    'Referrer-Policy': 'strict-origin-when-cross-origin',
+    'X-Frame-Options': 'DENY',
+    'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
+    'Content-Security-Policy': "base-uri 'self'; object-src 'none'; frame-ancestors 'none'",
+  };
 }
 
 function escapeHtml(value) {
