@@ -14,7 +14,7 @@
     <div class="wrap admin-page">
       <header class="admin-header">
         <a class="site-brand" href="index.html" aria-label="CompuSoft Computer Support home"><span class="site-brand-name">Compu<span>Soft</span></span><span class="site-brand-caption">Private business dashboard</span></a>
-        <nav aria-label="Dashboard navigation"><a href="index.html">Public website</a><button class="admin-refresh" id="admin-refresh" type="button">Refresh data</button><button class="admin-refresh" id="admin-export" type="button">Export backup</button></nav>
+        <nav aria-label="Dashboard navigation"><a href="index.html">Public website</a><div id="admin-tools" hidden><button class="admin-refresh" id="admin-refresh" type="button">Refresh data</button><button class="admin-refresh" id="admin-export" type="button">Export backup</button><button class="admin-refresh" id="admin-logout" type="button">Sign out</button></div></nav>
       </header>
       <main id="main-content">
         <div class="page-intro admin-intro">
@@ -22,7 +22,18 @@
           <h1>Business dashboard</h1>
           <p class="intro">Manage customer details and keep quotes, sales, and invoices together. Only your authorized admin account can access these records.</p>
         </div>
-        <p class="admin-status" id="admin-status" aria-live="polite">Loading your business records…</p>
+        <section class="admin-panel admin-login" id="admin-login" aria-labelledby="admin-login-title" hidden>
+          <div class="admin-panel-heading"><div><div class="eyebrow">Additional sign-in</div><h2 id="admin-login-title">Enter your dashboard credentials</h2></div></div>
+          <p>First confirm your owner email with Cloudflare Access. Then sign in with your dashboard username and password.</p>
+          <form class="admin-form admin-login-form" id="admin-login-form">
+            <label>Username <input name="username" autocomplete="username" maxlength="80" required /></label>
+            <label>Password <input name="password" type="password" autocomplete="current-password" maxlength="256" required /></label>
+            <button class="button button-primary" type="submit">Sign in</button>
+          </form>
+          <p class="admin-status" id="admin-login-status" aria-live="polite"></p>
+        </section>
+        <div id="admin-workspace" hidden>
+        <p class="admin-status" id="admin-status" aria-live="polite">Your business records will appear here after sign-in.</p>
         <div class="admin-summary" aria-label="Record totals">
           <div><span>Customers</span><strong id="customer-total">0</strong></div>
           <div><span>Quotes</span><strong id="quote-total">0</strong></div>
@@ -66,6 +77,7 @@
           <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Type / reference</th><th>Customer</th><th>Details</th><th>Status</th><th>Amount</th><th>Dates</th><th>Actions</th></tr></thead><tbody id="record-rows"><tr><td colspan="7">No business records saved yet.</td></tr></tbody></table></div>
         </section>
         <p class="admin-privacy-note">Store customer contact and business details only. Do not enter card numbers, passwords, or other sensitive authentication data. Back up important records regularly.</p>
+        </div>
       </main>
       <footer><span class="footer-copy">CompuSoft private business dashboard</span></footer>
     </div>

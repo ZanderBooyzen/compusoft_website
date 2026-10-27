@@ -1,5 +1,10 @@
 (() => {
   const status = document.querySelector('#admin-status');
+  const loginPanel = document.querySelector('#admin-login');
+  const loginForm = document.querySelector('#admin-login-form');
+  const loginStatus = document.querySelector('#admin-login-status');
+  const workspace = document.querySelector('#admin-workspace');
+  const adminTools = document.querySelector('#admin-tools');
   const customerForm = document.querySelector('#customer-form');
   const recordForm = document.querySelector('#record-form');
   const customerRows = document.querySelector('#customer-rows');
@@ -16,6 +21,12 @@
   let customers = [];
   let records = [];
   let inquiries = [];
+
+  const showWorkspace = (authenticated) => {
+    loginPanel.hidden = authenticated;
+    workspace.hidden = !authenticated;
+    adminTools.hidden = !authenticated;
+  };
 
   const api = async (path, options = {}) => {
     const response = await fetch(path, {
@@ -214,10 +225,40 @@
       status.textContent = 'Business data loaded.';
     } catch (error) {
       status.textContent = error.message.includes('401') || error.message.toLowerCase().includes('sign in')
-        ? 'Sign in through Cloudflare Access with your authorized owner account, then refresh this page.'
+        ? 'Your dashboard session has ended. Sign in again to continue.'
         : error.message;
+      if (error.message.includes('401')) showWorkspace(false);
     }
   }
+
+  loginForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const submit = loginForm.querySelector('[type="submit"]');
+    const credentials = Object.fromEntries(new FormData(loginForm));
+    submit.disabled = true;
+    loginStatus.textContent = 'Signing in…';
+    try {
+      await api('/api/admin/login', { method: 'POST', body: JSON.stringify(credentials) });
+      loginForm.reset();
+      loginStatus.textContent = '';
+      showWorkspace(true);
+      await loadData();
+    } catch (error) {
+      loginStatus.textContent = error.message;
+    } finally {
+      submit.disabled = false;
+    }
+  });
+
+  document.querySelector('#admin-logout').addEventListener('click', async () => {
+    try {
+      await api('/api/admin/logout', { method: 'POST', body: '{}' });
+    } finally {
+      showWorkspace(false);
+      loginForm.reset();
+      loginStatus.textContent = 'You have signed out.';
+    }
+  });
 
   customerForm.addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -266,6 +307,17 @@
     URL.revokeObjectURL(download.href);
     status.textContent = 'A JSON backup was downloaded to this device.';
   });
+  async function initialize() {
+    try {
+      const result = await api('/api/admin/auth');
+      showWorkspace(Boolean(result.authenticated));
+      if (result.authenticated) await loadData();
+    } catch (error) {
+      showWorkspace(false);
+      loginStatus.textContent = error.message;
+    }
+  }
+
   updateStatusOptions();
-  loadData();
+  initialize();
 })();

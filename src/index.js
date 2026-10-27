@@ -16,12 +16,23 @@ export default {
     if (url.pathname.startsWith('/api/admin/')) {
       const access = await authorizeAdmin(request, env);
       if (!access.ok) return adminJson({ error: access.message }, access.status);
-      if (!env.DB) return adminJson({ error: 'The business database is not configured yet.' }, 503);
       if (!['GET', 'POST', 'PATCH', 'DELETE'].includes(request.method)) return adminJson({ error: 'Method not allowed.' }, 405);
-      if (!['GET', 'HEAD'].includes(request.method) && request.headers.get('Origin') && request.headers.get('Origin') !== url.origin) {
+      if (request.method !== 'GET' && request.headers.get('Origin') !== url.origin) {
         return adminJson({ error: 'Cross-origin requests are not allowed.' }, 403);
       }
       try {
+        const adminPath = url.pathname.replace(/\/$/, '');
+        if (adminPath === '/api/admin/auth' && request.method === 'GET') {
+          return adminJson({ authenticated: await verifyAdminSession(request, env) });
+        }
+        if (adminPath === '/api/admin/login' && request.method === 'POST') {
+          return await handleAdminLogin(request, env);
+        }
+        if (adminPath === '/api/admin/logout' && request.method === 'POST') {
+          return adminJson({ ok: true }, 200, { 'Set-Cookie': adminSessionCookie('', 0) });
+        }
+        if (!await verifyAdminSession(request, env)) return adminJson({ error: 'Sign in with your dashboard username and password.' }, 401);
+        if (!env.DB) return adminJson({ error: 'The business database is not configured yet.' }, 503);
         return await handleAdminApi(request, env, url);
       } catch (error) {
         console.error(JSON.stringify({ message: 'Admin API request failed', error: error?.message || String(error) }));
@@ -172,6 +183,75 @@ async function authorizeAdmin(request, env) {
   }
 }
 
+async function handleAdminLogin(request, env) {
+  if (!env.ADMIN_USERNAME || !env.ADMIN_PASSWORD_HASH || !env.ADMIN_SESSION_SECRET) {
+    return adminJson({ error: 'Dashboard username and password are not configured.' }, 503);
+  }
+  const data = await readAdminBody(request);
+  const username = typeof data?.username === 'string' ? data.username.trim() : '';
+  const password = typeof data?.password === 'string' ? data.password : '';
+  if (!username || username.length > 80 || password.length < 1 || password.length > 256) return adminJson({ error: 'Enter your username and password.' }, 400);
+  const validPassword = await verifyAdminPassword(password, env.ADMIN_PASSWORD_HASH);
+  if (username !== env.ADMIN_USERNAME || !validPassword) return adminJson({ error: 'The username or password is incorrect.' }, 401);
+  const now = Math.floor(Date.now() / 1000);
+  const payload = base64UrlEncode(new TextEncoder().encode(JSON.stringify({ sub: username, iat: now, exp: now + 28800, nonce: crypto.randomUUID() })));
+  const key = await crypto.subtle.importKey('raw', new TextEncoder().encode(env.ADMIN_SESSION_SECRET), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
+  const signature = await crypto.subtle.sign('HMAC', key, new TextEncoder().encode(payload));
+  const token = `${payload}.${base64UrlEncode(new Uint8Array(signature))}`;
+  return adminJson({ ok: true }, 200, { 'Set-Cookie': adminSessionCookie(token, 28800) });
+}
+
+async function verifyAdminPassword(password, encodedHash) {
+  const [algorithm, iterationsText, encodedSalt, encodedExpected] = String(encodedHash).split('$');
+  const iterations = Number(iterationsText);
+  if (algorithm !== 'pbkdf2-sha256' || !Number.isInteger(iterations) || iterations < 100000 || iterations > 600000 || !encodedSalt || !encodedExpected) return false;
+  try {
+    const salt = base64UrlDecode(encodedSalt);
+    const expected = base64UrlDecode(encodedExpected);
+    if (salt.length < 16 || expected.length !== 32) return false;
+    const material = await crypto.subtle.importKey('raw', new TextEncoder().encode(password), 'PBKDF2', false, ['deriveBits']);
+    const derived = new Uint8Array(await crypto.subtle.deriveBits({ name: 'PBKDF2', hash: 'SHA-256', salt, iterations }, material, 256));
+    let difference = 0;
+    for (let index = 0; index < expected.length; index += 1) difference |= derived[index] ^ expected[index];
+    return difference === 0;
+  } catch {
+    return false;
+  }
+}
+
+async function verifyAdminSession(request, env) {
+  if (!env.ADMIN_USERNAME || !env.ADMIN_SESSION_SECRET) return false;
+  const cookie = request.headers.get('Cookie') || '';
+  const token = cookie.split(';').map((part) => part.trim()).find((part) => part.startsWith('admin_session='))?.slice('admin_session='.length);
+  if (!token) return false;
+  const [payload, encodedSignature, extra] = token.split('.');
+  if (!payload || !encodedSignature || extra) return false;
+  try {
+    const key = await crypto.subtle.importKey('raw', new TextEncoder().encode(env.ADMIN_SESSION_SECRET), { name: 'HMAC', hash: 'SHA-256' }, false, ['verify']);
+    const valid = await crypto.subtle.verify('HMAC', key, base64UrlDecode(encodedSignature), new TextEncoder().encode(payload));
+    if (!valid) return false;
+    const claims = JSON.parse(new TextDecoder().decode(base64UrlDecode(payload)));
+    return claims.sub === env.ADMIN_USERNAME && Number.isFinite(claims.exp) && claims.exp > Math.floor(Date.now() / 1000);
+  } catch {
+    return false;
+  }
+}
+
+function base64UrlEncode(bytes) {
+  let binary = '';
+  for (const byte of bytes) binary += String.fromCharCode(byte);
+  return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/g, '');
+}
+
+function base64UrlDecode(value) {
+  const binary = atob(value.replace(/-/g, '+').replace(/_/g, '/').padEnd(Math.ceil(value.length / 4) * 4, '='));
+  return Uint8Array.from(binary, (character) => character.charCodeAt(0));
+}
+
+function adminSessionCookie(value, maxAge) {
+  return `admin_session=${value}; Path=/api/admin; HttpOnly; Secure; SameSite=Strict; Max-Age=${maxAge}`;
+}
+
 async function handleAdminApi(request, env, url) {
   const path = url.pathname.replace(/\/$/, '');
   if (path === '/api/admin/data' && request.method === 'GET') {
@@ -288,10 +368,10 @@ function validDate(value) {
   return Number.isNaN(date.valueOf()) || date.toISOString().slice(0, 10) !== value ? '' : value;
 }
 
-function adminJson(body, status = 200) {
+function adminJson(body, status = 200, extraHeaders = {}) {
   return new Response(JSON.stringify(body), {
     status,
-    headers: { ...securityHeaders(), 'Cache-Control': 'no-store', 'Content-Type': 'application/json; charset=utf-8' },
+    headers: { ...securityHeaders(), ...extraHeaders, 'Cache-Control': 'no-store', 'Content-Type': 'application/json; charset=utf-8' },
   });
 }
 
