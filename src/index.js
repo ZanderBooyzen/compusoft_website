@@ -3,8 +3,6 @@ export default {
     const url = new URL(request.url);
 
     if (url.pathname === '/admin.html') {
-      const access = await authorizeAdmin(request, env);
-      if (!access.ok) return new Response(access.message, { status: access.status, headers: { ...securityHeaders(), 'Cache-Control': 'no-store', 'Content-Type': 'text/plain; charset=utf-8' } });
       if (!env.DB) return new Response('The business database is not configured yet.', { status: 503, headers: { ...securityHeaders(), 'Cache-Control': 'no-store' } });
       const asset = await env.ASSETS.fetch(request);
       const headers = new Headers(asset.headers);
@@ -14,8 +12,6 @@ export default {
     }
 
     if (url.pathname.startsWith('/api/admin/')) {
-      const access = await authorizeAdmin(request, env);
-      if (!access.ok) return adminJson({ error: access.message }, access.status);
       if (!['GET', 'POST', 'PATCH', 'DELETE'].includes(request.method)) return adminJson({ error: 'Method not allowed.' }, 405);
       if (request.method !== 'GET' && request.headers.get('Origin') !== url.origin) {
         return adminJson({ error: 'Cross-origin requests are not allowed.' }, 403);
@@ -142,63 +138,47 @@ export default {
   },
 };
 
-async function authorizeAdmin(request, env) {
-  if (!env.ACCESS_TEAM_DOMAIN || !env.ACCESS_AUD || !env.ADMIN_EMAIL) {
-    return { ok: false, status: 503, message: 'Admin sign-in is not configured.' };
-  }
-  const token = request.headers.get('Cf-Access-Jwt-Assertion');
-  if (!token) return { ok: false, status: 401, message: 'Sign in through Cloudflare Access to continue.' };
-
-  try {
-    const teamUrl = new URL(env.ACCESS_TEAM_DOMAIN.startsWith('https://') ? env.ACCESS_TEAM_DOMAIN : `https://${env.ACCESS_TEAM_DOMAIN}`);
-    if (teamUrl.protocol !== 'https:' || !teamUrl.hostname.endsWith('.cloudflareaccess.com')) throw new Error('Invalid Access team domain.');
-    const [encodedHeader, encodedPayload, encodedSignature] = token.split('.');
-    if (!encodedHeader || !encodedPayload || !encodedSignature) throw new Error('Invalid token.');
-    const decode = (part) => JSON.parse(new TextDecoder().decode(Uint8Array.from(atob(part.replace(/-/g, '+').replace(/_/g, '/').padEnd(Math.ceil(part.length / 4) * 4, '=')), (char) => char.charCodeAt(0))));
-    const header = decode(encodedHeader);
-    const claims = decode(encodedPayload);
-    if (header.alg !== 'RS256' || !header.kid) throw new Error('Unsupported token.');
-    const expectedIssuer = teamUrl.origin;
-    const audiences = Array.isArray(claims.aud) ? claims.aud : [claims.aud];
-    const acceptedAudiences = env.ACCESS_AUD.split(',').map((audience) => audience.trim()).filter(Boolean);
-    const now = Math.floor(Date.now() / 1000);
-    if (claims.iss !== expectedIssuer || !acceptedAudiences.some((audience) => audiences.includes(audience)) || !Number.isFinite(claims.exp) || claims.exp <= now || (claims.nbf && claims.nbf > now)) {
-      throw new Error('Invalid token claims.');
-    }
-
-    const certResponse = await fetch(`${expectedIssuer}/cdn-cgi/access/certs`, { cf: { cacheTtl: 3600, cacheEverything: true } });
-    if (!certResponse.ok) throw new Error('Could not retrieve Access signing keys.');
-    const certificates = await certResponse.json();
-    const key = certificates.keys?.find((candidate) => candidate.kid === header.kid && candidate.kty === 'RSA');
-    if (!key) throw new Error('Access signing key was not found.');
-    const publicKey = await crypto.subtle.importKey('jwk', key, { name: 'RSASSA-PKCS1-v1_5', hash: 'SHA-256' }, false, ['verify']);
-    const signature = Uint8Array.from(atob(encodedSignature.replace(/-/g, '+').replace(/_/g, '/').padEnd(Math.ceil(encodedSignature.length / 4) * 4, '=')), (char) => char.charCodeAt(0));
-    const validSignature = await crypto.subtle.verify('RSASSA-PKCS1-v1_5', publicKey, signature, new TextEncoder().encode(`${encodedHeader}.${encodedPayload}`));
-    const email = typeof claims.email === 'string' ? claims.email.trim().toLowerCase() : '';
-    if (!validSignature || !email || email !== env.ADMIN_EMAIL.trim().toLowerCase()) throw new Error('This account is not authorized.');
-    return { ok: true, email };
-  } catch (error) {
-    console.warn(JSON.stringify({ message: 'Admin Access verification denied', error: error?.message || String(error) }));
-    return { ok: false, status: 401, message: 'Access sign-in could not be verified. Sign in again and try once more.' };
-  }
-}
-
 async function handleAdminLogin(request, env) {
   if (!env.ADMIN_USERNAME || !env.ADMIN_PASSWORD_HASH || !env.ADMIN_SESSION_SECRET) {
     return adminJson({ error: 'Dashboard username and password are not configured.' }, 503);
   }
+  if (!env.DB) return adminJson({ error: 'Dashboard sign-in is unavailable right now.' }, 503);
   const data = await readAdminBody(request);
   const username = typeof data?.username === 'string' ? data.username.trim() : '';
   const password = typeof data?.password === 'string' ? data.password : '';
   if (!username || username.length > 80 || password.length < 1 || password.length > 256) return adminJson({ error: 'Enter your username and password.' }, 400);
-  const validPassword = await verifyAdminPassword(password, env.ADMIN_PASSWORD_HASH);
-  if (username !== env.ADMIN_USERNAME || !validPassword) return adminJson({ error: 'The username or password is incorrect.' }, 401);
   const now = Math.floor(Date.now() / 1000);
+  const clientHash = await adminClientHash(request, env);
+  const attempts = await env.DB.prepare('SELECT attempt_count, window_started, locked_until FROM admin_login_attempts WHERE client_hash = ?').bind(clientHash).first();
+  if (attempts?.locked_until > now) {
+    const retryAfter = Math.max(1, attempts.locked_until - now);
+    return adminJson({ error: 'Too many sign-in attempts. Try again later.' }, 429, { 'Retry-After': String(retryAfter) });
+  }
+  const validPassword = await verifyAdminPassword(password, env.ADMIN_PASSWORD_HASH);
+  if (username !== env.ADMIN_USERNAME || !validPassword) {
+    await env.DB.prepare(`INSERT INTO admin_login_attempts (client_hash, attempt_count, window_started, locked_until)
+      VALUES (?, 1, ?, 0)
+      ON CONFLICT(client_hash) DO UPDATE SET
+        attempt_count = CASE WHEN admin_login_attempts.window_started <= ? THEN 1 ELSE admin_login_attempts.attempt_count + 1 END,
+        window_started = CASE WHEN admin_login_attempts.window_started <= ? THEN excluded.window_started ELSE admin_login_attempts.window_started END,
+        locked_until = CASE WHEN admin_login_attempts.window_started <= ? THEN 0 WHEN admin_login_attempts.attempt_count + 1 >= 5 THEN ? ELSE admin_login_attempts.locked_until END`)
+      .bind(clientHash, now, now - 900, now - 900, now - 900, now + 900).run();
+    await env.DB.prepare('DELETE FROM admin_login_attempts WHERE window_started < ?').bind(now - 86400).run();
+    return adminJson({ error: 'The username or password is incorrect.' }, 401);
+  }
+  await env.DB.prepare('DELETE FROM admin_login_attempts WHERE client_hash = ?').bind(clientHash).run();
   const payload = base64UrlEncode(new TextEncoder().encode(JSON.stringify({ sub: username, iat: now, exp: now + 28800, nonce: crypto.randomUUID() })));
   const key = await crypto.subtle.importKey('raw', new TextEncoder().encode(env.ADMIN_SESSION_SECRET), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
   const signature = await crypto.subtle.sign('HMAC', key, new TextEncoder().encode(payload));
   const token = `${payload}.${base64UrlEncode(new Uint8Array(signature))}`;
   return adminJson({ ok: true }, 200, { 'Set-Cookie': adminSessionCookie(token, 28800) });
+}
+
+async function adminClientHash(request, env) {
+  const ip = request.headers.get('CF-Connecting-IP') || 'unknown-client';
+  const key = await crypto.subtle.importKey('raw', new TextEncoder().encode(env.ADMIN_SESSION_SECRET), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
+  const digest = await crypto.subtle.sign('HMAC', key, new TextEncoder().encode(`admin-login:${ip}`));
+  return base64UrlEncode(new Uint8Array(digest));
 }
 
 async function verifyAdminPassword(password, encodedHash) {
