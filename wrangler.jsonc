@@ -36,7 +36,7 @@
     {
       "name": "EMAIL",
       "destination_address": "zanderbooyzen@gmail.com",
-      "allowed_sender_addresses": ["mail@zanderbooyzen.com"]
+      "allowed_sender_addresses": ["mail@compusoft.co.za"]
     }
   ]
 }

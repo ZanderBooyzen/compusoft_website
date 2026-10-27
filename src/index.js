@@ -128,7 +128,7 @@ export default {
 
       try {
         await env.EMAIL.send({
-          from: 'mail@zanderbooyzen.com',
+          from: 'mail@compusoft.co.za',
           to: 'zanderbooyzen@gmail.com',
           replyTo: email,
           subject: `Website message from ${name.replace(/[\r\n]+/g, ' ')}`,
@@ -188,7 +188,7 @@ async function handleAdminEmailLogin(request, env) {
   const link = `https://www.zanderbooyzen.com/admin/verify#token=${encodeURIComponent(token)}`;
   try {
     await env.EMAIL.send({
-      from: 'mail@zanderbooyzen.com',
+      from: 'mail@compusoft.co.za',
       to: env.ADMIN_EMAIL,
       subject: 'Your CompuSoft admin sign-in link',
       text: `Use this one-time link to open your admin console. It expires in 10 minutes.\n\n${link}\n\nIf you did not request this email, you can ignore it.`,
