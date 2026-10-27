@@ -16,6 +16,9 @@
       "migrations_dir": "./migrations"
     }
   ],
+  "routes": [
+    { "pattern": "www.zanderbooyzen.com", "custom_domain": true }
+  ],
   "durable_objects": {
     "bindings": [
       { "name": "VISITOR_COUNTER", "class_name": "VisitorCounter" }
