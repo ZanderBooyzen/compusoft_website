@@ -13,6 +13,7 @@
   const customerSelect = document.querySelector('#record-customer');
   const kindSelect = recordForm.elements.kind;
   const recordStatus = recordForm.elements.status;
+  const recordSubmit = document.querySelector('#record-submit');
   const statuses = {
     quote: ['draft', 'sent', 'accepted', 'declined', 'expired'],
     sale: ['pending', 'complete', 'refunded'],
@@ -55,6 +56,26 @@
       return option;
     }));
     if (selected && values.includes(selected)) recordStatus.value = selected;
+    recordSubmit.textContent = kindSelect.value === 'sale' ? 'Save sale' : `Create ${kindSelect.value}`;
+  };
+
+  const escapeHtml = (value) => String(value ?? '').replace(/[&<>"']/g, (character) => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+  })[character]);
+
+  const printDocument = (record) => {
+    const label = record.kind === 'quote' ? 'Quote' : 'Invoice';
+    const amount = new Intl.NumberFormat('en-ZA', { style: 'currency', currency: record.currency || 'ZAR' }).format(Number(record.amount_cents) / 100);
+    const details = escapeHtml(record.details || 'No additional details provided.');
+    const popup = window.open('', '_blank');
+    if (!popup) {
+      status.textContent = 'Allow pop-ups for this site to print the document.';
+      return;
+    }
+    popup.document.write(`<!doctype html><html lang="en-ZA"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${label} ${escapeHtml(record.reference || record.title)}</title><style>
+      body{font:16px/1.5 Arial,sans-serif;color:#17212b;margin:0;padding:48px;max-width:850px}header{display:flex;justify-content:space-between;gap:24px;border-bottom:3px solid #1c7ed6;padding-bottom:20px}h1{font-size:32px;margin:0}h2{font-size:18px;margin:32px 0 8px}.muted{color:#536271}.meta{margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:12px}.meta div{padding:12px;background:#f2f5f8}.details{white-space:pre-wrap;border-top:1px solid #d7dfe7;padding-top:20px}.total{text-align:right;font-size:24px;font-weight:700;margin-top:28px}.footer{margin-top:52px;color:#536271;font-size:13px}@media print{body{padding:0}button{display:none}}
+      </style></head><body><header><div><div class="muted">CompuSoft</div><h1>${label}</h1></div><div><strong>${escapeHtml(record.reference || 'No reference')}</strong><br><span class="muted">${escapeHtml(record.record_date || '')}</span></div></header><h2>Prepared for</h2><div>${escapeHtml(record.customer_name || 'Customer not linked')}</div><div class="meta"><div><strong>Title</strong><br>${escapeHtml(record.title)}</div><div><strong>Status</strong><br>${escapeHtml(record.status)}</div>${record.due_date ? `<div><strong>Due date</strong><br>${escapeHtml(record.due_date)}</div>` : ''}</div><h2>Details</h2><div class="details">${details}</div><div class="total">Total: ${escapeHtml(amount)}</div><div class="footer">Generated from the CompuSoft business dashboard.</div><script>window.addEventListener('load',()=>window.print())</script></body></html>`);
+    popup.document.close();
   };
 
   const renderCustomers = () => {
@@ -130,6 +151,15 @@
       addCell(row, new Intl.NumberFormat('en-ZA', { style: 'currency', currency: record.currency || 'ZAR' }).format(amount));
       addCell(row, [record.record_date, record.due_date ? `Due ${record.due_date}` : ''].filter(Boolean).join(' · '));
       const actions = document.createElement('td');
+      if (record.kind === 'quote' || record.kind === 'invoice') {
+        const print = document.createElement('button');
+        print.className = 'admin-refresh';
+        print.type = 'button';
+        print.textContent = 'Print / PDF';
+        print.setAttribute('aria-label', `Print or save ${record.kind}: ${record.title}`);
+        print.addEventListener('click', () => printDocument(record));
+        actions.append(print);
+      }
       const remove = document.createElement('button');
       remove.className = 'admin-delete';
       remove.type = 'button';
@@ -256,6 +286,23 @@
       loginForm.reset();
       loginStatus.textContent = 'You have signed out.';
     }
+  });
+
+  document.querySelectorAll('[data-admin-action]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const action = button.dataset.adminAction;
+      if (action === 'clients') {
+        document.querySelector('#customer-form-title').closest('.admin-panel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        customerForm.elements.name.focus({ preventScroll: true });
+        return;
+      }
+      if (action === 'quote' || action === 'invoice') {
+        kindSelect.value = action;
+        updateStatusOptions();
+        recordForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        recordForm.elements.title.focus({ preventScroll: true });
+      }
+    });
   });
 
   customerForm.addEventListener('submit', async (event) => {

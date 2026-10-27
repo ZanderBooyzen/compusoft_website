@@ -17,22 +17,20 @@
         <nav aria-label="Dashboard navigation"><a href="index.html">Public website</a><div id="admin-tools" hidden><button class="admin-refresh" id="admin-refresh" type="button">Refresh data</button><button class="admin-refresh" id="admin-export" type="button">Export backup</button><button class="admin-refresh" id="admin-logout" type="button">Sign out</button></div></nav>
       </header>
       <main id="main-content">
-        <div class="page-intro admin-intro">
-          <div class="eyebrow">Owner workspace</div>
-          <h1>Business dashboard</h1>
-          <p class="intro">Manage customer details and keep quotes, sales, and invoices together. Only your authorized admin account can access these records.</p>
-        </div>
-        <section class="admin-panel admin-login" id="admin-login" aria-labelledby="admin-login-title" hidden>
-          <div class="admin-panel-heading"><div><div class="eyebrow">Email sign-in</div><h2 id="admin-login-title">Open your admin console</h2></div></div>
-          <p>Enter your admin email and we will send you a secure, one-time link. The link expires after 10 minutes.</p>
+        <section class="admin-panel admin-login" id="admin-login" aria-label="Admin sign-in" hidden>
           <form class="admin-form admin-login-form" id="admin-login-form">
             <label>Email address <input name="email" type="email" autocomplete="email" maxlength="200" required /></label>
-            <button class="button button-primary" type="submit">Email me a sign-in link</button>
+            <button class="button button-primary" type="submit">Login</button>
           </form>
           <p class="admin-status" id="admin-login-status" aria-live="polite"></p>
         </section>
         <div id="admin-workspace" hidden>
         <p class="admin-status" id="admin-status" aria-live="polite">Your business records will appear here after sign-in.</p>
+        <nav class="admin-quick-actions" aria-label="Dashboard shortcuts">
+          <button class="button button-primary admin-quick-action" type="button" data-admin-action="invoice"><strong>Create an invoice</strong><span>Start a new customer invoice</span></button>
+          <button class="button button-primary admin-quick-action" type="button" data-admin-action="quote"><strong>Create a quote</strong><span>Prepare a price estimate</span></button>
+          <button class="button button-primary admin-quick-action" type="button" data-admin-action="clients"><strong>Client database</strong><span>Manage your customer details</span></button>
+        </nav>
         <div class="admin-summary" aria-label="Record totals">
           <div><span>Customers</span><strong id="customer-total">0</strong></div>
           <div><span>Quotes</span><strong id="quote-total">0</strong></div>
@@ -60,7 +58,8 @@
         </section>
 
         <section class="admin-panel" aria-labelledby="record-form-title">
-          <div class="admin-panel-heading"><div><div class="eyebrow">Business records</div><h2 id="record-form-title">Add a quote, sale, or invoice</h2></div></div>
+          <div class="admin-panel-heading"><div><div class="eyebrow">Business records</div><h2 id="record-form-title">Create a quote or invoice</h2></div></div>
+          <p>Choose a document type, enter its customer and details, then create it. Quotes and invoices can be printed or saved as PDF.</p>
           <form class="admin-form admin-record-form" id="record-form">
             <label>Record type <select name="kind" required><option value="quote">Quote</option><option value="sale">Sale</option><option value="invoice">Invoice</option></select></label>
             <label>Customer <select name="customerId" id="record-customer"><option value="">No customer linked</option></select></label>
@@ -71,7 +70,7 @@
             <label>Record date <input name="date" type="date" /></label>
             <label>Due date <input name="dueDate" type="date" /></label>
             <label class="admin-wide">Details <textarea name="details" rows="3" maxlength="5000" placeholder="Items, agreed work, payment notes, or other details"></textarea></label>
-            <button class="button button-primary" type="submit">Save record</button>
+            <button class="button button-primary" id="record-submit" type="submit">Create quote</button>
           </form>
           <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Type / reference</th><th>Customer</th><th>Details</th><th>Status</th><th>Amount</th><th>Dates</th><th>Actions</th></tr></thead><tbody id="record-rows"><tr><td colspan="7">No business records saved yet.</td></tr></tbody></table></div>
         </section>
