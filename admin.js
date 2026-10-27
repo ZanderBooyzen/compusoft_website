@@ -236,13 +236,11 @@
     const submit = loginForm.querySelector('[type="submit"]');
     const credentials = Object.fromEntries(new FormData(loginForm));
     submit.disabled = true;
-    loginStatus.textContent = 'Signing in…';
+    loginStatus.textContent = 'Sending your sign-in link…';
     try {
-      await api('/api/admin/login', { method: 'POST', body: JSON.stringify(credentials) });
+      const result = await api('/api/admin/login', { method: 'POST', body: JSON.stringify(credentials) });
       loginForm.reset();
-      loginStatus.textContent = '';
-      showWorkspace(true);
-      await loadData();
+      loginStatus.textContent = result.message || 'If the address is authorized, a sign-in link will arrive shortly.';
     } catch (error) {
       loginStatus.textContent = error.message;
     } finally {

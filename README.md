@@ -10,8 +10,8 @@ Business website for CompuSoft Computer Support, with service and contact pages.
 
 ## Private business dashboard
 
-The owner dashboard is served at `/admin.html`. It uses Cloudflare Access for owner sign-in and a D1 database for customer, quote, sale, invoice, and public website inquiry records. Contact form messages and product quote requests are saved as inquiries; the Worker validates the Access JWT and allowed owner email on both the dashboard and every admin API request.
+The owner dashboard is served at `/admin.html` and uses email magic links for sign-in. The Worker sends a one-time link to the configured admin email, expires it after 10 minutes, and grants an eight-hour signed session after redemption. Links are single-use; the token stays in the URL fragment until the browser redeems it, so it is not sent in the initial page request. `ADMIN_EMAIL` and `ADMIN_SESSION_SECRET` are Worker secrets. The existing `EMAIL` binding must allow mail to the same admin address. The D1 database stores customers, quotes, sales, invoices, website inquiries, hashed login lockouts, and one-time link hashes.
 
-The D1 database `compusoft-business` stores business records and short-lived hashed login lockouts. `/admin.html` presents a username/password form, and all admin APIs require a signed, eight-hour session cookie. The password is stored as a PBKDF2-SHA-256 hash; the username, hash, and session signing key are Worker secrets (`ADMIN_USERNAME`, `ADMIN_PASSWORD_HASH`, and `ADMIN_SESSION_SECRET`). Wrangler's custom domain publishes the Worker at `www.zanderbooyzen.com`; it provisions DNS and certificates for the Worker.
+Contact form messages and product quote requests are saved as inquiries. Wrangler's custom domain publishes the Worker at `www.zanderbooyzen.com`; it provisions DNS and certificates for the Worker.
 
 The dashboard stores customer contact details and business records. It is not an accounting or tax system; do not store card numbers, passwords, or other authentication secrets in notes.

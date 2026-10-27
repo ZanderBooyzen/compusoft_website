@@ -993,6 +993,7 @@ html body .wrap header .site-brand-name > span { color:#3388ff !important; text-
 #admin-tools { display:flex; align-items:center; gap:14px; }
 #admin-tools[hidden],#admin-login[hidden],#admin-workspace[hidden] { display:none; }
 .admin-login { max-width:760px; }
+.admin-verify-page { max-width:640px; padding-top:12vh; }
 .admin-login-form { grid-template-columns:repeat(2,minmax(0,1fr)); margin-bottom:0; }
 .admin-login-form .button { align-self:end; }
 .admin-panel[aria-labelledby="inquiry-title"] .admin-table td:nth-child(4) { min-width:220px; white-space:pre-wrap; }

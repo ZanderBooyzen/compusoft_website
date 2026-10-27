@@ -2,6 +2,18 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
+    if (url.pathname === '/admin/verify') {
+      if (request.method !== 'GET') return new Response('Method not allowed.', { status: 405, headers: { ...securityHeaders(), 'Cache-Control': 'no-store' } });
+      const assetRequest = new Request(new URL('/admin-verify.html', url), { method: 'GET', headers: request.headers });
+      const asset = await env.ASSETS.fetch(assetRequest);
+      const headers = new Headers(asset.headers);
+      for (const [name, value] of Object.entries(securityHeaders())) headers.set(name, value);
+      headers.set('Cache-Control', 'no-store');
+      headers.set('Referrer-Policy', 'no-referrer');
+      headers.set('Content-Security-Policy', "default-src 'none'; script-src 'self'; connect-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'");
+      return new Response(asset.body, { status: asset.status, statusText: asset.statusText, headers });
+    }
+
     if (url.pathname === '/admin.html') {
       if (!env.DB) return new Response('The business database is not configured yet.', { status: 503, headers: { ...securityHeaders(), 'Cache-Control': 'no-store' } });
       const asset = await env.ASSETS.fetch(request);
@@ -22,12 +34,15 @@ export default {
           return adminJson({ authenticated: await verifyAdminSession(request, env) });
         }
         if (adminPath === '/api/admin/login' && request.method === 'POST') {
-          return await handleAdminLogin(request, env);
+          return await handleAdminEmailLogin(request, env);
+        }
+        if (adminPath === '/api/admin/redeem' && request.method === 'POST') {
+          return await handleAdminMagicLinkRedeem(request, env);
         }
         if (adminPath === '/api/admin/logout' && request.method === 'POST') {
           return adminJson({ ok: true }, 200, { 'Set-Cookie': adminSessionCookie('', 0) });
         }
-        if (!await verifyAdminSession(request, env)) return adminJson({ error: 'Sign in with your dashboard username and password.' }, 401);
+        if (!await verifyAdminSession(request, env)) return adminJson({ error: 'Request an email sign-in link to continue.' }, 401);
         if (!env.DB) return adminJson({ error: 'The business database is not configured yet.' }, 503);
         return await handleAdminApi(request, env, url);
       } catch (error) {
@@ -138,15 +153,13 @@ export default {
   },
 };
 
-async function handleAdminLogin(request, env) {
-  if (!env.ADMIN_USERNAME || !env.ADMIN_PASSWORD_HASH || !env.ADMIN_SESSION_SECRET) {
-    return adminJson({ error: 'Dashboard username and password are not configured.' }, 503);
+async function handleAdminEmailLogin(request, env) {
+  if (!env.ADMIN_EMAIL || !env.ADMIN_SESSION_SECRET || !env.DB || !env.EMAIL) {
+    return adminJson({ error: 'Email sign-in is not configured.' }, 503);
   }
-  if (!env.DB) return adminJson({ error: 'Dashboard sign-in is unavailable right now.' }, 503);
   const data = await readAdminBody(request);
-  const username = typeof data?.username === 'string' ? data.username.trim() : '';
-  const password = typeof data?.password === 'string' ? data.password : '';
-  if (!username || username.length > 80 || password.length < 1 || password.length > 256) return adminJson({ error: 'Enter your username and password.' }, 400);
+  const email = typeof data?.email === 'string' ? data.email.trim().toLowerCase() : '';
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 200) return adminJson({ error: 'Enter a valid email address.' }, 400);
   const now = Math.floor(Date.now() / 1000);
   const clientHash = await adminClientHash(request, env);
   const attempts = await env.DB.prepare('SELECT attempt_count, window_started, locked_until FROM admin_login_attempts WHERE client_hash = ?').bind(clientHash).first();
@@ -154,24 +167,67 @@ async function handleAdminLogin(request, env) {
     const retryAfter = Math.max(1, attempts.locked_until - now);
     return adminJson({ error: 'Too many sign-in attempts. Try again later.' }, 429, { 'Retry-After': String(retryAfter) });
   }
-  const validPassword = await verifyAdminPassword(password, env.ADMIN_PASSWORD_HASH);
-  if (username !== env.ADMIN_USERNAME || !validPassword) {
-    await env.DB.prepare(`INSERT INTO admin_login_attempts (client_hash, attempt_count, window_started, locked_until)
+  await env.DB.prepare(`INSERT INTO admin_login_attempts (client_hash, attempt_count, window_started, locked_until)
       VALUES (?, 1, ?, 0)
       ON CONFLICT(client_hash) DO UPDATE SET
         attempt_count = CASE WHEN admin_login_attempts.window_started <= ? THEN 1 ELSE admin_login_attempts.attempt_count + 1 END,
         window_started = CASE WHEN admin_login_attempts.window_started <= ? THEN excluded.window_started ELSE admin_login_attempts.window_started END,
-        locked_until = CASE WHEN admin_login_attempts.window_started <= ? THEN 0 WHEN admin_login_attempts.attempt_count + 1 >= 5 THEN ? ELSE admin_login_attempts.locked_until END`)
-      .bind(clientHash, now, now - 900, now - 900, now - 900, now + 900).run();
-    await env.DB.prepare('DELETE FROM admin_login_attempts WHERE window_started < ?').bind(now - 86400).run();
-    return adminJson({ error: 'The username or password is incorrect.' }, 401);
+        locked_until = CASE WHEN admin_login_attempts.window_started <= ? THEN 0 WHEN admin_login_attempts.attempt_count + 1 >= 3 THEN ? ELSE admin_login_attempts.locked_until END`)
+    .bind(clientHash, now, now - 900, now - 900, now - 900, now + 900).run();
+  await env.DB.prepare('DELETE FROM admin_login_attempts WHERE window_started < ?').bind(now - 86400).run();
+  if (email !== env.ADMIN_EMAIL.trim().toLowerCase()) return adminJson({ ok: true, message: 'If the address is authorized, a sign-in link will arrive shortly.' });
+
+  const tokenBytes = crypto.getRandomValues(new Uint8Array(32));
+  const token = base64UrlEncode(tokenBytes);
+  const tokenHash = await hashMagicLinkToken(token);
+  const expiresAt = now + 600;
+  await env.DB.batch([
+    env.DB.prepare('DELETE FROM admin_magic_links'),
+    env.DB.prepare('INSERT INTO admin_magic_links (token_hash, created_at, expires_at) VALUES (?, ?, ?)').bind(tokenHash, now, expiresAt),
+  ]);
+  const link = `https://www.zanderbooyzen.com/admin/verify#token=${encodeURIComponent(token)}`;
+  try {
+    await env.EMAIL.send({
+      from: 'mail@zanderbooyzen.com',
+      to: env.ADMIN_EMAIL,
+      subject: 'Your CompuSoft admin sign-in link',
+      text: `Use this one-time link to open your admin console. It expires in 10 minutes.\n\n${link}\n\nIf you did not request this email, you can ignore it.`,
+      html: `<p>Use this one-time link to open your admin console. It expires in 10 minutes.</p><p><a href="${link}">Open admin console</a></p><p>If you did not request this email, you can ignore it.</p>`,
+    });
+  } catch (error) {
+    await env.DB.prepare('UPDATE admin_magic_links SET consumed_at = ? WHERE token_hash = ?').bind(now, tokenHash).run();
+    console.error(JSON.stringify({ message: 'Admin sign-in email could not be sent', error: error?.code || error?.message || String(error) }));
+    return adminJson({ error: 'The sign-in email could not be sent. Try again later.' }, 503);
   }
-  await env.DB.prepare('DELETE FROM admin_login_attempts WHERE client_hash = ?').bind(clientHash).run();
-  const payload = base64UrlEncode(new TextEncoder().encode(JSON.stringify({ sub: username, iat: now, exp: now + 28800, nonce: crypto.randomUUID() })));
+  return adminJson({ ok: true, message: 'If the address is authorized, a sign-in link will arrive shortly.' });
+}
+
+async function handleAdminMagicLinkRedeem(request, env) {
+  const data = await readAdminBody(request);
+  const token = typeof data?.token === 'string' ? data.token : '';
+  if (!token || token.length > 128 || !env.ADMIN_EMAIL || !env.ADMIN_SESSION_SECRET || !env.DB) {
+    return adminJson({ error: 'This sign-in link is invalid or has expired. Request a new one.' }, 401);
+  }
+  const tokenHash = await hashMagicLinkToken(token);
+  const now = Math.floor(Date.now() / 1000);
+  const result = await env.DB.prepare('UPDATE admin_magic_links SET consumed_at = ? WHERE token_hash = ? AND consumed_at IS NULL AND expires_at > ?')
+    .bind(now, tokenHash, now).run();
+  if (!result.meta?.changes) return adminJson({ error: 'This sign-in link is invalid or has expired. Request a new one.' }, 401);
+  return adminJson({ ok: true }, 200, { 'Set-Cookie': await createAdminSessionCookie(env) });
+}
+
+async function hashMagicLinkToken(token) {
+  const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(token));
+  return base64UrlEncode(new Uint8Array(digest));
+}
+
+async function createAdminSessionCookie(env) {
+  const now = Math.floor(Date.now() / 1000);
+  const payload = base64UrlEncode(new TextEncoder().encode(JSON.stringify({ sub: env.ADMIN_EMAIL.trim().toLowerCase(), iat: now, exp: now + 28800, nonce: crypto.randomUUID() })));
   const key = await crypto.subtle.importKey('raw', new TextEncoder().encode(env.ADMIN_SESSION_SECRET), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
   const signature = await crypto.subtle.sign('HMAC', key, new TextEncoder().encode(payload));
   const token = `${payload}.${base64UrlEncode(new Uint8Array(signature))}`;
-  return adminJson({ ok: true }, 200, { 'Set-Cookie': adminSessionCookie(token, 28800) });
+  return adminSessionCookie(token, 28800);
 }
 
 async function adminClientHash(request, env) {
@@ -181,26 +237,8 @@ async function adminClientHash(request, env) {
   return base64UrlEncode(new Uint8Array(digest));
 }
 
-async function verifyAdminPassword(password, encodedHash) {
-  const [algorithm, iterationsText, encodedSalt, encodedExpected] = String(encodedHash).split('$');
-  const iterations = Number(iterationsText);
-  if (algorithm !== 'pbkdf2-sha256' || !Number.isInteger(iterations) || iterations < 100000 || iterations > 600000 || !encodedSalt || !encodedExpected) return false;
-  try {
-    const salt = base64UrlDecode(encodedSalt);
-    const expected = base64UrlDecode(encodedExpected);
-    if (salt.length < 16 || expected.length !== 32) return false;
-    const material = await crypto.subtle.importKey('raw', new TextEncoder().encode(password), 'PBKDF2', false, ['deriveBits']);
-    const derived = new Uint8Array(await crypto.subtle.deriveBits({ name: 'PBKDF2', hash: 'SHA-256', salt, iterations }, material, 256));
-    let difference = 0;
-    for (let index = 0; index < expected.length; index += 1) difference |= derived[index] ^ expected[index];
-    return difference === 0;
-  } catch {
-    return false;
-  }
-}
-
 async function verifyAdminSession(request, env) {
-  if (!env.ADMIN_USERNAME || !env.ADMIN_SESSION_SECRET) return false;
+  if (!env.ADMIN_EMAIL || !env.ADMIN_SESSION_SECRET) return false;
   const cookie = request.headers.get('Cookie') || '';
   const token = cookie.split(';').map((part) => part.trim()).find((part) => part.startsWith('admin_session='))?.slice('admin_session='.length);
   if (!token) return false;
@@ -211,7 +249,7 @@ async function verifyAdminSession(request, env) {
     const valid = await crypto.subtle.verify('HMAC', key, base64UrlDecode(encodedSignature), new TextEncoder().encode(payload));
     if (!valid) return false;
     const claims = JSON.parse(new TextDecoder().decode(base64UrlDecode(payload)));
-    return claims.sub === env.ADMIN_USERNAME && Number.isFinite(claims.exp) && claims.exp > Math.floor(Date.now() / 1000);
+    return claims.sub === env.ADMIN_EMAIL.trim().toLowerCase() && Number.isFinite(claims.exp) && claims.exp > Math.floor(Date.now() / 1000);
   } catch {
     return false;
   }
