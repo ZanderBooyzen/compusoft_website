@@ -63,13 +63,28 @@
           <form class="admin-form admin-record-form" id="record-form">
             <label>Record type <select name="kind" required><option value="quote">Quote</option><option value="sale">Sale</option><option value="invoice">Invoice</option></select></label>
             <label>Customer <select name="customerId" id="record-customer"><option value="">No customer linked</option></select></label>
-            <label>Title <input name="title" maxlength="200" placeholder="For example: Laptop and setup" required /></label>
-            <label>Reference / number <input name="reference" maxlength="80" placeholder="Optional quote or invoice number" /></label>
+            <label><span id="record-title-label">Brief summary</span> <input name="title" maxlength="200" placeholder="For example: Laptop and setup" required /></label>
+            <label><span id="record-reference-label">Quote no.</span> <input name="reference" maxlength="80" placeholder="Document number" /></label>
             <label>Status <select name="status" id="record-status" required></select></label>
-            <label>Amount (ZAR) <input name="amount" type="number" min="0" max="1000000000" step="0.01" value="0" required /></label>
-            <label>Record date <input name="date" type="date" /></label>
-            <label>Due date <input name="dueDate" type="date" /></label>
-            <label class="admin-wide">Details <textarea name="details" rows="3" maxlength="5000" placeholder="Items, agreed work, payment notes, or other details"></textarea></label>
+            <label id="record-amount-field">Amount (ZAR) <input name="amount" type="number" min="0" max="1000000000" step="0.01" value="0" required /></label>
+            <label><span id="record-date-label">Date</span> <input name="date" type="date" /></label>
+            <label><span id="record-due-date-label">Valid until</span> <input name="dueDate" type="date" /></label>
+            <div class="admin-wide document-editor" id="document-editor" hidden>
+              <div class="document-editor-heading"><div><strong>Items</strong><p>Add each product or service as a separate line.</p></div><button class="admin-refresh" id="add-document-line" type="button">Add item</button></div>
+              <div class="admin-table-wrap"><table class="admin-table document-lines-table"><thead><tr><th>Item</th><th>Description</th><th>Qty</th><th>Unit price</th><th>Line total</th><th></th></tr></thead><tbody id="document-lines"></tbody></table></div>
+              <div class="document-fields">
+                <label>Reference / PO <input name="referencePo" maxlength="100" /></label>
+                <label>Billing address <textarea name="billingAddress" rows="2" maxlength="300"></textarea></label>
+              </div>
+              <div class="document-totals">
+                <label>Tax/VAT rate (%) <input name="taxRate" type="number" min="0" max="100" step="0.01" value="0" /></label>
+                <div><span>Subtotal</span><strong id="document-subtotal">0.00</strong></div>
+                <div><span>Tax/VAT</span><strong id="document-tax">0.00</strong></div>
+                <div class="document-grand-total"><span>Total</span><strong id="document-total">0.00</strong></div>
+              </div>
+              <label class="document-notes-label"><span id="document-notes-label">Terms and notes</span><textarea name="documentNotes" rows="3" maxlength="800" placeholder="Add relevant terms, payment details, and notes"></textarea></label>
+            </div>
+            <label class="admin-wide" id="record-details-field">Details <textarea name="details" rows="3" maxlength="5000" placeholder="Items, agreed work, payment notes, or other details"></textarea></label>
             <button class="button button-primary" id="record-submit" type="submit">Create quote</button>
           </form>
           <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Type / reference</th><th>Customer</th><th>Details</th><th>Status</th><th>Amount</th><th>Dates</th><th>Actions</th></tr></thead><tbody id="record-rows"><tr><td colspan="7">No business records saved yet.</td></tr></tbody></table></div>

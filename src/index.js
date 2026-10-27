@@ -275,7 +275,7 @@ async function handleAdminApi(request, env, url) {
   if (path === '/api/admin/data' && request.method === 'GET') {
     const [customers, records, inquiries] = await Promise.all([
       env.DB.prepare('SELECT id, name, email, phone, company, notes, created_at, updated_at FROM customers ORDER BY name COLLATE NOCASE').all(),
-      env.DB.prepare(`SELECT r.id, r.kind, r.customer_id, c.name AS customer_name, r.title, r.reference, r.status, r.amount_cents, r.currency, r.record_date, r.due_date, r.details, r.created_at, r.updated_at
+      env.DB.prepare(`SELECT r.id, r.kind, r.customer_id, c.name AS customer_name, c.email AS customer_email, c.phone AS customer_phone, c.company AS customer_company, r.title, r.reference, r.status, r.amount_cents, r.currency, r.record_date, r.due_date, r.details, r.created_at, r.updated_at
         FROM business_records r LEFT JOIN customers c ON c.id = r.customer_id
         ORDER BY r.record_date DESC, r.created_at DESC`).all(),
       env.DB.prepare('SELECT id, source, name, email, phone, topic, message, status, created_at FROM inquiries ORDER BY created_at DESC').all(),

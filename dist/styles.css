@@ -984,6 +984,19 @@ html body .wrap header .site-brand-name > span { color:#3388ff !important; text-
 .admin-form .admin-wide { grid-column:1 / -1; }
 .admin-form .button { justify-self:start; cursor:pointer; }
 .admin-form .button:disabled,.admin-delete:disabled { opacity:.55; cursor:wait; }
+.document-editor { display:grid; gap:14px; }
+#record-amount-field[hidden],#record-details-field[hidden],#document-editor[hidden] { display:none !important; }
+.document-editor-heading { display:flex; align-items:center; justify-content:space-between; gap:16px; }
+.document-editor-heading p { margin:4px 0 0; color:#a0b1bf; font-size:.8rem; }
+.document-lines-table { min-width:900px; }
+.document-lines-table input { width:100%; min-width:82px; padding:7px 8px; }
+.document-fields { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:13px; }
+.document-fields label,.document-notes-label { display:grid; gap:6px; color:#dce5ec; font-size:.82rem; font-weight:700; }
+.document-totals { display:grid; grid-template-columns:minmax(170px,1.5fr) repeat(3,minmax(100px,1fr)); align-items:end; gap:12px; }
+.document-totals > div { display:flex; justify-content:space-between; gap:10px; padding:11px 12px; border:1px solid #354452; border-radius:9px; color:#dce5ec; }
+.document-totals strong { color:#63f4d2; font-variant-numeric:tabular-nums; }
+.document-totals .document-grand-total { border-color:#63f4d2; }
+.document-notes-label { width:100%; }
 .admin-table-wrap { overflow:auto; border:1px solid #2c3947; border-radius:10px; }
 .admin-table { width:100%; min-width:800px; border-collapse:collapse; color:#e7edf2; text-align:left; font-size:.82rem; }
 .admin-table th,.admin-table td { padding:11px 12px; border-bottom:1px solid #2c3947; vertical-align:top; }
@@ -1002,5 +1015,5 @@ html body .wrap header .site-brand-name > span { color:#3388ff !important; text-
 .admin-login-form .button { align-self:end; }
 .admin-panel[aria-labelledby="inquiry-title"] .admin-table td:nth-child(4) { min-width:220px; white-space:pre-wrap; }
 .quote-honeypot { position:absolute !important; left:-10000px !important; width:1px !important; height:1px !important; overflow:hidden !important; }
-@media (max-width:760px) { .admin-quick-actions { grid-template-columns:1fr; gap:10px; }.admin-quick-action { min-height:72px; }.admin-summary { grid-template-columns:repeat(2,minmax(0,1fr)); }.admin-panel { padding:18px; }.admin-form { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media (max-width:760px) { .admin-quick-actions { grid-template-columns:1fr; gap:10px; }.admin-quick-action { min-height:72px; }.admin-summary { grid-template-columns:repeat(2,minmax(0,1fr)); }.admin-panel { padding:18px; }.admin-form { grid-template-columns:repeat(2,minmax(0,1fr)); }.document-totals { grid-template-columns:repeat(2,minmax(0,1fr)); }.document-totals label { grid-column:1/-1; }.document-fields { grid-template-columns:1fr; } }
 @media (max-width:480px) { .admin-header nav { flex-wrap:wrap; justify-content:center; }.admin-form { grid-template-columns:1fr; }.admin-form .admin-wide { grid-column:1; } }
