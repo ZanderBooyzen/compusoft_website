@@ -238,6 +238,22 @@
       'Please confirm exact models, availability, prices, and delivery.',
     ].filter(Boolean).join('\n');
     window.open(`https://wa.me/27820593491?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
+    requestButton.disabled = true;
+    status.textContent = 'Saving your quote request…';
+    fetch('/api/quote-intake', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ items: quoteItems, notes: generalNotes.value.trim() }),
+      keepalive: true,
+    }).then(async (response) => {
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(result.error || 'The request was not saved. Please continue in WhatsApp.');
+      status.textContent = 'Quote request saved. Finish sending it in WhatsApp so CompuSoft can follow up.';
+    }).catch((error) => {
+      status.textContent = `${error.message} Your WhatsApp message is open.`;
+    }).finally(() => {
+      requestButton.disabled = false;
+    });
   });
 
   updatePreview();

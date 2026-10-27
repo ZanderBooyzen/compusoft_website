@@ -3,6 +3,19 @@
   "name": "the-flux-capacitor",
   "main": "./src/index.js",
   "compatibility_date": "2026-09-24",
+  "observability": {
+    "enabled": true,
+    "logs": { "enabled": true, "head_sampling_rate": 1 },
+    "traces": { "enabled": true, "head_sampling_rate": 0.1 }
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "compusoft-business",
+      "database_id": "8002aa03-c4c8-48de-b238-7ef4a8f26b1e",
+      "migrations_dir": "./migrations"
+    }
+  ],
   "durable_objects": {
     "bindings": [
       { "name": "VISITOR_COUNTER", "class_name": "VisitorCounter" }

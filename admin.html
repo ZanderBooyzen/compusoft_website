@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en-ZA">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="theme-color" content="#17191d" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <title>Business dashboard | CompuSoft</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <div class="wrap admin-page">
+      <header class="admin-header">
+        <a class="site-brand" href="index.html" aria-label="CompuSoft Computer Support home"><span class="site-brand-name">Compu<span>Soft</span></span><span class="site-brand-caption">Private business dashboard</span></a>
+        <nav aria-label="Dashboard navigation"><a href="index.html">Public website</a><button class="admin-refresh" id="admin-refresh" type="button">Refresh data</button><button class="admin-refresh" id="admin-export" type="button">Export backup</button></nav>
+      </header>
+      <main id="main-content">
+        <div class="page-intro admin-intro">
+          <div class="eyebrow">Owner workspace</div>
+          <h1>Business dashboard</h1>
+          <p class="intro">Manage customer details and keep quotes, sales, and invoices together. Only your authorized admin account can access these records.</p>
+        </div>
+        <p class="admin-status" id="admin-status" aria-live="polite">Loading your business records…</p>
+        <div class="admin-summary" aria-label="Record totals">
+          <div><span>Customers</span><strong id="customer-total">0</strong></div>
+          <div><span>Quotes</span><strong id="quote-total">0</strong></div>
+          <div><span>Sales</span><strong id="sale-total">0</strong></div>
+          <div><span>Invoices</span><strong id="invoice-total">0</strong></div>
+          <div><span>Website inquiries</span><strong id="inquiry-total">0</strong></div>
+        </div>
+
+        <section class="admin-panel" aria-labelledby="inquiry-title">
+          <div class="admin-panel-heading"><div><div class="eyebrow">Website requests</div><h2 id="inquiry-title">Contact messages and quote requests</h2></div></div>
+          <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Received</th><th>Type</th><th>Contact</th><th>Request details</th><th>Status</th><th>Actions</th></tr></thead><tbody id="inquiry-rows"><tr><td colspan="6">No website inquiries saved yet.</td></tr></tbody></table></div>
+        </section>
+
+        <section class="admin-panel" aria-labelledby="customer-form-title">
+          <div class="admin-panel-heading"><div><div class="eyebrow">Customer records</div><h2 id="customer-form-title">Add a customer</h2></div></div>
+          <form class="admin-form admin-customer-form" id="customer-form">
+            <label>Name <input name="name" maxlength="120" autocomplete="name" required /></label>
+            <label>Email <input name="email" type="email" maxlength="200" autocomplete="email" /></label>
+            <label>Phone <input name="phone" type="tel" maxlength="60" autocomplete="tel" /></label>
+            <label>Company <input name="company" maxlength="160" autocomplete="organization" /></label>
+            <label class="admin-wide">Notes <textarea name="notes" rows="2" maxlength="3000"></textarea></label>
+            <button class="button button-primary" type="submit">Save customer</button>
+          </form>
+          <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Customer</th><th>Contact</th><th>Company</th></tr></thead><tbody id="customer-rows"><tr><td colspan="3">No customers saved yet.</td></tr></tbody></table></div>
+        </section>
+
+        <section class="admin-panel" aria-labelledby="record-form-title">
+          <div class="admin-panel-heading"><div><div class="eyebrow">Business records</div><h2 id="record-form-title">Add a quote, sale, or invoice</h2></div></div>
+          <form class="admin-form admin-record-form" id="record-form">
+            <label>Record type <select name="kind" required><option value="quote">Quote</option><option value="sale">Sale</option><option value="invoice">Invoice</option></select></label>
+            <label>Customer <select name="customerId" id="record-customer"><option value="">No customer linked</option></select></label>
+            <label>Title <input name="title" maxlength="200" placeholder="For example: Laptop and setup" required /></label>
+            <label>Reference / number <input name="reference" maxlength="80" placeholder="Optional quote or invoice number" /></label>
+            <label>Status <select name="status" id="record-status" required></select></label>
+            <label>Amount (ZAR) <input name="amount" type="number" min="0" max="1000000000" step="0.01" value="0" required /></label>
+            <label>Record date <input name="date" type="date" /></label>
+            <label>Due date <input name="dueDate" type="date" /></label>
+            <label class="admin-wide">Details <textarea name="details" rows="3" maxlength="5000" placeholder="Items, agreed work, payment notes, or other details"></textarea></label>
+            <button class="button button-primary" type="submit">Save record</button>
+          </form>
+          <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Type / reference</th><th>Customer</th><th>Details</th><th>Status</th><th>Amount</th><th>Dates</th><th>Actions</th></tr></thead><tbody id="record-rows"><tr><td colspan="7">No business records saved yet.</td></tr></tbody></table></div>
+        </section>
+        <p class="admin-privacy-note">Store customer contact and business details only. Do not enter card numbers, passwords, or other sensitive authentication data. Back up important records regularly.</p>
+      </main>
+      <footer><span class="footer-copy">CompuSoft private business dashboard</span></footer>
+    </div>
+    <script src="admin.js"></script>
+  </body>
+</html>

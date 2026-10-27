@@ -28,12 +28,12 @@
     <div class="wrap sales-page">
       <header>
         <a class="site-brand" href="index.html" aria-label="CompuSoft Computer Support home"><span class="site-brand-name">Compu<span>Soft</span></span><span class="site-brand-caption">Computer Support</span></a>
-        <nav aria-label="Main navigation"><a href="index.html">Home</a><a href="services&amp;pricing.html">Services &amp; Pricing</a><a class="active" href="sales.html" aria-current="page">Product Quotes</a><a href="contact.html">Contact</a><a class="nav-call" href="https://wa.me/27820593491" target="_blank" rel="noopener noreferrer">Message us</a></nav>
+        <nav aria-label="Main navigation"><a href="index.html">Home</a><a href="services&amp;pricing.html">Services &amp; Pricing</a><a class="active" href="sales.html" aria-current="page">Product Quotes</a><a href="contact.html">Contact</a><a href="admin.html">Owner login</a><a class="nav-call" href="https://wa.me/27820593491" target="_blank" rel="noopener noreferrer">Message us</a></nav>
       </header>
 
       <main id="main-content">
         <section class="catalog-heading" aria-labelledby="catalog-title"><div class="eyebrow">Product sourcing &amp; quotes</div><h1 id="catalog-title">Get a quote on the tech you need.</h1><p>Choose a category and products from the menus. CompuSoft will confirm the exact model, availability, price, and delivery before you decide.</p></section>
-        <div class="catalog-disclosure"><strong>Independent reseller · quote first</strong><span>Items shown are examples of products we can request from suppliers; this page is not live stock or a checkout. We’ll confirm the exact model, availability, price, and delivery before you decide. CompuSoft is not affiliated with Computer Mania or the manufacturers shown.</span></div>
+        <div class="catalog-disclosure"><strong>Independent reseller · quote first</strong><span>Items shown are examples of products we can request from suppliers; this page is not live stock or a checkout. We’ll confirm the exact model, availability, price, and delivery before you decide. Website quote requests are saved in CompuSoft’s private business dashboard. CompuSoft is not affiliated with Computer Mania or the manufacturers shown.</span></div>
         <section class="quote-builder" aria-labelledby="quote-builder-title">
           <div class="quote-builder-layout">
             <div class="quote-builder-config">
@@ -77,6 +77,7 @@
               <div class="quote-list-heading"><div><span class="eyebrow">Your selected items</span><h3>Quote list <span id="quote-count">0</span></h3></div><button class="quote-clear" id="quote-clear" type="button" hidden>Clear list</button></div>
               <ul class="quote-items" id="quote-items" aria-live="polite"><li class="quote-empty">Your list is empty. Select an item to get started.</li></ul>
               <div class="quote-field quote-general-notes"><label for="quote-notes">Anything else we should know? <span>(optional)</span></label><textarea id="quote-notes" rows="2" placeholder="Budget, preferred brand, or timing"></textarea></div>
+              <div class="quote-honeypot" aria-hidden="true"><label for="quote-website">Website</label><input id="quote-website" autocomplete="off" tabindex="-1" /></div>
               <div class="quote-send-row"><p id="quote-status" class="quote-status" aria-live="polite">We will confirm current pricing and delivery before you decide.</p><button class="button button-primary" id="request-quote" type="button">Request quote on WhatsApp <span aria-hidden="true">→</span></button></div>
             </div>
           </div>
