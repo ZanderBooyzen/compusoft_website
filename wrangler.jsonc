@@ -17,7 +17,7 @@
     }
   ],
   "routes": [
-    { "pattern": "www.zanderbooyzen.com", "custom_domain": true }
+    { "pattern": "www.compusoft.co.za", "custom_domain": true }
   ],
   "durable_objects": {
     "bindings": [

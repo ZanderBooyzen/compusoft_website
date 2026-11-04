@@ -981,3 +981,333 @@ html body .wrap header .site-brand-name > span { color:#3388ff !important; text-
 @media (max-width:360px) { .sales-page .quote-builder-controls { grid-template-columns:minmax(0,1fr); }.sales-page .quote-quantity-field,.sales-page .quote-add-button { grid-column:1; } }.sales-page .quote-product-preview img { display:block; }
 .sales-page .quote-product-preview [hidden] { display:none !important; }
 .quote-honeypot { position:absolute !important; left:-10000px !important; width:1px !important; height:1px !important; overflow:hidden !important; }
+
+
+/* Centered, logo-led homepage inspired by the original Solv-IT start page. */
+.home-page .site-header { position:relative; top:auto; justify-content:center; min-height:0; margin-top:16px; padding:10px 14px; border:1px solid rgba(139,171,194,.18) !important; border-radius:12px; background:rgba(8,12,19,.94) !important; box-shadow:0 12px 32px rgba(0,0,0,.16); }
+.home-page .site-header nav { justify-content:center !important; flex:0 1 auto !important; }
+.home-page .home-main { padding:clamp(28px,5vw,58px) 0 30px; }
+.home-page .home-hero { width:100%; }
+.home-page .home-hero-card { width:min(100%,900px); margin:0 auto; padding:clamp(14px,2.5vw,24px); border:1px solid #283747; border-radius:18px; background:linear-gradient(145deg,#121c29,#0d131d); box-shadow:0 22px 65px rgba(0,0,0,.28); }
+.home-page .home-logo-frame { width:min(100%,720px); aspect-ratio:3.2; margin:0 auto; overflow:hidden; border:1px solid rgba(139,171,194,.15); border-radius:12px; background:#111820; }
+.home-page .home-logo { display:block; width:100%; height:100%; object-fit:contain; filter:drop-shadow(0 10px 22px rgba(0,0,0,.25)); }
+.home-page .home-intro { max-width:750px; margin:0 auto; padding:clamp(27px,4.4vw,46px) clamp(8px,3vw,28px) clamp(22px,3vw,30px); text-align:center; }
+.home-page .home-contact { margin:0 auto 36px; }
+.home-page .home-contact-links { display:flex; justify-content:center; gap:14px 32px; flex-wrap:wrap; margin:0; padding:0; list-style:none; }
+.home-page .home-contact-links li { display:grid; gap:5px; }
+.home-page .home-contact-links li > span { color:#91a6b5; font-size:.7rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; }
+.home-page .home-contact-links a { display:inline-flex; align-items:center; justify-content:center; gap:8px; color:#edf5fa; font-size:.9rem; text-decoration-color:#63f4d2; text-underline-offset:4px; }
+.home-page .home-contact-links a:hover { color:#63f4d2; }
+.home-page .home-contact-links svg { width:16px; height:16px; fill:none; stroke:#63f4d2; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+.home-page .home-intro .eyebrow { margin:0; color:#63f4d2 !important; font-weight:700; }
+.home-page .home-intro h1 { max-width:700px; margin:10px auto 12px; color:#f2f8fc !important; font-size:clamp(1.9rem,4.2vw,3.1rem); font-weight:750; line-height:1.12; letter-spacing:-.055em; }
+.home-page .home-lede { max-width:650px; margin:0 auto; color:#a0b1bf; font-size:clamp(.98rem,1.5vw,1.08rem); line-height:1.8; }
+.home-page .home-actions { margin-top:25px; }
+.home-page .home-proof { display:flex; justify-content:center; gap:10px 24px; flex-wrap:wrap; margin:23px auto 0; color:#a9b9c5; font-size:.78rem; }
+.home-page .home-proof b { margin-right:6px; color:#63f4d2; }
+.home-page .home-footer { margin-top:10px; padding-top:25px; border-top:1px solid rgba(139,171,194,.17); }
+.home-page .home-footer .brand-caption { color:#91a6b5; }
+@media (max-width:760px) {
+  .home-page .site-header { position:relative; margin-top:10px; }
+  .home-page .home-main { padding-top:26px; }
+  .home-page .home-contact { margin-bottom:27px; }
+  .home-page .home-contact-links { gap:15px 22px; }
+  .home-page .home-contact-links li { flex:1 1 145px; }
+  .home-page .home-contact-links a { font-size:.82rem; }
+  .home-page .home-proof { gap:8px 14px; }
+}
+
+
+/* Light color treatment for the logo-led homepage. */
+html body.home-page { color-scheme:light; background:#fff !important; color:#111820 !important; }
+html body.home-page:before { display:none !important; }
+html body.home-page .wrap nav a { color:#344454 !important; }
+html body.home-page .wrap nav a:hover { color:#142b45 !important; background:#f1f3f6 !important; }
+html body.home-page .wrap nav a.active { color:#142b45 !important; border-color:#d7dce3 !important; background:#f4f6f8 !important; box-shadow:0 2px 8px rgba(20,43,69,.08) !important; }
+html body.home-page .wrap nav a.active:after { display:none !important; }
+html body.home-page .wrap nav a.nav-call { color:#fff !important; border-color:#142b45 !important; background:#142b45 !important; box-shadow:none !important; }
+html body.home-page .site-header { border-color:#d7dce3 !important; background:rgba(255,255,255,.96) !important; box-shadow:0 8px 24px rgba(20,43,69,.06); }
+html body.home-page .home-hero-card { border-color:#d7dce3; background:#fff; box-shadow:0 12px 34px rgba(20,43,69,.09); }
+html body.home-page .home-logo-frame { border-color:#e2e6ea; background:#fff; }
+html body.home-page .home-contact-links li > span { color:#667482; }
+html body.home-page .home-contact-links a { color:#142b45; }
+html body.home-page .home-intro .eyebrow { color:#142b45 !important; }
+html body.home-page .home-intro h1 { color:#142b45 !important; }
+html body.home-page .home-lede { color:#4f5e6c; }
+html body.home-page .home-proof { color:#4f5e6c; }
+html body.home-page .home-proof b { color:#142b45; }
+html body.home-page .home-footer { border-color:#e0e5e9; }
+html body.home-page .home-footer .brand-caption { color:#61717f; }
+html body.home-page .home-footer .footer-copy { color:#76838d; }
+
+html body.home-page .home-footer .brand-logo { border-color:#dfe4e8 !important; border-radius:12px; background:#fff !important; box-shadow:0 3px 10px rgba(20,43,69,.04); }
+html body.home-page .home-footer .brand-logo img { filter:none; opacity:1; }
+
+
+/* Site-wide light theme: white page surfaces, light headers, and readable dark text. */
+:root { --bg:#ffffff; --panel:#ffffff; --line:#d9e1e8; --text:#172b3e; --muted:#566879; --accent:#0878f9; --accent-dark:#075fcb; --ink:#172b3e; --navy:#142b45; --teal:#0878f9; --sales-ink:#172b3e; --sales-teal:#0878f9; color-scheme:light; }
+html body { background:#fff !important; color:#243648 !important; }
+html body:before { display:none !important; }
+html body .wrap > header { color:#172b3e !important; border-color:#d9e1e8 !important; background:#fff !important; background-image:none !important; box-shadow:0 5px 18px rgba(20,43,69,.06) !important; }
+html body .wrap > header * { color:#34495d !important; }
+html body .wrap > header nav { background:transparent !important; border-color:transparent !important; }
+html body .wrap > header nav a { color:#34495d !important; }
+html body .wrap > header nav a:hover { color:#075fcb !important; border-color:#d9e1e8 !important; background:#f2f7fc !important; }
+html body .wrap > header nav a.active { color:#075fcb !important; border-color:#c8ddf4 !important; background:#edf5fd !important; box-shadow:none !important; }
+html body .wrap > header nav a.active:after { background:#0878f9 !important; box-shadow:none !important; }
+html body .wrap > header nav a.nav-call { color:#fff !important; border-color:#0878f9 !important; background:#0878f9 !important; box-shadow:none !important; }
+html body .wrap > header nav a.nav-call:hover { color:#fff !important; background:#075fcb !important; }
+html body .wrap header .site-brand-name { color:#172b3e !important; text-shadow:none !important; }
+html body .wrap header .site-brand-name > span { color:#0878f9 !important; text-shadow:none !important; }
+html body .wrap header .site-brand-caption { color:#617487 !important; }
+html body .wrap :is(h1,h2,h3,h4,p,li,span,small,strong,b,dt,dd,label,summary,th,td,caption) { color:#243648 !important; }
+html body .wrap a { color:#075fcb; }
+html body .wrap :is(.eyebrow,.feature-number,.ai-value-index,.section-kicker,.split-kicker,.service-table thead th) { color:#0878f9 !important; }
+html body .wrap :is(.announcement,.hero-lede,.hero-proof,.starting-rate,.section-heading-left p,.split-copy p,.service-area-note,.footer-copy,.form-note,.muted) { color:#536779 !important; }
+html body .wrap :is(.page-intro,.catalog-heading,.home-hours,.contact-hours,.content-card,.contact-direct,.feature,.process-step,.service-face,.faq-item,.product-card,.catalog-note,.brand-logo,.visual-card,.hero-panel,.hero-card,.sales-card,.booking-dialog,.tool-modal-card,.tool-category,.quick-workbench,.quick-panel,.tool-result,.studio-result,.pensioner-offer,.sales-cta,.contact-guidance,.quote-steps,.quote-list-panel,.quote-item,.quote-product-preview,.catalog-toolbar,.service-table-wrap,.catalog-disclosure) { border-color:#d9e1e8 !important; background-color:#fff !important; background-image:none !important; color:#243648 !important; box-shadow:0 8px 22px rgba(20,43,69,.06) !important; }
+html body .wrap :is(.home-hours,.contact-hours,.process-v2,.final-cta,.ai-values,.home-footer,.service-section,.split-section) { color:#243648 !important; border-color:#d9e1e8 !important; }
+html body .wrap :is(.ai-value,.process-step,.quote-items li) { border-color:#d9e1e8 !important; background:#f7f9fb !important; }
+html body .wrap .hero-visual { border-color:#d5e0e8 !important; background:linear-gradient(145deg,#f5f9fc,#eaf2f8) !important; box-shadow:0 16px 40px rgba(20,43,69,.08) !important; }
+html body .wrap .visual-card { background:rgba(255,255,255,.94) !important; }
+html body .wrap .split-visual { border-color:#d5e0e8 !important; background:linear-gradient(145deg,#edf5fd,#f7fbff) !important; color:#142b45 !important; }
+html body .wrap .split-visual strong,html body .wrap .split-visual em { color:#142b45 !important; }
+html body .wrap .feature-v2,html body .wrap .product-card,html body .wrap .sales-card,html body .wrap .service-face,html body .wrap .faq-item,html body .wrap .content-card,html body .wrap .contact-direct { background:#fff !important; color:#243648 !important; border-color:#d9e1e8 !important; }
+html body.services-page .wrap :is(.page-intro,.pensioner-offer,.service-face,.faq-item,.booking-dialog,.service-table-wrap) :is(h1,h2,h3,p,span,strong,small,summary,td,th,caption) { color:#243648 !important; }
+html body.services-page .wrap .page-intro .eyebrow,html body.services-page .wrap .faq-heading .eyebrow,html body.services-page .wrap .services-more-heading .eyebrow { color:#0878f9 !important; }
+html body.services-page .wrap .service-face .muted,html body.services-page .wrap .faq-answer,html body.services-page .wrap .pricing-note,html body.services-page .wrap .service-table tbody td,html body.services-page .wrap .service-table-summary,html body.services-page .wrap .service-table-unit { color:#536779 !important; }
+html body.services-page .wrap .service-face-back { background:#f4f8fc !important; }
+html body.services-page .wrap .price { border-color:#d9e1e8 !important; background:#f4f8fc !important; }
+html body.services-page .wrap .price strong,html body.services-page .wrap .service-table-price { color:#075fcb !important; }
+html body.services-page .wrap .service-face-front:after { color:#617487 !important; }
+html body.sales-page .wrap :is(.quote-builder,.quote-list-panel,.quote-item,.quote-product-preview,.quote-clear,.quote-remove) { border-color:#d9e1e8 !important; background:#fff !important; color:#243648 !important; box-shadow:0 8px 22px rgba(20,43,69,.05) !important; }
+html body.sales-page .wrap :is(.quote-builder-intro h2,.quote-list-heading h3,.quote-list-heading h3 span,.quote-item-info strong,.quote-item-info small,.quote-field label,.quote-status,.quote-empty,.quote-product-preview p) { color:#243648 !important; }
+html body.sales-page .wrap .quote-field :is(select,input,textarea) { border-color:#cbd6df !important; background:#fff !important; color:#172b3e !important; }
+html body.sales-page .wrap .quote-field :is(select,input,textarea)::placeholder { color:#718191 !important; }
+html body.sales-page .wrap .quote-list-heading h3 span { background:#edf5fd !important; }
+html body.sales-page .wrap .quote-items li { border-color:#d9e1e8 !important; background:#f7f9fb !important; }
+html body.sales-page .wrap .quote-send-row { border-color:#d9e1e8 !important; }
+html body .wrap :is(.contact-guidance,.quote-steps,.catalog-disclosure) :is(h2,h3,p,li,strong,span) { color:#243648 !important; }
+html body .wrap :is(input,textarea,select,.field input,.field textarea,.field select,.tool-card input,.tool-card textarea,.tool-card select) { border-color:#cbd6df !important; background:#fff !important; color:#172b3e !important; }
+html body .wrap input::placeholder,html body .wrap textarea::placeholder { color:#718191 !important; }
+html body .wrap :is(.tool-output,.tool-modal-note) { border-color:#d9e1e8 !important; background:#f4f7fa !important; color:#243648 !important; }
+html body .wrap :is(.brand-logo,.homepage .brand-logo) { border-color:#d9e1e8 !important; background:#fff !important; box-shadow:0 3px 10px rgba(20,43,69,.04) !important; }
+html body .wrap .button-primary { color:#fff !important; border-color:#0878f9 !important; background:#0878f9 !important; }
+html body .wrap .button-primary:hover { background:#075fcb !important; }
+html body .wrap .button:not(.button-primary) { color:#142b45 !important; border-color:#cbd6df !important; background:#fff !important; }
+html body .wrap .service-book-button { color:#075fcb !important; border-color:#b9d3ed !important; background:#edf5fd !important; box-shadow:none !important; }
+html body .wrap .service-book-button:hover { color:#fff !important; border-color:#075fcb !important; background:#075fcb !important; }
+
+html body .wrap .sales-hero :is(h1,h2,h3,p),html body .wrap .catalog-heading :is(h1,h2,h3,p) { color:#243648 !important; }
+html body .wrap .sales-hero .eyebrow,html body .wrap .catalog-heading .eyebrow { color:#0878f9 !important; }
+html body .wrap .feature-v2 :is(h3,p),html body .wrap .sales-card :is(h2,h3,p),html body .wrap .product-card :is(h2,h3,p),html body .wrap .split-copy :is(h2,p) { color:#243648 !important; }
+html body .wrap .feature-v2 .feature-number,html body .wrap .sales-card-icon { color:#075fcb !important; }
+html body.services-page .wrap .service-details { color:#536779 !important; }
+html body.services-page .wrap .service-table thead { background:#f0f5f9 !important; }
+html body.services-page .wrap .service-table thead th { color:#075fcb !important; }
+html body.services-page .wrap .service-table tbody th { color:#243648 !important; }
+html body.services-page .wrap .faq-item summary:after { color:#0878f9 !important; }
+html body .wrap .booking-dialog,html body .wrap .tool-modal-card { border-color:#d9e1e8 !important; background:#fff !important; color:#243648 !important; }
+html body .wrap .booking-dialog :is(h2,p,label,.form-note),html body .wrap .tool-modal-card :is(h2,h3,p,label,.form-note) { color:#243648 !important; }
+html body .wrap .dialog-close,html body .wrap .tool-modal-close { border-color:#cbd6df !important; background:#fff !important; color:#243648 !important; }
+html body .wrap .contact-guidance ul,html body .wrap .quote-steps li { border-color:#d9e1e8 !important; background:#f7f9fb !important; color:#43576a !important; }
+html body .wrap .contact-guidance li::marker,html body .wrap .quote-steps li::before { color:#0878f9 !important; }
+html body .wrap .brand-caption { color:#617487 !important; }
+
+
+/* Keep all site text readable on the light surfaces despite legacy white-text rules. */
+html body .wrap :is(#light-text-override, *) { color:#111 !important; }
+
+
+/* Force every top-level site header to stay white over legacy dark header rules. */
+html body .wrap > header.site-header,
+html body .wrap > header:has(.site-brand),
+html body:not(:has(.homepage)) .wrap > header {
+  background:#fff !important;
+  background-image:none !important;
+  border-color:#d9e1e8 !important;
+  box-shadow:0 5px 18px rgba(20,43,69,.06) !important;
+}
+html body .wrap > header nav,
+html body .wrap > header nav[aria-label="Main navigation"] {
+  background:#fff !important;
+  background-image:none !important;
+}
+
+
+/* Use the same branded header layout on every page, including Home. */
+html body .wrap > header.site-header,
+html body .wrap > header:has(.site-brand),
+html body:not(:has(.homepage)) .wrap > header {
+  position:sticky;
+  top:0;
+  z-index:30;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:28px;
+  min-height:74px;
+  margin-top:0;
+  padding:10px 14px;
+  border:1px solid #d9e1e8 !important;
+  border-radius:12px;
+  background:#fff !important;
+  background-image:none !important;
+  box-shadow:0 5px 18px rgba(20,43,69,.06) !important;
+  backdrop-filter:blur(18px);
+}
+html body .wrap header .site-brand { display:flex; flex:0 0 auto; flex-direction:column; align-items:flex-start; justify-content:center; gap:4px; width:auto; min-width:174px; height:auto; padding:5px 0; color:#172b3e !important; text-decoration:none; }
+html body .wrap header nav[aria-label="Main navigation"] { display:flex; flex:0 1 auto; justify-content:flex-end; align-items:center; flex-wrap:wrap; gap:5px; width:auto; margin:0; padding:0; border:0; background:transparent !important; }
+html body.home-page .wrap > header.site-header nav[aria-label="Main navigation"] { justify-content:flex-end !important; flex:0 1 auto !important; }
+@media (max-width:900px) and (min-width:761px) {
+  html body .wrap > header.site-header,html body .wrap > header:has(.site-brand),html body:not(:has(.homepage)) .wrap > header { gap:12px; }
+  html body .wrap header .site-brand { min-width:145px; }
+}
+@media (max-width:760px) {
+  html body .wrap > header.site-header,html body .wrap > header:has(.site-brand),html body:not(:has(.homepage)) .wrap > header { align-items:stretch; flex-direction:column; gap:7px; min-height:0; padding:10px 11px 12px; }
+  html body .wrap header .site-brand { align-items:flex-start; min-width:0; padding:1px 4px 3px; }
+  html body .wrap header nav[aria-label="Main navigation"] { justify-content:flex-start; gap:4px; width:100%; }
+  html body .wrap header nav[aria-label="Main navigation"] a { flex:1 1 auto; min-width:max-content; min-height:35px; padding:7px 9px; font-size:10px; white-space:normal; }
+  html body .wrap header nav[aria-label="Main navigation"] a.active:after { display:none; }
+  html body .wrap header nav[aria-label="Main navigation"] a.nav-call { margin:0; }
+}
+
+
+/* Light surfaces for every product-quote builder element. */
+html body.sales-page .wrap .quote-builder,
+html body.sales-page .wrap .quote-list-panel,
+html body.sales-page .wrap .quote-item,
+html body.sales-page .wrap .quote-product-preview,
+html body.sales-page .wrap .quote-preview-placeholder,
+html body.sales-page .wrap .quote-clear,
+html body.sales-page .wrap .quote-remove,
+html body.sales-page .wrap .quote-step-number {
+  border-color:#d9e1e8 !important;
+  background:#fff !important;
+  background-image:none !important;
+  box-shadow:0 5px 16px rgba(20,43,69,.05) !important;
+}
+html body.sales-page .wrap .quote-product-preview img {
+  background:#fff !important;
+}
+
+html body.services-page .wrap .service-table thead { background:#fff !important; }
+
+
+/* Explicitly white product quote-builder surfaces. */
+html body.sales-page .wrap section.quote-builder,
+html body.sales-page .wrap section.quote-builder .quote-builder-config,
+html body.sales-page .wrap section.quote-builder .quote-list-panel,
+html body.sales-page .wrap section.quote-builder .quote-item,
+html body.sales-page .wrap section.quote-builder .quote-product-preview,
+html body.sales-page .wrap section.quote-builder .quote-preview-placeholder,
+html body.sales-page .wrap section.quote-builder .quote-step-number,
+html body.sales-page .wrap section.quote-builder .quote-clear,
+html body.sales-page .wrap section.quote-builder .quote-remove {
+  background:#fff !important;
+  background-color:#fff !important;
+  background-image:none !important;
+  color:#111 !important;
+}
+html body.sales-page .wrap section.quote-builder :is(select,input,textarea) {
+  background:#fff !important;
+  background-color:#fff !important;
+  color:#111 !important;
+}
+
+
+/* Remove remaining dark fills and gradients from every page surface. */
+html body .wrap :is(#force-white-surfaces, *) {
+  background-color:#fff !important;
+  background-image:none !important;
+}
+html body .wrap :is(#force-white-surfaces, .button-primary, .nav-call, .catalog-filter.is-active, .product-ribbon) {
+  background-color:#0878f9 !important;
+  background-image:none !important;
+}
+html body .wrap :is(#force-white-surfaces, .visual-sun) {
+  background:radial-gradient(circle at 38% 35%,#d9fff8 0,#8be7ef 24%,#8ca9f4 58%,#fff 78%) !important;
+  box-shadow:0 0 32px rgba(55,130,207,.18) !important;
+}
+
+html body .skip-link { border:1px solid #d9e1e8 !important; background:#fff !important; color:#111 !important; box-shadow:0 4px 14px rgba(20,43,69,.1); }
+html body .booking-dialog::backdrop { background:rgba(255,255,255,.88) !important; backdrop-filter:blur(4px); }
+
+
+/* Consistent dark outline across cards and bordered content panels. */
+html body .wrap :is(
+  .home-hero-card,.feature,.feature-v2,.content-card,.contact-direct,.process-step,
+  .service-face,.faq-item,.product-card,.sales-card,.catalog-note,.visual-card,
+  .hero-panel,.hero-card,.booking-dialog,.tool-modal-card,.tool-category,
+  .quick-workbench,.quick-panel,.tool-result,.studio-result,.pensioner-offer,
+  .sales-cta,.contact-guidance,.quote-steps,.quote-builder,.quote-list-panel,
+  .quote-item,.quote-product-preview,.quote-preview-placeholder,.service-table-wrap,
+  .catalog-disclosure,.home-hours
+) {
+  border:1px solid #111 !important;
+}
+
+
+/* Outline the three page-heading cards with the same dark line as the quote builder. */
+html body.sales-page .wrap .catalog-heading,
+html body.services-page .wrap .page-intro,
+html body:not(:has(.homepage)) .wrap:not(.services-page):not(.sales-page) .page-intro {
+  border:1px solid #111 !important;
+}
+
+
+/* Extend the shared card outline to working-hours and remaining panel cards. */
+html body .wrap :is(
+  .contact-hours,.catalog-heading,.page-intro,.catalog-toolbar,.tool-output,
+  .tool-modal-note,.tool-card,.quote-builder-config,.split-visual,.sales-hero
+) {
+  border:1px solid #111 !important;
+}
+
+
+/* Match the common black card outline on every page header. */
+html body .wrap > header.site-header,
+html body .wrap > header:has(.site-brand),
+html body:not(:has(.homepage)) .wrap > header {
+  border:1px solid #111 !important;
+}
+
+/* Override the later forced blue surface rule for these two actions. */
+html body .wrap :is(#force-white-surfaces, .button-primary, .nav-call),
+html body .wrap :is(#force-white-surfaces, .button-primary, .nav-call):hover {
+  color:#111 !important;
+  background:#fff !important;
+  background-color:#fff !important;
+  background-image:none !important;
+  border-color:#111 !important;
+  box-shadow:none !important;
+}
+
+
+/* Keep the homepage logo clear of surrounding border lines. */
+html body.home-page .wrap .home-logo-frame,
+html body.home-page .wrap .home-hero-card {
+  border:0 !important;
+}
+
+
+/* Outline the homepage card while keeping the logo itself borderless. */
+html body.home-page .wrap .home-hero-card { border:1px solid #111 !important; }
+html body.home-page .wrap .home-logo-frame { border:0 !important; }
+
+/* Stretch the main homepage card to the same container width as the header. */
+html body.home-page .wrap .home-hero-card {
+  width:100% !important;
+  max-width:none !important;
+  box-sizing:border-box !important;
+}
+
+/* Keep the primary contact actions white with a clear black outline. */
+html body .wrap nav a.nav-call,
+html body .wrap .button-primary,
+html body .wrap nav a.nav-call:hover,
+html body .wrap .button-primary:hover {
+  color:#111 !important;
+  background:#fff !important;
+  border:1px solid #111 !important;
+  box-shadow:none !important;
+}
