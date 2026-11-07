@@ -1,6 +1,6 @@
 # CompuSoft Computer Support
 
-Business website for CompuSoft Computer Support, with service and contact pages.
+Single-page website for CompuSoft Computer Support, with services, starting prices, FAQs, WhatsApp-first contact, and working hours.
 
 ## Cloudflare deployment
 

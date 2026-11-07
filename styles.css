@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800;900&display=swap');
-:root { color-scheme: light; --bg:#f7f9fb; --panel:#ffffff; --line:#d9e2e8; --text:#172b3e; --muted:#526779; --accent:#142B45; --accent-dark:#142B45; --white:#ffffff; --ink:#13263c; --navy:#142b45; --teal:#087f78; }
+:root { color-scheme: light; --bg:#f5f8fc; --panel:#ffffff; --line:#d9e2eb; --text:#111827; --muted:#596579; --accent:#1769cf; --accent-dark:#0f54ad; --white:#ffffff; --ink:#111827; --navy:#142b45; --teal:#1677e8; }
 * { box-sizing:border-box; }
 html { scroll-behavior:smooth; }
 ::selection { color:#fff; background:var(--accent); }
@@ -1311,3 +1311,39 @@ html body .wrap .button-primary:hover {
   border:1px solid #111 !important;
   box-shadow:none !important;
 }
+
+/* Shared light, black, and blue theme for the site's existing pages. */
+:root { color-scheme:light; --bg:#f5f8fc; --panel:#fff; --line:#d9e2eb; --text:#111827; --muted:#596579; --accent:#1769cf; --accent-dark:#0f54ad; --ink:#111827; --navy:#142b45; --teal:#1677e8; --sales-ink:#111827; --sales-teal:#1677e8; }
+html body { background:#f5f8fc !important; color:#111827 !important; }
+html body:before { display:none !important; }
+html body .wrap :is(#site-blue-theme, *) { color:#111827 !important; }
+html body .wrap :is(.eyebrow,.feature-number,.ai-value-index,.section-kicker,.split-kicker,.service-table thead th,.site-brand-name > span,.price strong,.service-table-price,.contact-guidance li::marker,.quote-steps li::before) { color:#1769cf !important; }
+html body .wrap > header,
+html body .wrap > header:has(.site-brand) { background:#fff !important; background-image:none !important; border-color:#d5dfeb !important; box-shadow:0 5px 18px rgba(17,45,82,.06) !important; }
+html body .wrap > header nav { background:transparent !important; }
+html body .wrap > header nav a { color:#263449 !important; }
+html body .wrap > header nav a:hover,
+html body .wrap > header nav a.active { color:#075fcb !important; border-color:#c8ddf4 !important; background:#edf5fd !important; }
+html body .wrap > header nav a.nav-call,
+html body .wrap .button-primary { color:#fff !important; border-color:#1769cf !important; background:#1769cf !important; box-shadow:0 5px 16px rgba(23,105,207,.16) !important; }
+html body .wrap > header nav a.nav-call:hover,
+html body .wrap .button-primary:hover { color:#fff !important; background:#0f54ad !important; }
+html body .wrap :is(.page-intro,.pensioner-offer,.service-face,.faq-item,.booking-dialog,.service-table-wrap,.content-card,.contact-direct,.contact-guidance,.quote-steps,.home-hours,.contact-hours,.feature-v2,.sales-card,.product-card,.split-visual,.catalog-toolbar,.catalog-note) { border-color:#d5dfeb !important; background-color:#fff !important; background-image:none !important; color:#111827 !important; box-shadow:0 8px 24px rgba(17,45,82,.06) !important; }
+html body .wrap :is(.service-face,.faq-item,.contact-guidance,.quote-steps,.catalog-disclosure,.service-table tbody tr:nth-child(even)) { background:#f2f7fc !important; }
+html body.services-page .wrap .service-table { color:#111827 !important; }
+html body.services-page .wrap .service-table thead { background:#edf5fd !important; }
+html body.services-page .wrap .service-table :is(th,td,caption) { color:#111827 !important; border-color:#d9e2eb !important; }
+html body.services-page .wrap .service-table :is(.service-table-summary,.service-table-unit,.service-table-hint) { color:#596579 !important; }
+html body.services-page .wrap .service-table .service-book-button { color:#075fcb !important; border-color:#c8ddf4 !important; background:#edf5fd !important; }
+html body.services-page .wrap .service-table .service-book-button:hover { color:#fff !important; border-color:#1769cf !important; background:#1769cf !important; }
+html body .wrap :is(input,textarea,select) { color:#111827 !important; border-color:#cbd6df !important; background:#fff !important; }
+html body .wrap :is(.footer-copy,.muted,.form-note,.service-details,.faq-answer,.pricing-note,.intro,.announcement,.hero-lede,.hero-proof) { color:#596579 !important; }
+html body .wrap a:not(.nav-call):not(.button-primary) { color:#075fcb; }
+html body .wrap :is(.service-face-front,.service-face-back,.quote-list-panel,.quote-item,.quote-product-preview,.quote-builder,.quote-step-number,.catalog-disclosure) { border-color:#d9e2eb !important; background-color:#fff !important; color:#111827 !important; }
+html body .wrap :is(.split-visual,.hero-visual,.visual-card,.sales-hero) { border-color:#d5dfeb !important; background:#eef5fc !important; color:#111827 !important; }
+html body .wrap :is(#site-blue-theme,.eyebrow,.feature-number,.ai-value-index,.section-kicker,.split-kicker,.site-brand-name > span,.price strong,.service-table-price) { color:#1769cf !important; }
+html body .wrap :is(#site-blue-theme,.nav-call,.button-primary) { color:#fff !important; border-color:#1769cf !important; background:#1769cf !important; background-image:none !important; box-shadow:0 5px 16px rgba(23,105,207,.16) !important; }
+html body .wrap :is(#site-blue-theme,.nav-call,.button-primary):hover { color:#fff !important; border-color:#0f54ad !important; background:#0f54ad !important; }
+html body .wrap > header nav :is(#site-blue-theme,a.active) { color:#075fcb !important; border-color:#c8ddf4 !important; background:#edf5fd !important; }
+html body .wrap :is(#site-blue-theme,.service-book-button) { color:#075fcb !important; border-color:#c8ddf4 !important; background:#edf5fd !important; }
+html body .wrap :is(#site-blue-theme,.service-book-button):hover { color:#fff !important; border-color:#1769cf !important; background:#1769cf !important; }
