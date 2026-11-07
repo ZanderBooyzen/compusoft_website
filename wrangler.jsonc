@@ -17,7 +17,7 @@
     }
   ],
   "routes": [
-    { "pattern": "www.compusoft.co.za", "custom_domain": true }
+    { "pattern": "www.compusoft.co.za/*", "zone_name": "compusoft.co.za" }
   ],
   "durable_objects": {
     "bindings": [
