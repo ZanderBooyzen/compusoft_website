@@ -1,0 +1,1343 @@
+<!doctype html>
+<html lang="en-ZA">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f5f8fc" />
+    <meta
+      name="description"
+      content="Friendly computer and IT support for homes and small businesses in Somerset West. Clear advice, remote help and on-site support."
+    />
+    <link rel="canonical" href="https://www.compusoft.co.za/index_old.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="CompuSoft Computer Support" />
+    <meta property="og:title" content="CompuSoft — Technology, sorted." />
+    <meta
+      property="og:description"
+      content="Friendly computer and IT support for homes and small businesses in Somerset West. Clear advice, remote help and on-site support."
+    />
+    <meta property="og:url" content="https://www.compusoft.co.za/index_old.html" />
+    <meta
+      property="og:image"
+      content="https://www.compusoft.co.za/og-compusoft.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="CompuSoft — Technology, sorted." />
+    <meta
+      name="twitter:description"
+      content="Friendly computer and IT support for homes and small businesses in Somerset West."
+    />
+    <meta
+      name="twitter:image"
+      content="https://www.compusoft.co.za/og-compusoft.png"
+    />
+    <title>CompuSoft — Technology, sorted.</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: #101512;
+        --paper: #f4f3ed;
+        --lime: #c8f169;
+        --muted: #a9b0a5;
+        --line: rgba(255, 255, 255, 0.13);
+        --mono: "DM Mono", monospace;
+        --sans: "DM Sans", sans-serif;
+        --display: "Manrope", sans-serif;
+      }
+    </style>
+    <style>
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body { margin: 0; min-height: 100vh; background: #f5f8fc; color: #111827; font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+      a { color: inherit; text-decoration: none; }
+      button, a { -webkit-tap-highlight-color: transparent; }
+      .skip { position: absolute; left: -9999px; top: 8px; z-index: 20; padding: 10px 14px; border-radius: 4px; background: #fff; color: #111827; }
+      .skip:focus { left: 10px; }
+      .shell { width: min(1240px, calc(100% - 64px)); margin: 0 auto; }
+      .topline { min-height: 38px; display: flex; justify-content: space-between; align-items: center; gap: 18px; border-bottom: 1px solid #d9e2eb; color: #596579; font: 10px var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+      .topline b { margin-right: 6px; color: #1769cf; }
+      .header { min-height: 82px; display: flex; align-items: center; justify-content: space-between; gap: 26px; border-bottom: 1px solid #d9e2eb; position: relative; z-index: 2; }
+      .brand { display: flex; align-items: center; flex: 0 0 auto; gap: 11px; color: #111827; }
+      .brand-lockup { display: grid; gap: 3px; }
+      .brand-word { color: #111827; font: 800 21px/1 var(--display); letter-spacing: -.075em; }
+      .brand-word span { color: #1769cf; }
+      .brand-caption { color: #596579; font: 9px/1.2 var(--mono); letter-spacing: .13em; text-transform: uppercase; }
+      .brand-mark { width: 40px; height: 40px; flex: 0 0 40px; fill: none; stroke: #111827; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+      .brand-mark .power { stroke: #1769cf; stroke-width: 3.5; }
+      .nav { display: flex; align-items: center; justify-content: flex-end; gap: clamp(14px, 2.2vw, 30px); color: #263449; font-size: 13px; }
+      .nav a:not(.nav-cta) { transition: color .2s; }
+      .nav a:not(.nav-cta):hover { color: #075fcb; }
+      .nav-cta, .btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 13px 17px; border: 1px solid #1769cf; border-radius: 4px; background: #1769cf; color: #fff; font-weight: 700; transition: transform .2s, background .2s, box-shadow .2s; }
+      .nav-cta:hover, .btn-primary:hover { transform: translateY(-2px); background: #0f54ad; box-shadow: 0 7px 18px rgba(23,105,207,.18); }
+      .menu-toggle { display: none; width: 44px; height: 44px; flex: 0 0 44px; border: 1px solid #d9e2eb; border-radius: 5px; background: #fff; color: #111827; font-size: 22px; cursor: pointer; }
+      .hero { min-height: 590px; display: grid; grid-template-columns: 1.08fr .92fr; align-items: center; gap: 24px; padding: 62px 0 72px; position: relative; overflow: hidden; }
+      .hero-copy { position: relative; z-index: 1; }
+      .eyebrow { display: flex; align-items: center; gap: 10px; color: #1769cf; font: 10px var(--mono); letter-spacing: .16em; text-transform: uppercase; }
+      .eyebrow:before { content: ''; width: 23px; height: 1px; background: #1769cf; }
+      h1 { max-width: 700px; margin: 24px 0 20px; color: #111827; font: 700 clamp(54px, 7.1vw, 88px)/.98 var(--display); letter-spacing: -.085em; }
+      h1 em { color: #1769cf; font-style: normal; }
+      .lede { max-width: 510px; margin: 0; color: #596579; font-size: 15px; line-height: 1.75; }
+      .actions { display: flex; align-items: center; flex-wrap: wrap; gap: 16px; margin-top: 30px; }
+      .btn-primary { padding: 15px 19px; }
+      .btn-quiet { padding: 12px 4px; color: #263449; font-size: 13px; }
+      .btn-quiet span { margin-left: 7px; color: #1769cf; }
+      .hero-meta { display: flex; flex-wrap: wrap; gap: 22px; margin-top: 42px; color: #596579; font: 10px var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+      .hero-meta span { display: inline-flex; align-items: center; gap: 8px; }
+      .hero-meta i { width: 6px; height: 6px; border-radius: 50%; background: #1769cf; box-shadow: 0 0 10px rgba(23,105,207,.4); }
+      .visual { height: 440px; position: relative; z-index: 1; display: grid; place-items: center; }
+      .visual:before, .visual:after { content: ''; position: absolute; width: 350px; height: 350px; border: 1px solid rgba(23,105,207,.17); border-radius: 50%; }
+      .visual:after { width: 440px; height: 440px; border-color: rgba(17,24,39,.09); }
+      .orbit { position: absolute; width: 440px; height: 440px; border: 1px solid rgba(23,105,207,.18); border-radius: 50%; animation: orbit 24s linear infinite; }
+      .orbit:before { content: ''; position: absolute; left: 50px; top: 97px; width: 10px; height: 10px; border-radius: 50%; background: #2587f4; box-shadow: 0 0 18px rgba(37,135,244,.6); }
+      .orbit.two { width: 345px; height: 345px; border-color: rgba(23,105,207,.22); animation-direction: reverse; animation-duration: 19s; }
+      .orbit.two:before { left: auto; right: 34px; top: 68px; width: 7px; height: 7px; background: #1769cf; }
+      .orbit.three { width: 250px; height: 250px; border-color: rgba(23,105,207,.13); animation-duration: 15s; }
+      .orbit.three:before { left: 3px; top: 130px; width: 5px; height: 5px; background: #73adff; }
+      .core { width: 205px; height: 205px; display: grid; place-items: center; position: relative; z-index: 1; border: 1px solid rgba(23,105,207,.22); border-radius: 50%; background: radial-gradient(circle at 34% 28%, #fff 0, #eef5fc 58%, #e2edfa 100%); box-shadow: inset 0 0 48px rgba(23,105,207,.08), 0 0 72px rgba(23,105,207,.12); animation: core-pulse 3.2s ease-in-out infinite; }
+      .core-mark { width: 112px; height: 112px; fill: none; stroke: #111827; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+      .core-mark path:last-child { stroke: #1769cf; stroke-width: 6; }
+      .core-value { position: absolute; z-index: 2; left: 2px; top: 100px; padding: 9px 12px; border: 1px solid rgba(17,24,39,.13); border-radius: 4px; background: #fff; color: #596579; font: 9px var(--mono); line-height: 1.5; box-shadow: 0 7px 20px rgba(31,49,30,.08); }
+      .core-value strong { color: #1454a1; font-weight: 500; }
+      .float-card { position: absolute; z-index: 2; padding: 12px 14px; border: 1px solid rgba(17,24,39,.12); border-radius: 4px; background: rgba(255,255,255,.96); box-shadow: 0 10px 28px rgba(17,45,82,.1); }
+      .float-card small { display: block; color: #596579; font: 9px var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+      .float-card strong { display: block; margin-top: 6px; color: #111827; font: 600 12px var(--sans); }
+      .float-card.top { top: 62px; right: 0; animation: float-up 3.2s ease-in-out infinite; }
+      .float-card.bottom { bottom: 58px; left: 0; animation: float-down 3.8s ease-in-out infinite; }
+      .float-card strong span { display: inline-block; color: #1769cf; animation: status-pulse 1.5s ease-in-out infinite; }
+      .section-rule { display: flex; justify-content: space-between; align-items: center; gap: 18px; padding: 17px 0; border-top: 1px solid #d9e2eb; border-bottom: 1px solid #d9e2eb; color: #596579; font: 10px var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+      .section-rule strong { color: #111827; font-weight: 500; }
+      .section-rule b { display: inline-block; color: #1769cf; }
+      .services { padding: 92px 0 96px; }
+      .section-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 34px; }
+      .section-head h2, .extras-heading h2 { margin: 12px 0 0; color: #111827; font: 650 clamp(34px,5vw,56px)/1.04 var(--display); letter-spacing: -.07em; }
+      .section-head h2 span { color: #1769cf; }
+      .section-note { max-width: 300px; margin: 0; color: #596579; font-size: 13px; line-height: 1.7; }
+      .cards { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px; }
+      .service-card { position: relative; min-height: 220px; padding: 24px; overflow: hidden; border: 1px solid #d9e2eb; border-radius: 6px; background: #fff; box-shadow: 0 8px 24px rgba(17,45,82,.05); transition: transform .3s, box-shadow .3s, border-color .3s; }
+      .service-card:hover { transform: translateY(-5px); border-color: #1769cf; box-shadow: 0 15px 34px rgba(17,65,120,.11); }
+      .card-num { color: #1769cf; font: 10px var(--mono); letter-spacing: .08em; }
+      .card-icon { position: absolute; top: 22px; right: 22px; width: 32px; height: 32px; color: #1769cf; }
+      .card-icon svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+      .service-card h3 { margin: 48px 0 8px; color: #111827; font: 650 19px var(--display); letter-spacing: -.035em; }
+      .service-card p { max-width: 300px; margin: 0; color: #596579; font-size: 12px; line-height: 1.65; }
+      .card-arrow { position: absolute; right: 22px; bottom: 18px; color: #075fcb; transition: transform .2s; }
+      .service-card:hover .card-arrow { transform: translate(3px,-3px); }
+      .site-section { padding: 82px 0; border-top: 1px solid rgba(17,24,39,.12); scroll-margin-top: 24px; }
+      .extras-heading { max-width: 690px; margin-bottom: 30px; }
+      .extras-heading p { max-width: 590px; color: #596579; font-size: 14px; line-height: 1.7; }
+      .cta { display: flex; justify-content: space-between; align-items: center; gap: 28px; padding: 44px 0 52px; border-top: 1px solid #d9e2eb; scroll-margin-top: 24px; }
+      .cta h2 { margin: 12px 0 0; color: #111827; font: 650 clamp(28px,4vw,42px)/1.05 var(--display); letter-spacing: -.06em; }
+      .cta h2 span { color: #1769cf; }
+      .cta-right { display: flex; align-items: center; gap: 18px; }
+      .phone { color: #111827; font: 12px var(--mono); }
+      .phone small { display: block; margin-bottom: 4px; color: #596579; font-size: 9px; letter-spacing: .1em; text-transform: uppercase; }
+      .footer { display: flex; justify-content: space-between; gap: 16px; padding: 19px 0 25px; border-top: 1px solid #d9e2eb; color: #647084; font: 9px var(--mono); letter-spacing: .07em; text-transform: uppercase; }
+      .footer a { color: #24446d; }
+      @keyframes orbit { to { transform: rotate(360deg); } }
+      @keyframes core-pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.045); } }
+      @keyframes float-up { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+      @keyframes float-down { 0%,100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
+      @keyframes status-pulse { 0%,100% { opacity: 1; } 50% { opacity: .4; } }
+      @media (max-width: 900px) {
+        .shell { width: min(100% - 40px, 760px); }
+        .header { gap: 16px; }
+        .nav { gap: 14px; font-size: 12px; }
+        .nav-cta { padding: 11px 12px; }
+      }
+      @media (max-width: 760px) {
+        .shell { width: min(100% - 36px, 560px); }
+        .topline { min-height: 34px; font-size: 8px; }
+        .topline > span:last-child { display: none; }
+        .header { min-height: 72px; }
+        .nav { display: none; position: absolute; top: calc(100% + 1px); left: -18px; right: -18px; z-index: 5; align-items: stretch; flex-direction: column; gap: 6px; padding: 14px 18px 18px; border: 1px solid #d9e2eb; border-top: 0; border-radius: 0 0 8px 8px; background: #fff; box-shadow: 0 14px 24px rgba(17,45,82,.1); }
+        .nav.open { display: flex; }
+        .nav a:not(.nav-cta) { padding: 10px 8px; }
+        .nav-cta { justify-content: center; margin-top: 4px; }
+        .menu-toggle { display: block; }
+        .hero { min-height: 0; grid-template-columns: 1fr; gap: 24px; padding: 54px 0 46px; }
+        h1 { margin: 20px 0 17px; font-size: clamp(52px, 12vw, 74px); }
+        .lede { font-size: 14px; }
+        .hero-meta { gap: 13px; margin-top: 30px; font-size: 9px; }
+        .visual { height: 330px; }
+        .visual:before { width: 260px; height: 260px; }
+        .visual:after, .orbit { width: 320px; height: 320px; }
+        .orbit.two { width: 255px; height: 255px; }
+        .orbit.three { width: 190px; height: 190px; }
+        .core { width: 158px; height: 158px; }
+        .core-mark { width: 92px; height: 92px; }
+        .core-value { top: 28px; left: -2px; }
+        .float-card.top { top: 18px; right: 0; }
+        .float-card.bottom { bottom: 12px; left: 0; }
+        .section-rule { align-items: flex-start; flex-direction: column; gap: 7px; font-size: 8px; }
+        .services { padding: 64px 0; }
+        .section-head { display: block; margin-bottom: 24px; }
+        .section-note { margin-top: 14px; }
+        .cards { grid-template-columns: 1fr; }
+        .service-card { min-height: 190px; }
+        .site-section { padding: 62px 0; }
+        .cta { align-items: flex-start; flex-direction: column; padding: 34px 0; }
+        .cta-right { width: 100%; justify-content: space-between; gap: 10px; }
+        .phone { font-size: 10px; }
+        .footer { flex-direction: column; line-height: 1.6; }
+      }
+    </style>
+    <style>
+      :root {
+        --ink: #f5f7f1;
+        --paper: #19231a;
+        --lime: #79a936;
+        --muted: #657160;
+        --line: rgba(30, 45, 31, 0.15);
+      }
+      body {
+        background: #f5f7f1;
+        color: #19231a;
+      }
+      .topline {
+        color: #657160;
+      }
+      .header {
+        background: rgba(255, 255, 255, 0.64);
+      }
+      .brand-mark {
+        width: 40px;
+        height: 40px;
+        flex: 0 0 40px;
+        fill: none;
+        stroke: #111827;
+        stroke-width: 3;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .brand-mark .power {
+        stroke: #1769cf;
+        stroke-width: 3.5;
+      }
+      .brand-lockup {
+        display: grid;
+        gap: 2px;
+      }
+      .brand-word {
+        color: #111827;
+        font: 800 21px/1 var(--display);
+        letter-spacing: -0.075em;
+      }
+      .brand-caption {
+        color: #596579;
+        font: 9px/1.2 var(--mono);
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+      }
+      .core-mark {
+        width: 112px;
+        height: 112px;
+        fill: none;
+        stroke: #263d28;
+        stroke-width: 5;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .core-mark path:last-child {
+        stroke: #79a936;
+        stroke-width: 6;
+      }
+      .core-value {
+        position: absolute;
+        z-index: 2;
+        left: 2px;
+        top: 100px;
+        padding: 9px 12px;
+        border: 1px solid rgba(30, 45, 31, 0.13);
+        border-radius: 4px;
+        background: #fff;
+        color: #647160;
+        font: 9px var(--mono);
+        letter-spacing: 0.04em;
+        line-height: 1.5;
+        box-shadow: 0 7px 20px rgba(31, 49, 30, 0.08);
+      }
+      .core-value strong {
+        color: #263d28;
+        font-weight: 500;
+      }
+      .brand-caption,
+      .section-note,
+      .lede,
+      .hero-meta,
+      .section-rule,
+      .service-card p,
+      .phone small {
+        color: #626d60;
+      }
+      .nav {
+        color: #263228;
+      }
+      .nav-cta,
+      .btn-primary {
+        background: #263d28;
+        color: #fff;
+      }
+      .nav-cta:hover,
+      .btn-primary:hover {
+        background: #36583a;
+      }
+      .menu-toggle {
+        color: #19231a;
+      }
+      .eyebrow,
+      .topline b,
+      .card-num,
+      .card-icon,
+      .section-head h2 span,
+      .cta h2 span {
+        color: #648e2b;
+      }
+      .eyebrow:before {
+        background: #79a936;
+      }
+      .hero-meta i {
+        background: #79a936;
+        box-shadow: 0 0 12px #79a93670;
+      }
+      .visual:before {
+        border-color: rgba(100, 142, 43, 0.25);
+      }
+      .visual:after {
+        border-color: rgba(30, 45, 31, 0.12);
+      }
+      .orbit:before {
+        background: #79a936;
+        box-shadow: 0 0 20px #79a93680;
+      }
+      .orbit.two:before {
+        background: #324735;
+        box-shadow: 0 0 15px #32473570;
+      }
+      .core {
+        background: radial-gradient(
+          circle at 34% 28%,
+          #fff 0,
+          #edf2e6 55%,
+          #e2ead8 100%
+        );
+        border-color: rgba(100, 142, 43, 0.24);
+        box-shadow:
+          inset 0 0 55px #79a93612,
+          0 0 75px #79a93619;
+      }
+      .float-card,
+      .service-card {
+        background: #fff;
+        border-color: rgba(30, 45, 31, 0.13);
+        box-shadow: 0 12px 34px rgba(31, 49, 30, 0.09);
+      }
+      .float-card small,
+      .section-rule {
+        color: #687365;
+      }
+      .float-card strong,
+      .section-rule strong,
+      .phone {
+        color: #19231a;
+      }
+      .service-card:hover {
+        border-color: #79a936;
+      }
+      .card-arrow {
+        color: #71806c;
+      }
+      .footer {
+        color: #70796d;
+      }
+      .footer a {
+        color: #344936;
+      }
+      @media (max-width: 760px) {
+        .nav {
+          background: #fff;
+          border-color: rgba(30, 45, 31, 0.15);
+        }
+        .core-value {
+          left: -3px;
+          top: 34px;
+        }
+      }
+      :root {
+        --paper: #111827;
+        --lime: #1677e8;
+        --muted: #5b6779;
+        --line: rgba(17, 24, 39, 0.15);
+      }
+      body {
+        color: #111827;
+        background: #f5f8fc;
+      }
+      .topline,
+      .brand-caption,
+      .section-note,
+      .lede,
+      .hero-meta,
+      .section-rule,
+      .service-card p,
+      .phone small {
+        color: #596579;
+      }
+      .nav {
+        color: #202a3b;
+      }
+      .menu-toggle {
+        color: #111827;
+        width: 44px;
+        height: 44px;
+        flex: 0 0 44px;
+        border: 1px solid #d9e2eb;
+        border-radius: 5px;
+        background: #fff;
+        cursor: pointer;
+      }
+      .nav-cta,
+      .btn-primary {
+        background: #1769cf;
+        color: #fff;
+      }
+      .nav-cta:hover,
+      .btn-primary:hover {
+        background: #0f54ad;
+      }
+      .eyebrow,
+      .topline b,
+      .card-num,
+      .card-icon,
+      .section-head h2 span,
+      .cta h2 span {
+        color: #1769cf;
+      }
+      .eyebrow:before {
+        background: #1769cf;
+      }
+      .hero-meta i {
+        background: #2587f4;
+        box-shadow: 0 0 12px #2587f470;
+      }
+      .visual:before {
+        border-color: rgba(22, 105, 207, 0.23);
+      }
+      .orbit:before {
+        background: #2587f4;
+        box-shadow: 0 0 20px #2587f480;
+      }
+      .orbit.two:before {
+        background: #1769cf;
+        box-shadow: 0 0 15px #1769cf70;
+      }
+      .core {
+        background: radial-gradient(
+          circle at 34% 28%,
+          #fff 0,
+          #eef5ff 55%,
+          #e0edff 100%
+        );
+        border-color: rgba(22, 105, 207, 0.25);
+        box-shadow:
+          inset 0 0 55px #1677e812,
+          0 0 75px #1677e819;
+      }
+      .core-mark {
+        stroke: #111827;
+      }
+      .core-mark path:last-child {
+        stroke: #1677e8;
+      }
+      .core-value {
+        border-color: rgba(17, 24, 39, 0.13);
+        color: #596579;
+      }
+      .core-value strong {
+        color: #1454a1;
+      }
+      .float-card,
+      .service-card {
+        border-color: rgba(17, 24, 39, 0.13);
+      }
+      .float-card strong,
+      .section-rule strong,
+      .phone {
+        color: #111827;
+      }
+      .service-card:hover {
+        border-color: #1677e8;
+      }
+      .card-arrow {
+        color: #64748b;
+      }
+      .footer {
+        color: #647084;
+      }
+      .footer a {
+        color: #24446d;
+      }
+      .visual:before {
+        box-shadow:
+          0 0 70px rgba(22, 119, 232, 0.08),
+          inset 0 0 48px rgba(22, 119, 232, 0.035);
+        animation: orbit-halo 6s ease-in-out infinite;
+      }
+      .orbit {
+        border: 1px solid rgba(22, 105, 207, 0.18);
+        box-shadow: inset 0 0 32px rgba(22, 105, 207, 0.025);
+      }
+      .orbit.two {
+        border-color: rgba(22, 105, 207, 0.24);
+      }
+      .orbit.three {
+        border-color: rgba(22, 105, 207, 0.13);
+      }
+      @keyframes orbit-halo {
+        0%,
+        100% {
+          transform: scale(0.98);
+          opacity: 0.72;
+        }
+        50% {
+          transform: scale(1.035);
+          opacity: 1;
+        }
+      }
+      .nav-cta,
+      .btn-primary {
+        position: relative;
+        overflow: hidden;
+        isolation: isolate;
+        box-shadow: 0 6px 18px rgba(23, 105, 207, 0.16);
+      }
+      .nav-cta:after,
+      .btn-primary:after {
+        content: "";
+        position: absolute;
+        inset: -40% auto -40% -60%;
+        width: 36%;
+        transform: skewX(-20deg);
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.42),
+          transparent
+        );
+        transition: left 0.55s ease;
+        z-index: -1;
+      }
+      .nav-cta:hover:after,
+      .btn-primary:hover:after {
+        left: 130%;
+      }
+      .service-card {
+        transition:
+          transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+          box-shadow 0.35s,
+          border-color 0.25s;
+      }
+      .service-card:before {
+        content: "";
+        position: absolute;
+        inset: 0 auto 0 -120%;
+        width: 70%;
+        transform: skewX(-18deg);
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(22, 119, 232, 0.06),
+          transparent
+        );
+        transition: left 0.7s ease;
+        pointer-events: none;
+      }
+      .service-card:hover {
+        transform: translateY(-7px);
+        box-shadow: 0 18px 40px rgba(17, 65, 120, 0.12);
+      }
+      .service-card:hover:before {
+        left: 150%;
+      }
+      .service-card .card-icon {
+        transition:
+          transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+          filter 0.35s;
+      }
+      .service-card:hover .card-icon {
+        transform: translateY(-4px) rotate(-5deg);
+        filter: drop-shadow(0 5px 8px rgba(22, 119, 232, 0.22));
+      }
+      .brand-word span {
+        transition:
+          color 0.25s,
+          text-shadow 0.25s;
+      }
+      .brand:hover .brand-word span {
+        color: #1677e8;
+        text-shadow: 0 0 18px rgba(22, 119, 232, 0.25);
+      }
+      .section-rule b {
+        display: inline-block;
+        animation: nudge-arrow 1.8s ease-in-out infinite;
+      }
+      @keyframes nudge-arrow {
+        0%,
+        100% {
+          transform: translate(0, 0);
+        }
+        50% {
+          transform: translate(4px, 4px);
+        }
+      }
+      @media (max-width: 760px) {
+        .visual:before {
+          animation-duration: 8s;
+        }
+        .service-card:hover {
+          transform: translateY(-3px);
+        }
+      }
+      @media (max-width: 760px) {
+        .nav {
+          background: #fff;
+          border-color: rgba(17, 24, 39, 0.15);
+        }
+      }
+    </style>
+
+    <style>
+      .site-section {
+        padding: 88px 0;
+        border-top: 1px solid rgba(17, 24, 39, 0.12);
+        scroll-margin-top: 24px;
+      }
+      .extras-heading {
+        max-width: 690px;
+        margin: 0 0 32px;
+      }
+      .extras-heading h2 {
+        font: 600 clamp(34px, 5vw, 56px) / 1.04 var(--display);
+        letter-spacing: -0.07em;
+        margin: 12px 0;
+        color: #111827;
+      }
+      .extras-heading p {
+        max-width: 590px;
+        color: #596579;
+        font-size: 14px;
+        line-height: 1.75;
+      }
+      .contact-guidance p,
+      .contact-hours p {
+        color: #596579;
+        font-size: 13px;
+        line-height: 1.65;
+      }
+      .contact-section .content-card {
+        padding: clamp(20px, 4vw, 36px);
+      }
+      .whatsapp-contact {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 14px 22px;
+        border: 1px solid #d9e2eb;
+        border-radius: 6px;
+        background: rgba(255, 255, 255, 0.88);
+        box-shadow: 0 12px 34px rgba(17, 45, 82, 0.06);
+      }
+      .whatsapp-contact > p:first-child {
+        flex: 1 1 250px;
+        margin: 0;
+        color: #111827;
+        font: 600 18px / 1.4 var(--display);
+      }
+      .whatsapp-contact .form-note {
+        flex: 1 1 100%;
+      }
+      .form-note {
+        margin: 0;
+        color: #596579;
+        font-size: 12px;
+        line-height: 1.6;
+      }
+      .contact-guidance,
+      .contact-hours {
+        margin-top: 16px;
+        padding: 22px;
+      }
+      .contact-guidance h2,
+      .contact-hours h2 {
+        margin: 0 0 8px;
+        color: #111827;
+        font: 600 20px var(--display);
+      }
+      .contact-guidance ul {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px 24px;
+        color: #263449;
+        font-size: 12px;
+      }
+      .contact-security-note {
+        font-size: 12px;
+      }
+      .contact-hours {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 28px;
+      }
+      .hours-list {
+        margin: 0;
+        min-width: 230px;
+      }
+      .hours-list div {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 7px 0;
+        border-bottom: 1px solid #e1e8f0;
+      }
+      .hours-list dt {
+        color: #596579;
+      }
+      .hours-list dd {
+        margin: 0;
+        color: #111827;
+        font-weight: 600;
+      }
+      .cta {
+        scroll-margin-top: 24px;
+      }
+      @media (max-width: 760px) {
+        .site-section {
+          padding: 62px 0;
+        }
+        .contact-hours {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+        .contact-guidance ul {
+          grid-template-columns: 1fr;
+        }
+        .hours-list {
+          width: 100%;
+        }
+      }
+    </style>
+    <style>
+      .rate-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+      }
+      .rate-card {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        min-height: 215px;
+        padding: 22px;
+        border: 1px solid rgba(17, 24, 39, 0.13);
+        border-radius: 6px;
+        background: #fff;
+        box-shadow: 0 8px 24px rgba(17, 45, 82, 0.05);
+        transition:
+          transform 0.25s,
+          box-shadow 0.25s,
+          border-color 0.25s;
+      }
+      .rate-card:hover {
+        transform: translateY(-4px);
+        border-color: #1769cf;
+        box-shadow: 0 14px 32px rgba(17, 65, 120, 0.11);
+      }
+      .rate-label {
+        color: #596579;
+        font: 10px var(--mono);
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+      }
+      .rate-card h3 {
+        margin: 18px 0 8px;
+        color: #111827;
+        font: 700 30px var(--display);
+        letter-spacing: -0.05em;
+      }
+      .rate-card h3 small {
+        color: #596579;
+        font: 500 12px var(--sans);
+        letter-spacing: 0;
+      }
+      .rate-card p {
+        margin: 0 0 18px;
+        color: #596579;
+        font-size: 12px;
+        line-height: 1.6;
+      }
+      .rate-book {
+        margin-top: auto;
+        padding: 0;
+        border: 0;
+        background: none;
+        color: #075fcb;
+        font: 700 11px var(--sans);
+        cursor: pointer;
+      }
+      .rate-book span {
+        display: inline-block;
+        transition: transform 0.2s;
+      }
+      .rate-book:hover span {
+        transform: translate(3px, -2px);
+      }
+      .rate-note {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: center;
+        gap: 4px 24px;
+        margin-top: 16px;
+        padding: 20px 22px;
+        border: 1px solid #d9e2eb;
+        border-radius: 6px;
+        background: #f2f7fc;
+      }
+      .rate-note p {
+        margin: 0;
+        color: #596579;
+        font-size: 12px;
+        line-height: 1.6;
+      }
+      .rate-note p strong {
+        color: #111827;
+      }
+      .rate-note .button {
+        grid-column: 2;
+        grid-row: 1/3;
+        white-space: nowrap;
+      }
+      @media (max-width: 760px) {
+        .rate-grid {
+          grid-template-columns: 1fr;
+        }
+        .rate-card {
+          min-height: 0;
+        }
+        .rate-note {
+          grid-template-columns: 1fr;
+        }
+        .rate-note .button {
+          grid-column: auto;
+          grid-row: auto;
+          justify-content: center;
+          margin-top: 8px;
+        }
+      }
+    </style>
+    <style>
+      body {
+        isolation: isolate;
+      }
+      .ghost-backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+        pointer-events: none;
+      }
+      .ghost-backdrop img {
+        display: block;
+        width: min(62vw, 740px);
+        max-height: 70vh;
+        object-fit: contain;
+        opacity: 0.08;
+        mix-blend-mode: multiply;
+        filter: grayscale(1) saturate(0.65);
+        mask-image: radial-gradient(
+          ellipse at center,
+          #000 18%,
+          rgba(0, 0, 0, 0.76) 52%,
+          transparent 78%
+        );
+      }
+      .shell {
+        position: relative;
+        z-index: 1;
+      }
+      @media (max-width: 760px) {
+        .ghost-backdrop img {
+          width: 88vw;
+          max-height: 62vh;
+          opacity: 0.06;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="ghost-backdrop" aria-hidden="true">
+      <img src="assets/products/desktop.png" alt="" />
+    </div>
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="shell">
+      <div class="topline">
+        <span
+          ><b>&#8226;</b> Somerset West &amp; nearby · Remote support available</span
+        ><span>Good tech. Good people.</span>
+      </div>
+      <header class="header">
+        <a class="brand" href="#main" aria-label="CompuSoft home">
+          <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
+            <rect x="5" y="5" width="38" height="29" rx="5" />
+            <path d="M17 42h14M24 34v8" />
+            <path class="power" d="M24 11v8m-7-4a10 10 0 1 0 14 0" />
+          </svg>
+          <span class="brand-lockup">
+            <span class="brand-word">Compu<span>Soft</span></span>
+            <span class="brand-caption">Computer support</span>
+          </span>
+        </a>
+        <nav class="nav" id="nav" aria-label="Main navigation">
+          <a href="#services">What we do</a
+          ><a href="#pricing">Services &amp; pricing</a
+          ><a href="#contact">Contact</a
+          ><a
+            class="nav-cta"
+            href="https://wa.me/27820593491?text=Hi%20CompuSoft%2C%20I%20need%20help%20with%20my%20computer%20or%20IT%20issue."
+            target="_blank"
+            rel="noopener noreferrer"
+            >Let’s talk <span aria-hidden="true">&#8599;</span></a
+          >
+        </nav>
+        <button
+          class="menu-toggle"
+          aria-label="Open navigation"
+          aria-expanded="false"
+          aria-controls="nav"
+        >
+          ?
+        </button>
+      </header>
+      <main id="main">
+        <section class="hero" aria-labelledby="hero-title">
+          <div class="hero-copy">
+            <div class="eyebrow">Your local tech support crew</div>
+            <h1 id="hero-title">Technology<br />should just <em>work.</em></h1>
+            <p class="lede">
+              When your computer slows down, your Wi-Fi drops out, or tech gets
+              in the way, we make it feel simple again. Friendly help for homes
+              and small businesses around Somerset West.
+            </p>
+            <div class="actions">
+              <a class="btn-primary" href="https://wa.me/27820593491?text=Hi%20CompuSoft%2C%20I%20need%20help%20with%20my%20computer%20or%20IT%20issue."
+                >Get a hand <span aria-hidden="true">&#8599;</span></a
+              ><a class="btn-quiet" href="#pricing"
+                >See what we do <span aria-hidden="true">&#8599;</span></a
+              >
+            </div>
+            <div class="hero-meta">
+              <span><i></i> Clear starting prices</span
+              ><span><i></i> Remote or on-site</span>
+            </div>
+          </div>
+          <div
+            class="visual"
+            aria-label="CompuSoft technology support illustration"
+          >
+            <div class="orbit"></div>
+            <div class="orbit two"></div>
+            <div class="orbit three"></div>
+            <div class="core" aria-label="CompuSoft">
+              <svg
+                class="core-mark"
+                viewBox="0 0 100 100"
+                role="img"
+                aria-labelledby="core-mark-title"
+              >
+                <title id="core-mark-title">CompuSoft computer support</title>
+                <rect x="13" y="16" width="74" height="52" rx="8" />
+                <path d="M38 84h24M50 68v16" />
+                <path d="M50 27v14m-11-6a15 15 0 1 0 22 0" />
+              </svg>
+            </div>
+            <div class="core-value">
+              Machines fixing<br /><strong>machines.</strong>
+            </div>
+            <div class="float-card top">
+              <small>Support status</small
+              ><strong><span>?</span> Here when you need us</strong>
+            </div>
+            <div class="float-card bottom">
+              <small>Our approach</small
+              ><strong>Practical. Personal. Sorted.</strong>
+            </div>
+          </div>
+        </section>
+        <div class="section-rule">
+          <span>01 / <strong>Less tech stress</strong></span
+          ><span>More time for what matters <b aria-hidden="true">?</b></span
+          ><span>Somerset West · South Africa</span>
+        </div>
+        <section
+          class="services"
+          id="services"
+          aria-labelledby="services-title"
+        >
+          <div class="section-head">
+            <div>
+              <div class="eyebrow">How we can help</div>
+              <h2 id="services-title">
+                The right fix.<br /><span>No fuss.</span>
+              </h2>
+            </div>
+            <p class="section-note">
+              From a frustrating little glitch to getting your whole setup
+              running smoothly, we’ll meet you where you are.
+            </p>
+          </div>
+          <div class="cards">
+            <a class="service-card" href="#pricing"
+              ><span class="card-num">01 — COMPUTERS</span
+              ><span class="card-icon" aria-hidden="true"
+                ><svg viewBox="0 0 40 40">
+                  <rect x="5" y="7" width="30" height="22" rx="2" />
+                  <path d="M14 35h12M20 29v6M11 13h18" /></svg
+              ></span>
+              <h3>Computer help</h3>
+              <p>
+                Slow PCs, setup, upgrades, troubleshooting and getting your
+                files back in order.
+              </p>
+              <span class="card-arrow" aria-hidden="true">&#8599;</span></a
+            >
+            <a class="service-card" href="#pricing"
+              ><span class="card-num">02 — CONNECTIVITY</span
+              ><span class="card-icon" aria-hidden="true"
+                ><svg viewBox="0 0 40 40">
+                  <path
+                    d="M5 15a22 22 0 0 1 30 0M10 21a15 15 0 0 1 20 0M15 27a8 8 0 0 1 10 0M20 33h.01"
+                  /></svg
+              ></span>
+              <h3>Wi-Fi that behaves</h3>
+              <p>
+                Better coverage, reliable connections and home networks that
+                work in every room.
+              </p>
+              <span class="card-arrow" aria-hidden="true">&#8599;</span></a
+            >
+            <a class="service-card" href="#pricing"
+              ><span class="card-num">03 — PEACE OF MIND</span
+              ><span class="card-icon" aria-hidden="true"
+                ><svg viewBox="0 0 40 40">
+                  <path
+                    d="M20 4 33 9v9c0 9-5 14-13 18C12 32 7 27 7 18V9l13-5Z"
+                  />
+                  <path d="m14 20 4 4 8-9" /></svg
+              ></span>
+              <h3>Security &amp; setup</h3>
+              <p>
+                Device security, new computer setup and calm, clear guidance for
+                everyday tech.
+              </p>
+              <span class="card-arrow" aria-hidden="true">&#8599;</span></a
+            >
+          </div>
+        </section>
+        <section
+          id="pricing"
+          class="site-section"
+          aria-labelledby="pricing-title"
+        >
+          <div class="extras-heading">
+            <div class="eyebrow">Straightforward starting rates</div>
+            <h2 id="pricing-title">A clear place to start.</h2>
+            <p>
+              We agree on the work and final price with you before getting
+              started.
+            </p>
+          </div>
+          <div class="rate-grid">
+            <article class="rate-card">
+              <span class="rate-label">Initial advice</span>
+              <h3>Free</h3>
+              <p>A friendly first conversation to find the right next step.</p>
+              <button
+                class="rate-book"
+                type="button"
+                data-book-service="Advice"
+              >
+                Ask for advice <span aria-hidden="true">&#8599;</span>
+              </button>
+            </article>
+            <article class="rate-card">
+              <span class="rate-label">Home &amp; business IT support</span>
+              <h3>R225 <small>/ hour</small></h3>
+              <p>Computer, device, software and general troubleshooting.</p>
+              <button
+                class="rate-book"
+                type="button"
+                data-book-service="Home &amp; Business IT Support"
+              >
+                Book support <span aria-hidden="true">&#8599;</span>
+              </button>
+            </article>
+            <article class="rate-card">
+              <span class="rate-label">Remote desktop support</span>
+              <h3>R175 <small>/ hour</small></h3>
+              <p>Remote troubleshooting, billed in 30-minute increments.</p>
+              <button
+                class="rate-book"
+                type="button"
+                data-book-service="Remote Desktop Support"
+              >
+                Book remote help <span aria-hidden="true">&#8599;</span>
+              </button>
+            </article>
+            <article class="rate-card">
+              <span class="rate-label">Wi-Fi &amp; network setup</span>
+              <h3>From R325</h3>
+              <p>Router, Wi-Fi and connected-device setup.</p>
+              <button
+                class="rate-book"
+                type="button"
+                data-book-service="Wi-Fi &amp; Network Setup"
+              >
+                Set up Wi-Fi <span aria-hidden="true">&#8599;</span>
+              </button>
+            </article>
+            <article class="rate-card">
+              <span class="rate-label">New computer setup</span>
+              <h3>From R425</h3>
+              <p>Get a new computer ready and transfer your files.</p>
+              <button
+                class="rate-book"
+                type="button"
+                data-book-service="New Computer Setup &amp; Data Transfer"
+              >
+                Set up a computer <span aria-hidden="true">&#8599;</span>
+              </button>
+            </article>
+          </div>
+          <aside class="rate-note">
+            <p>
+              <strong>Need something else?</strong> Web design, custom software,
+              malware cleanup, data recovery, AI setup and small-business
+              projects are quoted around the work involved.
+            </p>
+            <p>
+              Starting rates are in South African rand. Hardware, licences and
+              travel, where applicable, are discussed separately.
+            </p>
+            <a class="button button-primary" href="#contact"
+              >Request a quote <span aria-hidden="true">&#8599;</span></a
+            >
+          </aside>
+        </section>
+        <section
+          id="contact"
+          class="site-section contact-section"
+          aria-labelledby="contact-title"
+        >
+          <div class="extras-heading">
+            <div class="eyebrow">Get in touch</div>
+            <h2 id="contact-title">Tell us what needs fixing.</h2>
+            <p>
+              Send us a quick WhatsApp message with the device or service and
+              what is going wrong. A short description is enough to start.
+            </p>
+          </div>
+          <div class="content-card whatsapp-contact">
+            <p>Start a WhatsApp chat with CompuSoft.</p>
+            <a
+              class="btn-primary"
+              href="https://wa.me/27820593491?text=Hi%20CompuSoft%2C%20I%20need%20help%20with%20my%20computer%20or%20IT%20issue."
+              target="_blank"
+              rel="noopener noreferrer"
+              >Message us on WhatsApp <span aria-hidden="true">&#8599;</span></a
+            >
+            <p class="form-note">Or call <a href="tel:0820593491">082 059 3491</a>.</p>
+          </div>
+          <aside
+            class="contact-guidance"
+            aria-labelledby="contact-guidance-title"
+          >
+            <h2 id="contact-guidance-title">What to include in your message</h2>
+            <p>
+              If you know them, these details can help us understand the problem
+              and suggest a useful next step:
+            </p>
+            <ul>
+              <li>Which device or service is affected</li>
+              <li>What happens, including any exact error message</li>
+              <li>
+                When it started and whether anything changed around that time
+              </li>
+              <li>Whether the issue affects one device or several</li>
+            </ul>
+            <p class="contact-security-note">
+              Please leave out passwords, one-time codes, and banking details.
+            </p>
+          </aside>
+          <section class="contact-hours" aria-labelledby="hours-title">
+            <div>
+              <span class="eyebrow">Working hours</span>
+              <h2 id="hours-title">When you can reach CompuSoft.</h2>
+              <p>
+                On-site service across Somerset West and surrounding areas
+                within 25 km.
+              </p>
+            </div>
+            <dl class="hours-list">
+              <div>
+                <dt>Monday – Friday</dt>
+                <dd>08:00 – 17:00</dd>
+              </div>
+              <div>
+                <dt>Saturday</dt>
+                <dd>09:00 – 13:00</dd>
+              </div>
+              <div>
+                <dt>Sunday</dt>
+                <dd>Closed</dd>
+              </div>
+            </dl>
+          </section>
+        </section>
+        <section class="cta" aria-labelledby="cta-title">
+          <div>
+            <div class="eyebrow">A real person, ready to help</div>
+            <h2 id="cta-title">Let’s get your tech <span>sorted.</span></h2>
+          </div>
+          <div class="cta-right">
+            <div class="phone"><small>Call or WhatsApp</small>082 059 3491</div>
+            <a
+              class="btn-primary"
+              href="https://wa.me/27820593491?text=Hi%20CompuSoft%2C%20I%20need%20help%20with%20my%20computer%20or%20IT%20issue."
+              target="_blank"
+              rel="noopener noreferrer"
+              >Message us on WhatsApp <span aria-hidden="true">&#8599;</span></a
+            >
+          </div>
+        </section>
+      </main>
+      <footer class="footer">
+        <span>© 2026 CompuSoft Computer Support</span
+        ><span
+          >Smart solutions. Sorted. &nbsp;·&nbsp;
+          <a href="mailto:mail@compusoft.co.za">mail@compusoft.co.za</a></span
+        >
+      </footer>
+    </div>
+    <script type="module">
+      import {
+        animate,
+        stagger,
+      } from "https://cdn.jsdelivr.net/npm/animejs@4.0.2/+esm";
+      animate(".topline, .header", {
+        opacity: [0, 1],
+        y: [-8, 0],
+        delay: stagger(90),
+        duration: 650,
+        ease: "out(3)",
+      });
+      animate(".hero-copy > *", {
+        opacity: [0, 1],
+        y: [22, 0],
+        delay: stagger(105, { start: 170 }),
+        duration: 850,
+        ease: "out(3)",
+      });
+      animate(".visual", {
+        opacity: [0, 1],
+        scale: [0.94, 1],
+        delay: 320,
+        duration: 1100,
+        ease: "out(3)",
+      });
+      animate(".float-card", {
+        opacity: [0, 1],
+        y: [12, 0],
+        delay: stagger(160, { start: 800 }),
+        duration: 700,
+        ease: "out(3)",
+      });
+      animate(".core", {
+        scale: [1, 1.045],
+        duration: 2200,
+        alternate: true,
+        loop: true,
+        ease: "inOut(2)",
+      });
+      animate(".float-card.top", {
+        y: "-9px",
+        duration: 2400,
+        alternate: true,
+        loop: true,
+        ease: "inOut(2)",
+      });
+      animate(".float-card.bottom", {
+        y: "8px",
+        duration: 2800,
+        alternate: true,
+        loop: true,
+        ease: "inOut(2)",
+      });
+      const observer = new IntersectionObserver(
+        (entries) =>
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            animate(entry.target, {
+              opacity: [0, 1],
+              y: [22, 0],
+              duration: 700,
+              ease: "out(3)",
+            });
+            observer.unobserve(entry.target);
+          }),
+        { threshold: 0.12 },
+      );
+      document
+        .querySelectorAll(
+          ".service-card, .service-table-wrap, .faq-item, .contact-section > *, .cta",
+        )
+        .forEach((item) => {
+          item.style.opacity = "0";
+          observer.observe(item);
+        });
+    </script>
+    <script>
+      const menu = document.querySelector(".menu-toggle");
+      menu.addEventListener("click", () => {
+        const expanded = menu.getAttribute("aria-expanded") === "true";
+        menu.setAttribute("aria-expanded", String(!expanded));
+        menu.setAttribute(
+          "aria-label",
+          expanded ? "Open navigation" : "Close navigation",
+        );
+        document.querySelector(".nav").classList.toggle("open", !expanded);
+      });
+      document.querySelectorAll(".nav a").forEach((link) =>
+        link.addEventListener("click", () => {
+          document.querySelector(".nav").classList.remove("open");
+          menu.setAttribute("aria-expanded", "false");
+          menu.setAttribute("aria-label", "Open navigation");
+        }),
+      );
+      document.querySelectorAll("[data-book-service]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const service = button.dataset.bookService;
+          const message = `Hi CompuSoft, I would like help with ${service}.`;
+          const url = `https://wa.me/27820593491?text=${encodeURIComponent(message)}`;
+          window.open(url, "_blank", "noopener,noreferrer");
+        });
+      });
+    </script>
+  </body>
+</html>

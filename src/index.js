@@ -94,6 +94,59 @@ export default {
       }
     }
 
+    if (url.pathname === '/api/problem-report') {
+      if (request.headers.get('Origin') && request.headers.get('Origin') !== url.origin) return json({ error: 'Cross-origin requests are not allowed.' }, 403);
+      if (request.method === 'OPTIONS') return new Response(null, { headers: { ...corsHeaders(), ...securityHeaders(), 'Cache-Control': 'no-store' } });
+      if (request.method !== 'POST') return json({ error: 'Method not allowed.' }, 405);
+      let data;
+      try {
+        if (Number(request.headers.get('Content-Length') || 0) > 8000) return json({ error: 'Your message is too long.' }, 413);
+        data = await request.json();
+      } catch {
+        return json({ error: 'Request body must be valid JSON.' }, 400);
+      }
+      if (!data || typeof data !== 'object' || Array.isArray(data)) return json({ error: 'Request body must be a JSON object.' }, 400);
+      if (data.website) return json({ ok: true });
+      const name = cleanField(data.name, 120);
+      const phone = cleanField(data.phone, 40);
+      const message = cleanField(data.message, 3000);
+      if (!message) return json({ error: 'Please describe the problem.' }, 400);
+      if (!env.EMAIL) return json({ error: 'Email service is not configured. Please call CompuSoft.' }, 503);
+
+      const now = new Date().toISOString();
+      if (env.DB) {
+        try {
+          await env.DB.prepare(`INSERT INTO inquiries (id, source, name, topic, message, status, created_at, updated_at)
+            VALUES (?, 'problem_report', ?, 'Website problem report', ?, 'new', ?, ?)`)
+            .bind(crypto.randomUUID(), name || 'Website visitor', [phone ? `Phone: ${phone}` : '', message].filter(Boolean).join('\n\n'), now, now).run();
+        } catch (error) {
+          console.error(JSON.stringify({ message: 'Problem report could not be stored', error: error?.message || String(error) }));
+          return json({ error: 'Your report could not be saved. Please call CompuSoft.' }, 503);
+        }
+      }
+
+      try {
+        const details = [
+          `Problem reported through the CompuSoft website${name ? ` by ${name}` : ''}.`,
+          phone ? `Phone: ${phone}` : 'Phone: Not provided',
+          '',
+          'Problem:',
+          message,
+        ].join('\n');
+        await env.EMAIL.send({
+          from: 'mail@compusoft.co.za',
+          to: 'zanderbooyzen@gmail.com',
+          subject: `Website problem report${name ? ` from ${name.replace(/[\r\n]+/g, ' ')}` : ''}`,
+          text: details,
+          html: `<p>Problem reported through the CompuSoft website${name ? ` by ${escapeHtml(name)}` : ''}.</p><p><strong>Phone:</strong> ${escapeHtml(phone || 'Not provided')}</p><p><strong>Problem:</strong><br>${escapeHtml(message).replace(/\n/g, '<br>')}</p>`,
+        });
+        return json({ ok: true });
+      } catch (error) {
+        console.error('Problem report email failed:', error?.code || error?.message || error);
+        return json({ error: 'Email could not be sent right now. Please call CompuSoft.' }, 500);
+      }
+    }
+
     const assetResponse = await env.ASSETS.fetch(request);
     const headers = new Headers(assetResponse.headers);
     for (const [name, value] of Object.entries(securityHeaders())) headers.set(name, value);
