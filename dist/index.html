@@ -115,7 +115,7 @@
         <p class="success-kicker">Message sent</p>
         <h2 id="success-title">Thanks for getting in touch.</h2>
         <p id="success-copy">We’ve received your message and will get in touch as soon as possible.</p>
-        <button id="new-report" type="button">Send another message</button>
+        <button id="new-report" type="button">OK</button>
       </div>
     </section>
     <script>
@@ -136,9 +136,10 @@
       });
       document.getElementById("help-form").addEventListener("submit", async (event) => {
         event.preventDefault();
-        const button = event.currentTarget.querySelector('button[type="submit"]');
+        const formElement = event.currentTarget;
+        const button = formElement.querySelector('button[type="submit"]');
         const status = document.getElementById("form-status");
-        const form = new FormData(event.currentTarget);
+        const form = new FormData(formElement);
         const name = String(form.get("name") || "").trim();
         const email = String(form.get("email") || "").trim();
         const phone = String(form.get("phone") || "").trim();
@@ -153,9 +154,9 @@
           });
           const result = await response.json().catch(() => ({}));
           if (!response.ok) throw new Error(result.error || "Your report could not be sent.");
-          showSentConfirmation(event.currentTarget, status);
+          showSentConfirmation(formElement, status);
         } catch (error) {
-          if (error instanceof TypeError) showSentConfirmation(event.currentTarget, status);
+          if (error instanceof TypeError) showSentConfirmation(formElement, status);
           else status.textContent = `${error.message} Please call 082 059 3491.`;
         } finally {
           button.disabled = false;
