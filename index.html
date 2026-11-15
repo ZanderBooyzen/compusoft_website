@@ -52,11 +52,20 @@
       button:focus-visible, a:focus-visible { outline: 3px solid #85baff; outline-offset: 3px; }
       #form-status { min-height: 1.5em; margin: 0; text-align: center; font-weight: 600; }
       .privacy { margin: 18px 0 0 !important; font-size: 12px !important; }
+      .success-screen { position: fixed; inset: 0; z-index: 10; display: grid; place-items: center; width: 100%; max-width: none; height: 100%; max-height: none; margin: 0; padding: 24px; border: 0; color: inherit; background: rgba(15,31,49,.58); backdrop-filter: blur(5px); }
+      .success-screen::backdrop { background: transparent; }
+      .success-card { width: min(100%, 500px); padding: clamp(30px, 6vw, 48px); border: 1px solid #d9e4ef; border-radius: 22px; background: #fff; text-align: center; box-shadow: 0 24px 70px rgba(0,0,0,.22); animation: success-arrive .28s ease-out both; }
+      .success-icon { display: grid; place-items: center; width: 70px; height: 70px; margin: 0 auto 20px; border-radius: 50%; background: #e8f4ff; color: #1769cf; }
+      .success-icon svg { width: 34px; height: 34px; fill: none; stroke: currentColor; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+      .success-card h2 { margin: 0 0 12px; font: 800 clamp(26px, 5vw, 34px)/1.1 "Manrope", Arial, sans-serif; letter-spacing: -.04em; }
+      .success-card p { margin: 0 0 25px; color: #596579; line-height: 1.7; }
+      .success-card .success-kicker { margin: 0 0 8px; color: #1769cf; font: 700 12px/1.4 "DM Mono", Consolas, monospace; letter-spacing: .13em; text-transform: uppercase; }
+      @keyframes success-arrive { from { opacity: 0; transform: translateY(10px) scale(.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
       footer { position: relative; z-index: 1; padding-block: 22px; border-top: 1px solid rgba(217,226,235,.8); color: #596579; font-size: 13px; background: rgba(245,248,252,.65); }
       footer .wrap { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
       footer a { color: #155bb2; font-weight: 700; text-decoration-thickness: 1px; text-underline-offset: 3px; }
       @media (max-width: 760px) { main { padding-block: 34px; } .layout { grid-template-columns: 1fr; gap: 28px; max-width: 560px; } .intro { text-align: center; } .intro-row { flex-direction: column; gap: 0; } .main-logo { width: 100%; margin-bottom: 24px; } h1 { margin-inline: auto; font-size: clamp(40px, 11vw, 58px); } .intro-copy > p:last-child { margin-inline: auto; font-size: 15px; } .card { border-radius: 16px; } button { width: 100%; } }
-      @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
+      @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } .success-card { animation: none; } }
     </style>
   </head>
   <body>
@@ -99,7 +108,21 @@
       </div>
     </main>
     <footer><div class="wrap"><span>CompuSoft Computer Support</span><a href="tel:0820593491">Call 082 059 3491</a></div></footer>
+    <dialog id="success-screen" class="success-screen" aria-labelledby="success-title" aria-describedby="success-copy">
+      <div class="success-card">
+        <div class="success-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12 4.5 4.5L19 7" /></svg></div>
+        <p class="success-kicker">Message sent</p>
+        <h2 id="success-title">Thanks for getting in touch.</h2>
+        <p id="success-copy">We’ve received your message and will get in touch as soon as possible.</p>
+        <button id="new-report" type="button">Send another message</button>
+      </div>
+    </dialog>
     <script>
+      const successScreen = document.getElementById("success-screen");
+      document.getElementById("new-report").addEventListener("click", () => {
+        successScreen.close();
+        document.getElementById("name").focus();
+      });
       document.getElementById("help-form").addEventListener("submit", async (event) => {
         event.preventDefault();
         const button = event.currentTarget.querySelector('button[type="submit"]');
@@ -119,8 +142,10 @@
           });
           const result = await response.json().catch(() => ({}));
           if (!response.ok) throw new Error(result.error || "Your report could not be sent.");
-          status.textContent = "Message sent.";
           event.currentTarget.reset();
+          status.textContent = "";
+          successScreen.showModal();
+          document.getElementById("new-report").focus();
         } catch (error) {
           status.textContent = error instanceof TypeError
             ? "Message Send"
