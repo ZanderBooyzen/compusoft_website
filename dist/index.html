@@ -68,11 +68,14 @@
           <h2 id="form-title">What can we help with?</h2>
           <p>Share a few details so we can understand the issue and get back to you.</p>
           <form id="help-form">
-            <label for="name">Your name <span>(optional)</span>
-              <input id="name" name="name" type="text" autocomplete="name" maxlength="120" placeholder="e.g. Sam" />
+            <label for="name">Your name
+              <input id="name" name="name" type="text" autocomplete="name" maxlength="120" placeholder="e.g. Sam" required />
             </label>
-            <label for="phone">Your phone number <span>(optional)</span>
-              <input id="phone" name="phone" type="tel" autocomplete="tel" maxlength="40" placeholder="e.g. 082 123 4567" />
+            <label for="email">Your email address
+              <input id="email" name="email" type="email" autocomplete="email" maxlength="200" placeholder="e.g. sam@example.com" required />
+            </label>
+            <label for="phone">Your phone number
+              <input id="phone" name="phone" type="tel" autocomplete="tel" maxlength="40" placeholder="e.g. 082 123 4567" required />
             </label>
             <label for="problem">Describe your problem
               <textarea id="problem" name="problem" required maxlength="2000" aria-describedby="problem-hint" placeholder="What’s happening? Include the device and any error message you can see."></textarea>
@@ -82,7 +85,7 @@
             <button type="submit">Email my problem report <span aria-hidden="true">→</span></button>
             <p id="form-status" class="hint" role="status" aria-live="polite"></p>
           </form>
-          <p class="privacy">Your report will be emailed directly to CompuSoft. We’ll use your contact number to follow up if you provide it.</p>
+          <p class="privacy">All fields are required so we can reply to your report.</p>
         </section>
 
       </div>
@@ -95,6 +98,7 @@
         const status = document.getElementById("form-status");
         const form = new FormData(event.currentTarget);
         const name = String(form.get("name") || "").trim();
+        const email = String(form.get("email") || "").trim();
         const phone = String(form.get("phone") || "").trim();
         const problem = String(form.get("problem") || "").trim();
         button.disabled = true;
@@ -103,7 +107,7 @@
           const response = await fetch("/api/problem-report", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ name, phone, message: problem, website: String(form.get("website") || "").trim() }),
+            body: JSON.stringify({ name, email, phone, message: problem, website: String(form.get("website") || "").trim() }),
           });
           const result = await response.json().catch(() => ({}));
           if (!response.ok) throw new Error(result.error || "Your report could not be sent.");
