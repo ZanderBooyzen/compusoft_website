@@ -910,7 +910,7 @@
           ><a href="#contact">Contact</a
           ><a
             class="nav-cta"
-            href="https://wa.me/27820593491?text=Hi%20CompuSoft%2C%20I%20need%20help%20with%20my%20computer%20or%20IT%20issue."
+            href="index.html#contact"
             target="_blank"
             rel="noopener noreferrer"
             >Let’s talk <span aria-hidden="true">&#8599;</span></a
@@ -936,7 +936,7 @@
               and small businesses around Somerset West.
             </p>
             <div class="actions">
-              <a class="btn-primary" href="https://wa.me/27820593491?text=Hi%20CompuSoft%2C%20I%20need%20help%20with%20my%20computer%20or%20IT%20issue."
+              <a class="btn-primary" href="index.html#contact"
                 >Get a hand <span aria-hidden="true">&#8599;</span></a
               ><a class="btn-quiet" href="#pricing"
                 >See what we do <span aria-hidden="true">&#8599;</span></a
@@ -1149,20 +1149,19 @@
             <div class="eyebrow">Get in touch</div>
             <h2 id="contact-title">Tell us what needs fixing.</h2>
             <p>
-              Send us a quick WhatsApp message with the device or service and
-              what is going wrong. A short description is enough to start.
+              Use the email form to describe the device or service and what is going wrong. A short description is enough to start.
             </p>
           </div>
           <div class="content-card whatsapp-contact">
-            <p>Start a WhatsApp chat with CompuSoft.</p>
+            <p>Send CompuSoft a problem report by email.</p>
             <a
               class="btn-primary"
-              href="https://wa.me/27820593491?text=Hi%20CompuSoft%2C%20I%20need%20help%20with%20my%20computer%20or%20IT%20issue."
+              href="index.html#contact"
               target="_blank"
               rel="noopener noreferrer"
-              >Message us on WhatsApp <span aria-hidden="true">&#8599;</span></a
+              >Send a support request <span aria-hidden="true">&#8599;</span></a
             >
-            <p class="form-note">Or call <a href="tel:0820593491">082 059 3491</a>.</p>
+            <p class="form-note">Use the email form and we?ll get back to you.</p>
           </div>
           <aside
             class="contact-guidance"
@@ -1216,13 +1215,13 @@
             <h2 id="cta-title">Let’s get your tech <span>sorted.</span></h2>
           </div>
           <div class="cta-right">
-            <div class="phone"><small>Call or WhatsApp</small>082 059 3491</div>
+            <div class="phone"><small>Support requests</small>Email form</div>
             <a
               class="btn-primary"
-              href="https://wa.me/27820593491?text=Hi%20CompuSoft%2C%20I%20need%20help%20with%20my%20computer%20or%20IT%20issue."
+              href="index.html#contact"
               target="_blank"
               rel="noopener noreferrer"
-              >Message us on WhatsApp <span aria-hidden="true">&#8599;</span></a
+              >Send a support request <span aria-hidden="true">&#8599;</span></a
             >
           </div>
         </section>
@@ -1332,10 +1331,7 @@
       );
       document.querySelectorAll("[data-book-service]").forEach((button) => {
         button.addEventListener("click", () => {
-          const service = button.dataset.bookService;
-          const message = `Hi CompuSoft, I would like help with ${service}.`;
-          const url = `https://wa.me/27820593491?text=${encodeURIComponent(message)}`;
-          window.open(url, "_blank", "noopener,noreferrer");
+          window.location.href = "index.html#contact";
         });
       });
     </script>

@@ -111,7 +111,7 @@
 
       </div>
     </main>
-    <footer><div class="wrap"><span>CompuSoft Computer Support</span><a href="tel:0820593491">Call 082 059 3491</a></div></footer>
+    <footer><div class="wrap"><span>CompuSoft Computer Support</span><a href="mailto:mail@compusoft.co.za">Email CompuSoft</a></div></footer>
     <section id="success-screen" class="success-screen" role="dialog" aria-modal="true" aria-labelledby="success-title" aria-describedby="success-copy" hidden>
       <div class="success-card">
         <div class="success-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12 4.5 4.5L19 7" /></svg></div>
@@ -161,7 +161,7 @@
           showSentConfirmation(formElement, status);
         } catch (error) {
           if (error instanceof TypeError) showSentConfirmation(formElement, status);
-          else status.textContent = `${error.message} Please call 082 059 3491.`;
+          else status.textContent = `${error.message} Please try again or email mail@compusoft.co.za.`;
         } finally {
           button.disabled = false;
         }
