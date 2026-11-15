@@ -25,15 +25,15 @@
       .wrap { width: min(1080px, calc(100% - 40px)); margin-inline: auto; }
       main { flex: 1; display: grid; place-items: center; padding-block: clamp(40px, 8vh, 88px); position: relative; z-index: 1; }
       .layout { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); align-items: center; gap: clamp(36px, 6vw, 72px); }
-      .intro { text-align: left; }
-      .intro-row { display: flex; align-items: center; gap: clamp(18px, 2.5vw, 30px); }
+      .intro { text-align: center; }
+      .intro-row { display: flex; flex-direction: column; align-items: center; gap: 0; }
       .intro-copy { min-width: 0; }
-      .main-logo { display: block; flex: 0 0 auto; width: clamp(150px, 17vw, 200px); height: auto; margin: 0; }
+      .main-logo { display: block; width: min(115%, 580px); height: auto; margin: 0 auto 30px; }
       .card { text-align: center; }
       .intro .eyebrow { display: inline-flex; align-items: center; gap: 9px; margin: 0 0 18px; color: #1769cf; font: 700 12px/1.4 "DM Mono", Consolas, monospace; letter-spacing: .12em; text-transform: uppercase; }
       .intro .eyebrow::before { content: ""; width: 22px; height: 2px; border-radius: 2px; background: currentColor; }
-      h1 { max-width: 360px; margin: 0 0 14px; font: 800 clamp(32px, 3.7vw, 48px)/1.02 "Manrope", Arial, sans-serif; letter-spacing: -.06em; text-wrap: balance; }
-      .intro-copy > p:last-child { max-width: 360px; margin: 0; color: #596579; font-size: clamp(14px, 1.4vw, 16px); line-height: 1.7; }
+      h1 { max-width: 620px; margin: 0 auto 18px; font: 800 clamp(42px, 5.2vw, 66px)/1.02 "Manrope", Arial, sans-serif; letter-spacing: -.06em; text-wrap: balance; }
+      .intro-copy > p:last-child { max-width: 620px; margin: 0 auto; color: #596579; font-size: clamp(15px, 1.6vw, 17px); line-height: 1.7; }
       .card { padding: clamp(24px, 4vw, 38px); border: 1px solid rgba(196,211,226,.85); border-radius: 20px; background: rgba(255,255,255,.92); box-shadow: 0 20px 55px rgba(17,45,82,.09); }
       .card h2 { margin: 0 0 8px; font-size: clamp(22px, 3vw, 28px); letter-spacing: -.03em; }
       .card > p { margin: 0 0 27px; color: #596579; font-size: 14px; line-height: 1.6; }
@@ -55,7 +55,7 @@
       footer { position: relative; z-index: 1; padding-block: 22px; border-top: 1px solid rgba(217,226,235,.8); color: #596579; font-size: 13px; background: rgba(245,248,252,.65); }
       footer .wrap { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
       footer a { color: #155bb2; font-weight: 700; text-decoration-thickness: 1px; text-underline-offset: 3px; }
-      @media (max-width: 760px) { main { padding-block: 34px; } .layout { grid-template-columns: 1fr; gap: 28px; max-width: 560px; } .intro { text-align: center; } .intro-row { flex-direction: column; gap: 18px; } .main-logo { width: min(100%, 360px); } h1 { margin-inline: auto; font-size: clamp(40px, 11vw, 58px); } .intro-copy > p:last-child { margin-inline: auto; font-size: 15px; } .card { border-radius: 16px; } button { width: 100%; } }
+      @media (max-width: 760px) { main { padding-block: 34px; } .layout { grid-template-columns: 1fr; gap: 28px; max-width: 560px; } .intro { text-align: center; } .intro-row { flex-direction: column; gap: 0; } .main-logo { width: min(100%, 440px); margin-bottom: 24px; } h1 { margin-inline: auto; font-size: clamp(40px, 11vw, 58px); } .intro-copy > p:last-child { margin-inline: auto; font-size: 15px; } .card { border-radius: 16px; } button { width: 100%; } }
       @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
     </style>
   </head>
