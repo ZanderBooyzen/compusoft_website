@@ -107,7 +107,7 @@
           });
           const result = await response.json().catch(() => ({}));
           if (!response.ok) throw new Error(result.error || "Your report could not be sent.");
-          status.textContent = "Your problem report was emailed to CompuSoft. Thank you.";
+          status.textContent = "Message sent.";
           event.currentTarget.reset();
         } catch (error) {
           status.textContent = error instanceof TypeError
