@@ -65,7 +65,8 @@
       footer { position: relative; z-index: 1; padding-block: 22px; border-top: 1px solid rgba(217,226,235,.8); color: #596579; font-size: 13px; background: rgba(245,248,252,.65); }
       footer .wrap { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
       footer a { color: #155bb2; font-weight: 700; text-decoration-thickness: 1px; text-underline-offset: 3px; }
-      .tailscale-mark { display: block; width: min(170px, 45vw); height: auto; margin: 18px auto 0; }
+      .footer-brands { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 24px; margin-top: 18px; }
+      .footer-brands img { display: block; width: auto; height: clamp(24px, 3vw, 36px); max-width: 44vw; object-fit: contain; }
       @media (max-width: 760px) { main { padding-block: 34px; } .layout { grid-template-columns: 1fr; gap: 28px; max-width: 560px; } .intro { text-align: center; } .intro-row { flex-direction: column; gap: 0; } .main-logo { width: 100%; margin-bottom: 24px; } h1 { margin-inline: auto; font-size: clamp(40px, 11vw, 58px); } .intro-copy > p:last-child { margin-inline: auto; font-size: 15px; } .card { border-radius: 16px; } button { width: 100%; } }
       @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } .success-card { animation: none; } }
     </style>
@@ -113,7 +114,10 @@
       </div>
     </main>
     <footer>
-      <div class="wrap"><img class="tailscale-mark" src="tailscale-logo.png" alt="Tailscale" /></div>
+      <div class="wrap footer-brands">
+        <img src="tailscale-logo.png" alt="Tailscale" />
+        <img src="rustdesk.png" alt="RustDesk" />
+      </div>
     </footer>
     <section id="success-screen" class="success-screen" role="dialog" aria-modal="true" aria-labelledby="success-title" aria-describedby="success-copy" hidden>
       <div class="success-card">
