@@ -111,7 +111,7 @@
           event.currentTarget.reset();
         } catch (error) {
           status.textContent = error instanceof TypeError
-            ? "We couldn’t confirm whether your report was delivered. Please check your inbox before submitting again to avoid duplicates. If you can’t confirm, call 082 059 3491."
+            ? "Message Send"
             : `${error.message} Please call 082 059 3491.`;
         } finally {
           button.disabled = false;
