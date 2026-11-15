@@ -111,17 +111,17 @@ export default {
       const phone = cleanField(data.phone, 40);
       const message = cleanField(data.message, 3000);
       if (!message) return json({ error: 'Please describe the problem.' }, 400);
-      if (!env.EMAIL) return json({ error: 'Email service is not configured. Please call CompuSoft.' }, 503);
+      if (!env.EMAIL) return json({ error: 'Email service is not configured.' }, 503);
 
       const now = new Date().toISOString();
       if (env.DB) {
         try {
-          await env.DB.prepare(`INSERT INTO inquiries (id, source, name, topic, message, status, created_at, updated_at)
-            VALUES (?, 'problem_report', ?, 'Website problem report', ?, 'new', ?, ?)`)
-            .bind(crypto.randomUUID(), name || 'Website visitor', [phone ? `Phone: ${phone}` : '', message].filter(Boolean).join('\n\n'), now, now).run();
+          await env.DB.prepare(`INSERT INTO inquiries (id, source, name, phone, topic, message, status, created_at, updated_at)
+            VALUES (?, 'contact', ?, ?, 'Website problem report', ?, 'new', ?, ?)`)
+            .bind(crypto.randomUUID(), name || 'Website visitor', phone, message, now, now).run();
         } catch (error) {
           console.error(JSON.stringify({ message: 'Problem report could not be stored', error: error?.message || String(error) }));
-          return json({ error: 'Your report could not be saved. Please call CompuSoft.' }, 503);
+          return json({ error: 'Your report could not be saved.' }, 503);
         }
       }
 
@@ -143,7 +143,7 @@ export default {
         return json({ ok: true });
       } catch (error) {
         console.error('Problem report email failed:', error?.code || error?.message || error);
-        return json({ error: 'Email could not be sent right now. Please call CompuSoft.' }, 500);
+        return json({ error: 'Email could not be sent right now.' }, 500);
       }
     }
 
