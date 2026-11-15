@@ -108,10 +108,11 @@ export default {
       if (!data || typeof data !== 'object' || Array.isArray(data)) return json({ error: 'Request body must be a JSON object.' }, 400);
       if (data.website) return json({ ok: true });
       const name = cleanField(data.name, 120);
+      const surname = cleanField(data.surname, 120);
       const email = cleanField(data.email, 200);
       const phone = cleanField(data.phone, 40);
       const message = cleanField(data.message, 3000);
-      if (!name || !email || !phone || !message) return json({ error: 'Please complete every field.' }, 400);
+      if (!name || !surname || !email || !phone || !message) return json({ error: 'Please complete every field.' }, 400);
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return json({ error: 'Please enter a valid email address.' }, 400);
       if (!env.EMAIL) return json({ error: 'Email service is not configured.' }, 503);
 
@@ -120,7 +121,7 @@ export default {
         try {
           await env.DB.prepare(`INSERT INTO inquiries (id, source, name, email, phone, topic, message, status, created_at, updated_at)
             VALUES (?, 'contact', ?, ?, ?, 'Website problem report', ?, 'new', ?, ?)`)
-            .bind(crypto.randomUUID(), name, email, phone, message, now, now).run();
+            .bind(crypto.randomUUID(), `${name} ${surname}`, email, phone, message, now, now).run();
         } catch (error) {
           console.error(JSON.stringify({ message: 'Problem report could not be stored', error: error?.message || String(error) }));
           return json({ error: 'Your report could not be saved.' }, 503);
@@ -129,7 +130,10 @@ export default {
 
       try {
         const details = [
-          `Problem reported through the CompuSoft website${name ? ` by ${name}` : ''}.`,
+          'Problem reported through the CompuSoft website',
+          '',
+          `Name: ${name}`,
+          `Surname: ${surname}`,
           `Email: ${email}`,
           `Phone: ${phone}`,
           '',
@@ -140,9 +144,9 @@ export default {
           from: 'mail@compusoft.co.za',
           to: 'zanderbooyzen@gmail.com',
           replyTo: email,
-          subject: `Website problem report${name ? ` from ${name.replace(/[\r\n]+/g, ' ')}` : ''}`,
+          subject: `Website problem report from ${`${name} ${surname}`.replace(/[\r\n]+/g, ' ')}`,
           text: details,
-          html: `<p>Problem reported through the CompuSoft website by ${escapeHtml(name)}.</p><p><strong>Email:</strong> ${escapeHtml(email)}<br><strong>Phone:</strong> ${escapeHtml(phone)}</p><p><strong>Problem:</strong><br>${escapeHtml(message).replace(/\n/g, '<br>')}</p>`,
+          html: `<p>Problem reported through the CompuSoft website</p><p><strong>Name:</strong> ${escapeHtml(name)}<br><strong>Surname:</strong> ${escapeHtml(surname)}<br><strong>Email:</strong> ${escapeHtml(email)}<br><strong>Phone:</strong> ${escapeHtml(phone)}</p><p><strong>Problem:</strong><br>${escapeHtml(message).replace(/\n/g, '<br>')}</p>`,
         });
         return json({ ok: true });
       } catch (error) {

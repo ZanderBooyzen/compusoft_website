@@ -87,7 +87,10 @@
           <p>Share a few details so we can understand the issue and get back to you.</p>
           <form id="help-form">
             <label for="name">Your name
-              <input id="name" name="name" type="text" autocomplete="name" maxlength="120" placeholder="e.g. Sam" required />
+              <input id="name" name="name" type="text" autocomplete="given-name" maxlength="80" placeholder="e.g. Sam" required />
+            </label>
+            <label for="surname">Your surname
+              <input id="surname" name="surname" type="text" autocomplete="family-name" maxlength="80" placeholder="e.g. Smith" required />
             </label>
             <label for="email">Your email address
               <input id="email" name="email" type="email" autocomplete="email" maxlength="200" placeholder="e.g. sam@example.com" required />
@@ -141,6 +144,7 @@
         const status = document.getElementById("form-status");
         const form = new FormData(formElement);
         const name = String(form.get("name") || "").trim();
+        const surname = String(form.get("surname") || "").trim();
         const email = String(form.get("email") || "").trim();
         const phone = String(form.get("phone") || "").trim();
         const problem = String(form.get("problem") || "").trim();
@@ -150,7 +154,7 @@
           const response = await fetch("/api/problem-report", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ name, email, phone, message: problem, website: String(form.get("website") || "").trim() }),
+            body: JSON.stringify({ name, surname, email, phone, message: problem, website: String(form.get("website") || "").trim() }),
           });
           const result = await response.json().catch(() => ({}));
           if (!response.ok) throw new Error(result.error || "Your report could not be sent.");
