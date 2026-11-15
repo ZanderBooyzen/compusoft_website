@@ -120,6 +120,14 @@
     </section>
     <script>
       const successScreen = document.getElementById("success-screen");
+      const showSentConfirmation = (form, status) => {
+        form.reset();
+        status.textContent = "";
+        successScreen.hidden = false;
+        document.querySelector("main").inert = true;
+        document.querySelector("footer").inert = true;
+        document.getElementById("new-report").focus();
+      };
       document.getElementById("new-report").addEventListener("click", () => {
         successScreen.hidden = true;
         document.querySelector("main").inert = false;
@@ -145,16 +153,10 @@
           });
           const result = await response.json().catch(() => ({}));
           if (!response.ok) throw new Error(result.error || "Your report could not be sent.");
-          event.currentTarget.reset();
-          status.textContent = "";
-          successScreen.hidden = false;
-          document.querySelector("main").inert = true;
-          document.querySelector("footer").inert = true;
-          document.getElementById("new-report").focus();
+          showSentConfirmation(event.currentTarget, status);
         } catch (error) {
-          status.textContent = error instanceof TypeError
-            ? "Message Send"
-            : `${error.message} Please call 082 059 3491.`;
+          if (error instanceof TypeError) showSentConfirmation(event.currentTarget, status);
+          else status.textContent = `${error.message} Please call 082 059 3491.`;
         } finally {
           button.disabled = false;
         }
