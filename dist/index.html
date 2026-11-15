@@ -21,17 +21,18 @@
       :root { color-scheme: light; font-family: "DM Sans", Arial, sans-serif; color: #111827; background: #f5f8fc; font-synthesis: none; }
       * { box-sizing: border-box; }
       body { min-height: 100vh; margin: 0; display: flex; flex-direction: column; background: radial-gradient(ellipse at 50% 0%, #fff 0%, #f5f8fc 64%); }
-      body::before { content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none; background: url("logo.png") center / min(168vw, 1800px) auto no-repeat; opacity: .28; }
       a { color: inherit; }
       .wrap { width: min(1080px, calc(100% - 40px)); margin-inline: auto; }
       main { flex: 1; display: grid; place-items: center; padding-block: clamp(40px, 8vh, 88px); position: relative; z-index: 1; }
-      .layout { display: grid; grid-template-columns: minmax(0, 900px); justify-content: center; gap: clamp(24px, 4vw, 38px); }
-      .intro, .card { text-align: center; }
+      .layout { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); align-items: center; gap: clamp(36px, 6vw, 72px); }
+      .intro { text-align: left; }
+      .main-logo { display: block; width: min(100%, 400px); height: auto; margin: 0 0 36px; }
+      .card { text-align: center; }
       .intro .eyebrow { display: inline-flex; align-items: center; gap: 9px; margin: 0 0 18px; color: #1769cf; font: 700 12px/1.4 "DM Mono", Consolas, monospace; letter-spacing: .12em; text-transform: uppercase; }
       .intro .eyebrow::before { content: ""; width: 22px; height: 2px; border-radius: 2px; background: currentColor; }
-      h1 { max-width: 680px; margin: 0 auto 18px; font: 800 clamp(42px, 6vw, 72px)/1.02 "Manrope", Arial, sans-serif; letter-spacing: -.06em; text-wrap: balance; }
-      .intro > p:last-child { max-width: 680px; margin: 0 auto; color: #596579; font-size: clamp(15px, 1.8vw, 18px); line-height: 1.7; }
-      .card { padding: clamp(24px, 5vw, 40px); border: 1px solid rgba(196,211,226,.85); border-radius: 20px; background: rgba(255,255,255,.56); box-shadow: 0 20px 55px rgba(17,45,82,.09); backdrop-filter: blur(2px); }
+      h1 { max-width: 540px; margin: 0 0 18px; font: 800 clamp(42px, 5.2vw, 66px)/1.02 "Manrope", Arial, sans-serif; letter-spacing: -.06em; text-wrap: balance; }
+      .intro > p:last-child { max-width: 490px; margin: 0; color: #596579; font-size: clamp(15px, 1.6vw, 17px); line-height: 1.7; }
+      .card { padding: clamp(24px, 4vw, 38px); border: 1px solid rgba(196,211,226,.85); border-radius: 20px; background: rgba(255,255,255,.92); box-shadow: 0 20px 55px rgba(17,45,82,.09); }
       .card h2 { margin: 0 0 8px; font-size: clamp(22px, 3vw, 28px); letter-spacing: -.03em; }
       .card > p { margin: 0 0 27px; color: #596579; font-size: 14px; line-height: 1.6; }
       form { display: grid; gap: 18px; max-width: 660px; margin-inline: auto; text-align: left; }
@@ -52,7 +53,7 @@
       footer { position: relative; z-index: 1; padding-block: 22px; border-top: 1px solid rgba(217,226,235,.8); color: #596579; font-size: 13px; background: rgba(245,248,252,.65); }
       footer .wrap { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
       footer a { color: #155bb2; font-weight: 700; text-decoration-thickness: 1px; text-underline-offset: 3px; }
-      @media (max-width: 760px) { main { padding-block: 34px; } .layout { grid-template-columns: 1fr; gap: 24px; } .intro > p:last-child { font-size: 15px; } .card { border-radius: 16px; } button { width: 100%; } }
+      @media (max-width: 760px) { main { padding-block: 34px; } .layout { grid-template-columns: 1fr; gap: 28px; max-width: 560px; } .intro { text-align: center; } .main-logo { width: min(100%, 290px); margin: 0 auto 24px; } h1 { margin-inline: auto; font-size: clamp(40px, 11vw, 58px); } .intro > p:last-child { margin-inline: auto; font-size: 15px; } .card { border-radius: 16px; } button { width: 100%; } }
       @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
     </style>
   </head>
@@ -60,6 +61,7 @@
     <main>
       <div class="wrap layout">
         <section class="intro" aria-labelledby="page-title">
+          <img class="main-logo" src="compusoft-720x250-wide.png" alt="CompuSoft" />
           <p class="eyebrow">Friendly local computer support</p>
           <h1 id="page-title">Tell us what needs fixing.</h1>
           <p>Describe the computer or IT problem you’re having. Your message will be emailed directly to CompuSoft.</p>
