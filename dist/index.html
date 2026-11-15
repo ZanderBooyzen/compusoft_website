@@ -27,8 +27,8 @@
       .layout { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); align-items: center; gap: clamp(36px, 6vw, 72px); }
       .intro { text-align: center; }
       .intro-row { display: flex; flex-direction: column; align-items: center; gap: 0; }
-      .intro-copy { min-width: 0; }
-      .main-logo { display: block; width: min(115%, 580px); height: auto; margin: 0 auto 30px; transform: translateX(-16px); }
+      .intro-copy { width: 100%; min-width: 0; }
+      .main-logo { display: block; width: 100%; height: auto; margin: 0 auto 30px; }
       .card { text-align: center; }
       .intro .eyebrow { display: inline-flex; align-items: center; gap: 9px; margin: 0 0 18px; color: #1769cf; font: 700 12px/1.4 "DM Mono", Consolas, monospace; letter-spacing: .12em; text-transform: uppercase; }
       .intro .eyebrow::before { content: ""; width: 22px; height: 2px; border-radius: 2px; background: currentColor; }
@@ -55,7 +55,7 @@
       footer { position: relative; z-index: 1; padding-block: 22px; border-top: 1px solid rgba(217,226,235,.8); color: #596579; font-size: 13px; background: rgba(245,248,252,.65); }
       footer .wrap { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
       footer a { color: #155bb2; font-weight: 700; text-decoration-thickness: 1px; text-underline-offset: 3px; }
-      @media (max-width: 760px) { main { padding-block: 34px; } .layout { grid-template-columns: 1fr; gap: 28px; max-width: 560px; } .intro { text-align: center; } .intro-row { flex-direction: column; gap: 0; } .main-logo { width: min(100%, 440px); margin-bottom: 24px; } h1 { margin-inline: auto; font-size: clamp(40px, 11vw, 58px); } .intro-copy > p:last-child { margin-inline: auto; font-size: 15px; } .card { border-radius: 16px; } button { width: 100%; } }
+      @media (max-width: 760px) { main { padding-block: 34px; } .layout { grid-template-columns: 1fr; gap: 28px; max-width: 560px; } .intro { text-align: center; } .intro-row { flex-direction: column; gap: 0; } .main-logo { width: 100%; margin-bottom: 24px; } h1 { margin-inline: auto; font-size: clamp(40px, 11vw, 58px); } .intro-copy > p:last-child { margin-inline: auto; font-size: 15px; } .card { border-radius: 16px; } button { width: 100%; } }
       @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
     </style>
   </head>
