@@ -61,6 +61,11 @@
       .about-mark { width: min(100%, 330px); justify-self: center; }
       .about-mark img { display: block; width: 100%; height: auto; }
       .tool-note { margin-top: 22px; color: #596579; font-size: 13px; text-align: center; line-height: 1.6; }
+      .reviews { background: #f5f8fc; }
+      .review-card { display: flex; align-items: center; justify-content: center; gap: 18px; width: fit-content; max-width: 100%; margin: 0 auto; padding: 20px 26px; border: 1px solid #dce6ef; border-radius: 14px; background: #fff; }
+      .review-stars { color: #f2a900; font-size: 25px; line-height: 1; letter-spacing: .1em; white-space: nowrap; }
+      .review-name { color: #155bb2; font-weight: 700; text-underline-offset: 4px; }
+      .review-name:hover { color: #0f54ad; }
       .contact { background: #eff5fb; }
       .contact-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .85fr); align-items: start; gap: 48px; }
       .contact-card { padding: clamp(24px, 4vw, 38px); border: 1px solid #dce6ef; border-radius: 18px; background: #fff; box-shadow: 0 18px 48px rgba(17,45,82,.08); }
@@ -141,6 +146,12 @@
         <div class="wrap about-inner">
           <div><p class="eyebrow">About CompuSoft</p><div class="section-heading"><h2 id="about-title">Personal, practical IT support</h2><p>I’m based in Somerset West and work directly with homes and small businesses in the area. I keep the advice clear and focus on practical help for the problem in front of us.</p><p class="body-copy">For remote support, I’ll explain the session and arrange access with your permission before connecting.</p></div></div>
           <div class="about-mark"><img src="compusoft-720x250-wide.png" alt="CompuSoft" /><p class="tool-note">RustDesk and Tailscale are tools I use for remote support.</p></div>
+        </div>
+      </section>
+      <section class="content reviews" aria-labelledby="reviews-title">
+        <div class="wrap">
+          <div class="section-heading"><p class="eyebrow">Google review</p><h2 id="reviews-title">A five-star review</h2></div>
+          <div class="review-card"><span class="review-stars" role="img" aria-label="5 out of 5 stars">★★★★★</span><a class="review-name" href="https://www.google.com/maps/place/CompuSoft/@-34.096858,18.8312731,17z/data=!4m6!3m5!1s0xa304d8a3f5d3b595:0x9fbce82681d5e9a2!8m2!3d-34.096858!4d18.8312731!16s%2Fg%2F11zz_n3fmt" target="_blank" rel="noopener noreferrer">Vovo Matyobeni</a></div>
         </div>
       </section>
       <section class="content contact" id="contact" aria-labelledby="contact-title">
