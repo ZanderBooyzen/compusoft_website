@@ -178,6 +178,13 @@
         :is(a.button, .nav-cta, button:not(:disabled)):hover { transform: translateY(-1px); }
         .brand:hover img { filter: drop-shadow(0 3px 7px rgba(23,105,207,.22)); }
       }
+      @keyframes request-support-pulse {
+        0%, 100% { box-shadow: 0 7px 16px rgba(23,105,207,.18); }
+        50% { box-shadow: 0 7px 23px rgba(23,105,207,.38); }
+      }
+      .request-support-cta { animation: request-support-pulse 2.6s ease-in-out infinite; }
+      .request-support-cta:hover { animation: none; }
+      @media (prefers-reduced-motion: reduce) { .request-support-cta { animation: none; } }
     </style>
   </head>
   <body>
@@ -189,7 +196,7 @@
           <a href="#how-it-works">How it works</a>
           <a href="#faq">FAQ</a>
           <a href="#contact">Contact</a>
-          <a class="nav-cta" href="#contact">Request support</a>
+          <a class="nav-cta request-support-cta" href="#contact">Request support</a>
         </nav>
       </div>
     </header>
@@ -200,7 +207,7 @@
             <p class="eyebrow">Friendly local computer support</p>
             <h1 id="hero-title">Local computer support in Somerset West</h1>
             <p class="hero-copy">Friendly remote and on-site IT help for homes and small businesses.</p>
-            <div class="hero-actions"><a class="button" href="#contact">Request support</a><a class="button button-secondary" href="mailto:mail@compusoft.co.za">Email CompuSoft</a></div>
+            <div class="hero-actions"><a class="button request-support-cta" href="#contact">Request support</a><a class="button button-secondary" href="mailto:mail@compusoft.co.za">Email CompuSoft</a></div>
             <div class="hero-actions direct-actions" role="group" aria-label="Call or WhatsApp CompuSoft"><a class="button button-secondary" href="tel:+27820593491" aria-label="Call CompuSoft on 082 059 3491">Call 082 059 3491</a><a class="button button-secondary" href="https://wa.me/27820593491" aria-label="WhatsApp CompuSoft" target="_blank" rel="noopener noreferrer">WhatsApp</a></div>
           </div>
           <div class="hero-visual"><img src="assets/computer-support-hero-1600.webp" srcset="assets/computer-support-hero-800.webp 800w, assets/computer-support-hero-1600.webp 1600w" sizes="(max-width: 760px) 100vw, 60vw" alt="A desktop PC and laptop ready for computer support on a home office desk" width="1600" height="1209" fetchpriority="high" decoding="async" /></div>
