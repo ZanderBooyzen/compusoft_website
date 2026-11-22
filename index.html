@@ -122,6 +122,13 @@
       footer .wrap { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px 20px; }
       footer strong { color: #243648; }
       footer a { color: #155bb2; font-weight: 700; }
+      .mobile-contact-bar { display: none; }
+      .mobile-contact-bar[hidden] { display: none; }
+      @media (max-width: 760px) {
+        .mobile-contact-bar:not([hidden]) { position: fixed; z-index: 6; right: 12px; bottom: calc(10px + env(safe-area-inset-bottom, 0px)); left: 12px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; padding: 9px; border: 1px solid #dce6ef; border-radius: 14px; background: rgba(255,255,255,.96); box-shadow: 0 8px 28px rgba(17,45,82,.18); backdrop-filter: blur(12px); }
+        .mobile-contact-bar .button { min-width: 0; min-height: 46px; padding: 10px 8px; font-size: 14px; }
+        body.mobile-contact-bar-visible { padding-bottom: calc(78px + env(safe-area-inset-bottom, 0px)); }
+      }
       @media (max-width: 900px) { .hero-inner { grid-template-columns: minmax(260px, .9fr) minmax(0, 1fr); gap: 22px; min-height: 430px; } .hero-visual { height: 400px; } h1 { font-size: clamp(40px, 6vw, 56px); } .service { grid-column: span 6; } .service:nth-child(n+5) { grid-column: span 6; } .service:last-child { grid-column: 4 / span 6; } }
       @media (max-width: 760px) { .wrap { width: min(100% - 40px, 680px); } .header-inner { min-height: 72px; gap: 10px; } .brand img { width: 145px; } nav { gap: 10px; } nav a { font-size: 12px; } nav .nav-cta { min-height: 40px; padding: 9px 11px; font-size: 12px; } .hero-inner { display: flex; flex-direction: column; align-items: stretch; gap: 0; padding-inline: 0; } .hero-content { width: min(100% - 40px, 680px); margin-inline: auto; padding-block: 56px 36px; } .hero-visual { width: 100%; height: clamp(280px, 55vw, 410px); margin: 0; border-radius: 0; } .hero-visual::after { background: linear-gradient(0deg, rgba(17,40,67,.12), transparent 35%); } .trust-strip { gap: 6px; padding-inline: 10px; } .trust-item { gap: 8px; font-size: 13px; } .trust-item svg { width: 23px; height: 23px; } .service-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .service,.service:nth-child(n+5) { grid-column: auto; } .service:last-child { grid-column: auto; } .contact-grid, .about-inner { grid-template-columns: 1fr; gap: 30px; } .about-mark { width: min(70%, 260px); } }
       @media (max-width: 520px) { .wrap { width: min(100% - 32px, 1080px); } .header-inner { align-items: flex-start; flex-direction: column; padding-block: 12px; } nav { width: 100%; justify-content: space-between; gap: 6px; } nav a { font-size: 11px; } nav .nav-cta { padding-inline: 8px; } .hero-content { width: calc(100% - 32px); padding-block: 46px 30px; } .hero-visual { height: 270px; } h1 { font-size: clamp(40px, 12vw, 54px); } .trust-strip { grid-template-columns: 1fr; justify-items: stretch; gap: 0; margin-top: 16px; padding: 8px 16px; } .trust-item { justify-content: flex-start; padding: 11px 4px; font-size: 14px; } .trust-item + .trust-item { border-top: 1px solid #bbd5f2; border-left: 0; } .trust-item svg { width: 25px; height: 25px; } .service-grid, .steps { grid-template-columns: 1fr; } .service,.service:nth-child(n+5) { grid-column: auto; min-height: 0; } .hero-actions { align-items: flex-start; flex-direction: row; gap: 16px; } .hero-actions .button { padding-inline: 14px; } footer .wrap { flex-direction: column; align-items: flex-start; } }
@@ -274,7 +281,26 @@
       </section>
     </main>
     <footer><div class="wrap"><strong>CompuSoft Computer Support</strong><span>Somerset West, Western Cape</span><a href="mailto:mail@compusoft.co.za">mail@compusoft.co.za</a></div></footer>
+    <div class="mobile-contact-bar" id="mobile-contact-bar" role="group" aria-label="Quick contact" hidden>
+      <a class="button button-secondary" href="tel:+27820593491" aria-label="Call CompuSoft on 082 059 3491">Call 082 059 3491</a>
+      <a class="button" href="https://wa.me/27820593491" aria-label="WhatsApp CompuSoft" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+    </div>
     <script>
+      const mobileContactBar = document.getElementById("mobile-contact-bar");
+      const mobileBarHideTargets = [document.querySelector(".hero"), document.getElementById("contact"), document.querySelector("footer")].filter(Boolean);
+      if (mobileContactBar && "IntersectionObserver" in window && mobileBarHideTargets.length) {
+        const intersectingSections = new Set();
+        const mobileBarObserver = new IntersectionObserver((entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) intersectingSections.add(entry.target);
+            else intersectingSections.delete(entry.target);
+          }
+          const shouldHideBar = intersectingSections.size > 0;
+          mobileContactBar.hidden = shouldHideBar;
+          document.body.classList.toggle("mobile-contact-bar-visible", !shouldHideBar);
+        }, { threshold: 0 });
+        mobileBarHideTargets.forEach((target) => mobileBarObserver.observe(target));
+      }
       document.getElementById("help-form").addEventListener("submit", async (event) => {
         event.preventDefault();
         const formElement = event.currentTarget;
