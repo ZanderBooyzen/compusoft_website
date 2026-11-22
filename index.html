@@ -179,12 +179,14 @@
         .brand:hover img { filter: drop-shadow(0 3px 7px rgba(23,105,207,.22)); }
       }
       @keyframes request-support-pulse {
-        0%, 100% { box-shadow: 0 7px 16px rgba(23,105,207,.18); }
-        50% { box-shadow: 0 7px 23px rgba(23,105,207,.38); }
+        0%, 100% { transform: scale(1); box-shadow: 0 7px 16px rgba(23,105,207,.18), 0 0 0 0 rgba(23,105,207,.42); }
+        50% { transform: scale(1.045); box-shadow: 0 9px 23px rgba(23,105,207,.34), 0 0 0 6px rgba(23,105,207,.2); }
       }
-      .request-support-cta { animation: request-support-pulse 2.6s ease-in-out infinite; }
-      .request-support-cta:hover { animation: none; }
-      @media (prefers-reduced-motion: reduce) { .request-support-cta { animation: none; } }
+      .request-support-cta { animation: request-support-pulse 2s ease-in-out infinite; }
+      .request-support-cta:hover, .request-support-cta:focus-visible { animation: none; }
+      @media (prefers-reduced-motion: reduce) {
+        .request-support-cta { animation: none; box-shadow: 0 0 0 3px rgba(23,105,207,.24), 0 7px 16px rgba(23,105,207,.22); }
+      }
     </style>
   </head>
   <body>
