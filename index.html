@@ -45,6 +45,9 @@
       h1 { max-width: 620px; margin: 0 0 20px; font-size: clamp(44px, 5.1vw, 70px); line-height: 1.04; letter-spacing: -.055em; text-wrap: balance; }
       .hero-copy { max-width: 500px; margin: 0; color: #45536a; font-size: clamp(17px, 1.8vw, 20px); line-height: 1.65; }
       .hero-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 20px; margin-top: 30px; }
+      .hero-content .hero-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: stretch; gap: 12px; }
+      .hero-content .hero-actions > .button { width: 100%; min-height: 46px; padding-inline: 10px; white-space: nowrap; }
+      .hero-content .hero-actions.direct-actions { margin-top: 12px; }
       .button-secondary { border: 1px solid #1769cf; background: transparent; color: #155bb2; box-shadow: none; }
       .button-secondary:hover { border-color: #0f54ad; background: #0f54ad; color: #fff; }
       .hero-actions.direct-actions { gap: 12px; margin-top: 12px; }
