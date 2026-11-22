@@ -168,6 +168,16 @@
       @media (max-width: 760px) { #how-it-works { padding-block: 22px 18px; } .how-panel { padding: 20px 18px; } .steps { grid-template-columns: 1fr; gap: 0; } .step { padding: 12px 0; } .step:not(:last-child)::after { display: none; } .review-card { gap: 12px; padding-inline: 0; } .review-name { font-size: 18px; } section.content.reviews { padding-bottom: 144px; } .reviews::after { height: 128px; } }
       @media (max-width: 520px) { .hero-visual::after { background: linear-gradient(0deg, rgba(17,40,67,.12), transparent 35%); } }
       @media (max-width: 760px) { .hero-content { padding-inline: 0; } }
+          /* Shared hover feedback for interactive controls. */
+      :is(a, button, summary, input, textarea, select, [role="button"]) { transition: color .18s ease, background-color .18s ease, border-color .18s ease, box-shadow .18s ease; }
+      a:not(.button):not(.nav-cta):hover { color: #0f54ad; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+      summary:hover { background: #f2f7fe; color: #0f54ad; }
+      :is(input, textarea, select):hover { border-color: #85baff; }
+      :is(a.button, .nav-cta, button:not(:disabled)):hover { box-shadow: 0 9px 20px rgba(23,105,207,.22); }
+      @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+        :is(a.button, .nav-cta, button:not(:disabled)):hover { transform: translateY(-1px); }
+        .brand:hover img { filter: drop-shadow(0 3px 7px rgba(23,105,207,.22)); }
+      }
     </style>
   </head>
   <body>
