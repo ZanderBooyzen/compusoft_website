@@ -23,6 +23,8 @@
       body { min-height: 100vh; margin: 0; background: #fff; }
       a { color: inherit; }
       .wrap { width: min(1260px, calc(100% - 56px)); margin-inline: auto; }
+      .skip-link { position: fixed; top: 12px; left: 12px; z-index: 20; padding: 12px 16px; border-radius: 8px; background: #142b45; color: #fff; font-weight: 700; text-decoration: none; transform: translateY(calc(-100% - 16px)); box-shadow: 0 6px 18px rgba(17,40,67,.2); }
+      .skip-link:focus { transform: translateY(0); }
       .site-header { position: sticky; top: 0; z-index: 5; border-bottom: 1px solid #e1e9f1; background: rgba(255,255,255,.96); backdrop-filter: blur(12px); }
       .header-inner { min-height: 82px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
       .brand img { display: block; width: 190px; height: auto; }
@@ -190,6 +192,7 @@
     </style>
   </head>
   <body>
+    <a class="skip-link" href="#home">Skip to main content</a>
     <header class="site-header">
       <div class="wrap header-inner">
         <a class="brand" href="#home" aria-label="CompuSoft home"><img src="compusoft-720x250-wide.png" alt="CompuSoft Computer Support" /></a>
@@ -202,7 +205,7 @@
         </nav>
       </div>
     </header>
-    <main id="home">
+    <main id="home" tabindex="-1">
       <section class="hero" aria-labelledby="hero-title">
         <div class="wrap hero-inner">
           <div class="hero-content">
