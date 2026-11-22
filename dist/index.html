@@ -64,6 +64,14 @@
       .service-icon svg { width: 34px; height: 34px; }
       .service h3 { margin: 2px 0 7px; font-size: clamp(16px, 1.5vw, 19px); line-height: 1.3; letter-spacing: -.025em; }
       .service p { grid-column: 1 / -1; margin: 0; color: #45536a; font-size: 14px; line-height: 1.55; }
+      .faq { background: #f5f8fc; }
+      .faq-list { display: grid; gap: 12px; max-width: 900px; margin-inline: auto; }
+      .faq-item { overflow: hidden; border: 1px solid #dce6ef; border-radius: 12px; background: #fff; box-shadow: 0 2px 5px rgba(20,43,69,.04); }
+      .faq-item summary { padding: 17px 20px; color: #142b45; font-weight: 700; line-height: 1.5; cursor: pointer; }
+      .faq-item summary:focus-visible { outline: 3px solid #85baff; outline-offset: -3px; }
+      .faq-item[open] summary { border-bottom: 1px solid #e6edf4; }
+      .faq-answer { margin: 0; padding: 15px 20px 18px; color: #45536a; font-size: 15px; line-height: 1.7; }
+      .faq-answer a { color: #155bb2; font-weight: 700; }
       .service-copy { display: contents; }
       .dropoff { margin: 24px 0 0; color: #596579; line-height: 1.7; }
       .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; counter-reset: steps; }
@@ -161,6 +169,7 @@
         <nav aria-label="Main navigation">
           <a href="#services">Services</a>
           <a href="#how-it-works">How it works</a>
+          <a href="#faq">FAQ</a>
           <a href="#contact">Contact</a>
           <a class="nav-cta" href="#contact">Request support</a>
         </nav>
@@ -190,14 +199,14 @@
         <div class="wrap">
           <div class="section-heading"><p class="eyebrow">Services</p><h2 id="services-title">Practical help for everyday tech</h2></div>
           <div class="service-grid">
-            <article class="service"><span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="1.5"/><path d="M1.5 21h21M9 18v3m6-3v3"/></svg></span><div class="service-copy"><h3>PC and laptop troubleshooting</h3><p>Find and fix everyday computer problems.</p></div></article>
-            <article class="service"><span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M10 6h4m-4 3h4m-2 9h.01"/></svg></span><div class="service-copy"><h3>New computer setup</h3><p>Set up your new PC or laptop, including file transfers.</p></div></article>
-            <article class="service"><span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M2 8.8a15 15 0 0 1 20 0M5.5 12.3a10 10 0 0 1 13 0M9 15.8a5 5 0 0 1 6 0M12 20h.01"/></svg></span><div class="service-copy"><h3>Wi-Fi and network help</h3><p>Fix connection problems and get your devices online.</p></div></article>
+            <article class="service"><span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="1.5"/><path d="M1.5 21h21M9 18v3m6-3v3"/></svg></span><div class="service-copy"><h3>PC and laptop troubleshooting</h3><p>Diagnose startup, performance, hardware and common software problems, then discuss practical fixes.</p></div></article>
+            <article class="service"><span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M10 6h4m-4 3h4m-2 9h.01"/></svg></span><div class="service-copy"><h3>New computer setup</h3><p>Set up a new PC or laptop, install updates and transfer files from your old device.</p></div></article>
+            <article class="service"><span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M2 8.8a15 15 0 0 1 20 0M5.5 12.3a10 10 0 0 1 13 0M9 15.8a5 5 0 0 1 6 0M12 20h.01"/></svg></span><div class="service-copy"><h3>Wi-Fi and network help</h3><p>Troubleshoot slow or dropped connections, connect devices and help with router or network settings.</p></div></article>
             <article class="service"><span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="12" height="20" rx="1.5"/><path d="M9 6h4m-4 4h4m-2 8h.01m8-5 2 2-4 4-2-2zm-4 4-1 3 3-1"/></svg></span><div class="service-copy"><h3>PC interior cleaning</h3><p>Careful dust removal inside desktop PCs to help keep airflow clear.</p></div></article>
-            <article class="service"><span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 2 9 5-9 5-9-5 9-5Z"/><path d="m3 12 9 5 9-5m-18 5 9 5 9-5"/></svg></span><div class="service-copy"><h3>Software support</h3><p>Install, update and troubleshoot essential software.</p></div></article>
-            <article class="service"><span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z"/><path d="m9 12 2 2 4-4"/></svg></span><div class="service-copy"><h3>Malware cleanup</h3><p>Remove viruses and unwanted software from your PC.</p></div></article>
-            <article class="service"><span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 13v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="12" width="4" height="7" rx="2"/><rect x="17" y="12" width="4" height="7" rx="2"/><path d="M17 20a4 4 0 0 1-4 2h-2"/></svg></span><div class="service-copy"><h3>Remote or on-site support</h3><p>Get remote help or arrange an on-site visit.</p></div></article>
-            <article class="service"><span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19a8 8 0 1 1 16 0"/><path d="M12 13l4-4M8 19h.01M16 19h.01"/></svg></span><div class="service-copy"><h3>General PC maintenance</h3><p>Updates, basic checks and optimisation to keep your PC running smoothly.</p></div></article>
+            <article class="service"><span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 2 9 5-9 5-9-5 9-5Z"/><path d="m3 12 9 5 9-5m-18 5 9 5 9-5"/></svg></span><div class="service-copy"><h3>Software support</h3><p>Install, update and troubleshoot essential apps, including common setup or compatibility issues.</p></div></article>
+            <article class="service"><span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z"/><path d="m9 12 2 2 4-4"/></svg></span><div class="service-copy"><h3>Malware cleanup</h3><p>Check for malware and unwanted software, clean affected PCs and review basic protection settings.</p></div></article>
+            <article class="service"><span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 13v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="12" width="4" height="7" rx="2"/><rect x="17" y="12" width="4" height="7" rx="2"/><path d="M17 20a4 4 0 0 1-4 2h-2"/></svg></span><div class="service-copy"><h3>Remote or on-site support</h3><p>Get help remotely where suitable, or arrange an on-site visit in Somerset West, Strand or Gordon's Bay.</p></div></article>
+            <article class="service"><span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19a8 8 0 1 1 16 0"/><path d="M12 13l4-4M8 19h.01M16 19h.01"/></svg></span><div class="service-copy"><h3>General PC maintenance</h3><p>Install updates, check startup and available storage, review basic device health and optimise everyday performance.</p></div></article>
           </div>
         </div>
       </section>
@@ -210,6 +219,19 @@
             <article class="step"><h3>Discuss the next step</h3><p>I’ll assess the problem and recommend the best solution.</p></article>
             <article class="step"><h3>Get help</h3><p>I’ll sort it out remotely or visit you on-site in Somerset West, Strand or Gordon's Bay.</p></article>
           </div>
+          </div>
+        </div>
+      </section>
+      <section class="content faq" id="faq" aria-labelledby="faq-title">
+        <div class="wrap">
+          <div class="section-heading"><p class="eyebrow">FAQ</p><h2 id="faq-title">A few helpful answers</h2></div>
+          <div class="faq-list">
+            <details class="faq-item"><summary>What does PC maintenance include?</summary><p class="faq-answer">Typical maintenance includes installing updates, checking startup and available storage, reviewing basic device health and optimising everyday performance. The exact checks depend on your computer and what it needs.</p></details>
+            <details class="faq-item"><summary>Do you clean laptop interiors?</summary><p class="faq-answer">PC interior cleaning is for desktop PCs. I carefully remove dust inside the desktop to help keep airflow clear.</p></details>
+            <details class="faq-item"><summary>Can you help remotely?</summary><p class="faq-answer">Yes, when the issue is suitable for remote support. We'll discuss the problem first, and I'll only arrange remote access with your permission. Never send passwords, one-time codes or banking details.</p></details>
+            <details class="faq-item"><summary>Where do you offer on-site support?</summary><p class="faq-answer">On-site visits are available by arrangement in Somerset West, Strand and Gordon's Bay.</p></details>
+            <details class="faq-item"><summary>How much does support cost?</summary><p class="faq-answer">The cost depends on the issue and the work involved. Contact me with a short description so we can discuss pricing before arranging support.</p></details>
+            <details class="faq-item"><summary>How do I arrange support?</summary><p class="faq-answer">Use the <a href="#contact">support form</a>, email <a href="mailto:mail@compusoft.co.za">mail@compusoft.co.za</a>, call <a href="tel:+27820593491">082 059 3491</a> or <a href="https://wa.me/27820593491" target="_blank" rel="noopener noreferrer">WhatsApp me</a>. Briefly describe the device and issue, and leave out passwords, one-time codes and banking details.</p></details>
           </div>
         </div>
       </section>
