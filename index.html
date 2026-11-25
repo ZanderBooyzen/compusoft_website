@@ -115,11 +115,6 @@
       .about-mark { width: min(100%, 330px); justify-self: center; }
       .about-mark img { display: block; width: 100%; height: auto; }
       .tool-note { margin-top: 22px; color: #596579; font-size: 13px; text-align: center; line-height: 1.6; }
-      .reviews { background: #f5f8fc; }
-      .review-card { display: flex; align-items: center; justify-content: center; gap: 18px; width: fit-content; max-width: 100%; margin: 0 auto; padding: 20px 26px; border: 1px solid #dce6ef; border-radius: 14px; background: #fff; }
-      .review-stars { color: #f2a900; font-size: 25px; line-height: 1; letter-spacing: .1em; white-space: nowrap; }
-      .review-name { color: #155bb2; font-weight: 700; text-underline-offset: 4px; }
-      .review-name:hover { color: #0f54ad; }
       .contact { background: #eff5fb; }
       .contact-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .85fr); align-items: start; gap: 48px; }
       .contact-card { padding: clamp(24px, 4vw, 38px); border: 1px solid #dce6ef; border-radius: 18px; background: #fff; box-shadow: 0 18px 48px rgba(17,45,82,.08); }
@@ -161,6 +156,7 @@
       footer a { color: #155bb2; font-weight: 700; }
       .mobile-contact-bar { display: none; }
       .mobile-contact-bar[hidden] { display: none; }
+      .menu-toggle { display: none; }
       @media (max-width: 760px) {
         .mobile-contact-bar:not([hidden]) { position: fixed; z-index: 6; right: 12px; bottom: calc(10px + env(safe-area-inset-bottom, 0px)); left: 12px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; padding: 9px; border: 1px solid #dce6ef; border-radius: 14px; background: rgba(255,255,255,.96); box-shadow: 0 8px 28px rgba(17,45,82,.18); backdrop-filter: blur(12px); }
         .mobile-contact-bar .button { min-width: 0; min-height: 46px; padding: 10px 8px; font-size: 14px; }
@@ -168,9 +164,9 @@
       }
       @media (max-width: 900px) { .hero-inner { min-height: 430px; } h1 { font-size: clamp(40px, 6vw, 56px); } .service { grid-column: span 6; } .service:nth-child(n+5) { grid-column: span 6; } .service:last-child { grid-column: 4 / span 6; } }
       @media (max-width: 760px) { .wrap { width: min(100% - 40px, 680px); } .header-inner { min-height: 72px; gap: 10px; } .brand img { width: 145px; } nav { gap: 10px; } nav a { font-size: 12px; } nav .nav-cta { min-height: 40px; padding: 9px 11px; font-size: 12px; } .hero-inner { min-height: 0; padding-inline: 0; } .hero-content { width: min(100% - 40px, 680px); margin-inline: auto; padding-block: 56px 36px; } .hero-visual { inset: 0 16px; width: auto; height: auto; margin: 0; border-radius: 0; } .hero-visual img { object-position: center center; } .trust-strip { gap: 6px; padding-inline: 10px; } .trust-item { gap: 8px; font-size: 13px; } .trust-item svg { width: 23px; height: 23px; } .service-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .service,.service:nth-child(n+5) { grid-column: auto; } .service:last-child { grid-column: auto; } .contact-grid, .about-inner { grid-template-columns: 1fr; gap: 30px; } .about-mark { width: min(70%, 260px); } }
-      @media (max-width: 520px) { .wrap { width: min(100% - 32px, 1080px); } .header-inner { align-items: center; flex-direction: row; flex-wrap: wrap; padding-block: 10px; } .brand img { width: 132px; } nav { flex: 1 1 100%; width: 100%; justify-content: space-between; gap: 4px; padding-top: 4px; border-top: 1px solid #edf1f5; } nav a:not(.nav-cta) { min-height: 44px; padding-inline: 3px; font-size: 12px; } nav .nav-cta { min-height: 44px; padding-inline: 10px; white-space: nowrap; } .hero-content { width: calc(100% - 32px); padding-block: 46px 30px; } .hero-visual { height: auto; } h1 { font-size: clamp(40px, 12vw, 54px); } .trust-strip { grid-template-columns: 1fr; justify-items: stretch; gap: 0; margin-top: 16px; padding: 8px 16px; } .trust-item { justify-content: flex-start; padding: 11px 4px; font-size: 14px; } .trust-item + .trust-item { border-top: 1px solid #bbd5f2; border-left: 0; } .trust-item svg { width: 25px; height: 25px; } .service-grid, .steps { grid-template-columns: 1fr; } .service,.service:nth-child(n+5) { grid-column: auto; min-height: 0; } .hero-actions { align-items: stretch; flex-direction: column; gap: 10px; } .hero-actions .button { width: 100%; min-height: 48px; padding-inline: 14px; } .hero-content .hero-actions { grid-template-columns: 1fr; } .hero-content .hero-actions.direct-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); } .hero-content .hero-actions.direct-actions .button { white-space: normal; } footer .wrap { flex-direction: column; align-items: flex-start; } }
+      @media (max-width: 520px) { .wrap { width: min(100% - 32px, 1080px); } .header-inner { align-items: center; flex-direction: row; flex-wrap: wrap; padding-block: 10px; } .brand img { width: 132px; } .menu-toggle { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; border: 1px solid #cbd8e6; border-radius: 9px; background: #fff; color: #142b45; font: inherit; font-size: 13px; font-weight: 700; } nav { flex: 1 1 100%; width: 100%; justify-content: flex-start; flex-wrap: wrap; gap: 4px 12px; padding-top: 8px; border-top: 1px solid #edf1f5; } nav[hidden] { display: none; } nav a:not(.nav-cta) { min-height: 44px; padding-inline: 3px; font-size: 13px; } nav .nav-cta { min-height: 44px; padding-inline: 12px; white-space: nowrap; } .hero-content { width: calc(100% - 32px); padding-block: 46px 30px; } .hero-visual { inset: 0 10px; } .hero-visual img { object-position: 62% center; opacity: .72; } .hero-content { background: linear-gradient(90deg, rgba(243,247,252,.99), rgba(243,247,252,.94)); } h1 { font-size: clamp(40px, 12vw, 54px); } .trust-strip { grid-template-columns: 1fr; justify-items: stretch; gap: 0; margin-top: 16px; padding: 8px 16px; } .trust-item { justify-content: flex-start; padding: 11px 4px; font-size: 14px; } .trust-item + .trust-item { border-top: 1px solid #bbd5f2; border-left: 0; } .trust-item svg { width: 25px; height: 25px; } .service-grid, .steps { grid-template-columns: 1fr; } .service,.service:nth-child(n+5) { grid-column: auto; min-height: 0; } .hero-actions { align-items: stretch; flex-direction: column; gap: 10px; } .hero-actions .button { width: 100%; min-height: 48px; padding-inline: 14px; } .hero-content .hero-actions { grid-template-columns: 1fr; } .hero-content .hero-actions.direct-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); } .hero-content .hero-actions.direct-actions .button { white-space: normal; } footer .wrap { flex-direction: column; align-items: flex-start; } }
       @media (prefers-reduced-motion: reduce) { :root { scroll-behavior: auto; } *, *::before, *::after { transition-duration: .01ms !important; } }
-      /* Mockup-matched section rhythm and review treatment. */
+      /* Section rhythm and service card treatment. */
       .section-heading .eyebrow { color: #1769cf; }
       .content.services { padding-block: 40px 30px; }
       #how-it-works { padding-block: 12px 20px; }
@@ -193,16 +189,7 @@
       .step h3 { margin: 2px 0 6px; font-size: 18px; }
       .step p { grid-column: 2; color: #273d59; font-size: 14px; line-height: 1.55; }
       .step:not(:last-child)::after { position: absolute; top: 20px; right: 0; color: #0869e9; content: "→"; font-size: 24px; line-height: 1; }
-      section.content.reviews { position: relative; padding-block: 12px 190px; background: #fff; }
-      .reviews .section-heading { display: none; }
-      .review-card { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(40px,1fr) auto minmax(40px,1fr); align-items: center; gap: 26px; width: 100%; padding: 0 20px; border: 0; border-radius: 0; background: transparent; }
-      .review-card::before,.review-card::after { height: 1px; background: #c7d9ee; content: ""; }
-      .review-content { display: grid; justify-items: center; gap: 6px; text-align: center; }
-      .review-stars { color: #f4ae00; font-size: 32px; letter-spacing: .02em; }
-      .review-name { color: #111a35; font-family: "Manrope", Arial, sans-serif; font-size: 20px; font-weight: 800; letter-spacing: -.03em; text-decoration: none; }
-      .review-name:hover { color: #155bb2; text-decoration: underline; }
-      .reviews::after { position: absolute; right: 0; bottom: 0; left: 0; height: 140px; background-image: linear-gradient(180deg, #fff 0%, rgba(255,255,255,.08) 24%, rgba(255,255,255,0) 45%), url("assets/helderberg-mountain-panorama.webp"); background-position: center, center 63%; background-size: cover; content: ""; }
-      @media (max-width: 760px) { #how-it-works { padding-block: 22px 18px; } .how-panel { padding: 20px 18px; } .steps { grid-template-columns: 1fr; gap: 0; } .step { padding: 12px 0; } .step:not(:last-child)::after { display: none; } .review-card { gap: 12px; padding-inline: 0; } .review-name { font-size: 18px; } section.content.reviews { padding-bottom: 144px; } .reviews::after { height: 128px; } }
+      @media (max-width: 760px) { #how-it-works { padding-block: 22px 18px; } .how-panel { padding: 20px 18px; } .steps { grid-template-columns: 1fr; gap: 0; } .step { padding: 12px 0; } .step:not(:last-child)::after { display: none; } }
       @media (max-width: 760px) { .hero-content { padding-inline: 0; } }
           /* Shared hover feedback for interactive controls. */
       :is(a, button, summary, input, textarea, select, [role="button"]) { transition: color .18s ease, background-color .18s ease, border-color .18s ease, box-shadow .18s ease; }
@@ -228,7 +215,8 @@
     <header class="site-header">
       <div class="wrap header-inner">
         <a class="brand" href="#home" aria-label="CompuSoft home"><img src="compusoft-720x250-wide.png" alt="CompuSoft Computer Support" /></a>
-        <nav aria-label="Main navigation">
+        <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="main-navigation">Menu</button>
+        <nav id="main-navigation" aria-label="Main navigation">
           <a href="#services">Services</a>
           <a href="#how-it-works">How it works</a>
           <a href="#pricing">Pricing</a>
@@ -305,12 +293,6 @@
           </div>
         </div>
       </section>
-      <section class="content reviews" aria-labelledby="reviews-title">
-        <div class="wrap">
-          <div class="section-heading"><p class="eyebrow">Customer reviews</p><h2 id="reviews-title">Read reviews on Google</h2></div>
-          <div class="review-card"><div class="review-content"><a class="review-name" aria-label="View CompuSoft’s Google profile and reviews" href="https://www.google.com/maps/place/CompuSoft/@-34.096858,18.8312731,17z/data=!4m6!3m5!1s0xa304d8a3f5d3b595:0x9fbce82681d5e9a2!8m2!3d-34.096858!4d18.8312731!16s%2Fg%2F11zz_n3fmt" target="_blank" rel="noopener noreferrer">See CompuSoft’s Google reviews</a></div></div>
-        </div>
-      </section>
       <section class="content about" aria-labelledby="about-title">
         <div class="wrap about-inner">
           <div><p class="eyebrow">About CompuSoft</p><div class="section-heading"><h2 id="about-title">Personal, practical IT support</h2><p>I’m based in Somerset West and work directly with homes and small businesses in Somerset West, Strand and Gordon's Bay. I keep the advice clear and focus on practical help for the problem in front of us.</p><p class="body-copy">For remote support, I’ll explain the session and arrange access with your permission before connecting.</p></div></div>
@@ -347,6 +329,35 @@
       <a class="button" href="https://wa.me/27820593491" aria-label="WhatsApp CompuSoft" target="_blank" rel="noopener noreferrer">WhatsApp</a>
     </div>
     <script>
+      const menuToggle = document.getElementById("menu-toggle");
+      const mainNavigation = document.getElementById("main-navigation");
+      const compactNavigation = window.matchMedia("(max-width: 520px)");
+      const setNavigationMode = () => {
+        if (!menuToggle || !mainNavigation) return;
+        if (compactNavigation.matches) {
+          mainNavigation.hidden = menuToggle.getAttribute("aria-expanded") !== "true";
+        } else {
+          mainNavigation.hidden = false;
+          menuToggle.setAttribute("aria-expanded", "false");
+        }
+      };
+      if (menuToggle && mainNavigation) {
+        menuToggle.addEventListener("click", () => {
+          const expanded = menuToggle.getAttribute("aria-expanded") === "true";
+          menuToggle.setAttribute("aria-expanded", String(!expanded));
+          menuToggle.textContent = expanded ? "Menu" : "Close";
+          setNavigationMode();
+        });
+        mainNavigation.addEventListener("click", (event) => {
+          if (event.target.closest("a") && compactNavigation.matches) {
+            menuToggle.setAttribute("aria-expanded", "false");
+            menuToggle.textContent = "Menu";
+            setNavigationMode();
+          }
+        });
+        compactNavigation.addEventListener("change", setNavigationMode);
+        setNavigationMode();
+      }
       const mobileContactBar = document.getElementById("mobile-contact-bar");
       const mobileBarHideTargets = [document.querySelector(".hero"), document.getElementById("contact"), document.querySelector("footer")].filter(Boolean);
       if (mobileContactBar && "IntersectionObserver" in window && mobileBarHideTargets.length) {
@@ -375,8 +386,14 @@
         const problem = String(form.get("problem") || "").trim();
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const fields = { name: document.getElementById("name"), email: document.getElementById("email"), problem: document.getElementById("problem") };
-        const clearErrors = () => Object.values(fields).forEach((field) => { field.closest("label").classList.remove("has-error"); field.removeAttribute("aria-invalid"); });
-        const showFieldError = (field, message, errorId) => { field.closest("label").classList.add("has-error"); field.setAttribute("aria-invalid", "true"); field.setAttribute("aria-describedby", [field.getAttribute("aria-describedby"), errorId].filter(Boolean).join(" ")); status.dataset.state = "error"; status.textContent = message; field.focus(); };
+        const clearErrors = () => Object.values(fields).forEach((field) => {
+          field.closest("label").classList.remove("has-error");
+          field.removeAttribute("aria-invalid");
+          const descriptions = (field.getAttribute("aria-describedby") || "").split(/\s+/).filter((id) => id && id !== `${field.id}-error`);
+          if (descriptions.length) field.setAttribute("aria-describedby", descriptions.join(" "));
+          else field.removeAttribute("aria-describedby");
+        });
+        const showFieldError = (field, message, errorId) => { field.closest("label").classList.add("has-error"); field.setAttribute("aria-invalid", "true"); field.setAttribute("aria-describedby", [field.getAttribute("aria-describedby"), errorId].filter(Boolean).join(" ")); status.dataset.state = "error"; status.textContent = "Please correct the highlighted field and try again."; field.focus(); };
         clearErrors();
         status.textContent = "";
         delete status.dataset.state;
