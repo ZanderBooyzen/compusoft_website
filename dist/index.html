@@ -241,6 +241,19 @@
       .pricing-card p + p { margin-top: 12px; }
       .pricing-card strong { color: #142b45; }
       .pricing-card .button { margin-top: 20px; }
+      .info-panel { max-width: 900px; padding: clamp(22px, 4vw, 34px); border: 1px solid #dce6ef; border-radius: 16px; background: #fff; }
+      .info-panel h3 { margin: 0 0 8px; color: #142b45; font-size: 19px; }
+      .info-panel p { margin: 0; color: #45536a; font-size: 15px; line-height: 1.7; }
+      .info-panel p + p { margin-top: 10px; }
+      .service-area { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 22px; }
+      .area-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+      .area-pills span { padding: 8px 12px; border: 1px solid #cbdcf0; border-radius: 999px; background: #f4f8fd; color: #142b45; font-size: 14px; font-weight: 700; }
+      .contact-checklist { margin: 18px 0; padding: 18px 20px; border: 1px solid #dce6ef; border-radius: 12px; background: #f7faff; }
+      .contact-checklist h3 { margin: 0 0 8px; color: #142b45; font: 700 17px "Manrope", Arial, sans-serif; }
+      .contact-checklist p { margin: 0 0 8px; color: #45536a; font-size: 13px; line-height: 1.55; }
+      .contact-checklist ul { display: grid; gap: 5px; margin: 0; padding-left: 20px; color: #45536a; font-size: 13px; line-height: 1.5; }
+      .urgent-note { margin: -4px 0 18px; padding: 12px 14px; border-left: 3px solid #1769cf; background: #f2f7fe; color: #34445a; font-size: 13px; line-height: 1.6; }
+      @media (max-width: 600px) { .service-area { grid-template-columns: 1fr; align-items: start; } }
     </style>
   </head>
   <body>
@@ -294,6 +307,20 @@
           </div>
         </div>
       </section>
+      <section class="content" aria-labelledby="area-title" style="padding-top:0">
+        <div class="wrap">
+          <div class="info-panel service-area">
+            <div><h3 id="area-title">On-site support around the Helderberg</h3><p>On-site visits can be arranged in these towns. The map shows the town locations, not a fixed service boundary. Ask about nearby areas.</p><div class="area-pills"><span>Somerset West</span><span>Strand</span><span>Gordon's Bay</span></div></div>
+            <a class="button button-secondary" href="https://www.google.com/maps/search/?api=1&amp;query=Somerset+West%2C+Strand%2C+Gordon%27s+Bay%2C+Western+Cape" target="_blank" rel="noopener noreferrer">View area map</a>
+          </div>
+        </div>
+      </section>
+      <section class="content about" aria-labelledby="business-support-title">
+        <div class="wrap">
+          <div class="section-heading"><p class="eyebrow">For small businesses</p><h2 id="business-support-title">Practical help for your team’s computers</h2><p>Get help with PC and laptop problems, new device setup, software, Wi-Fi and networking, malware, and routine maintenance. Tell me about your devices and what’s disrupting work; I’ll discuss a suitable next step and the cost before work begins.</p></div>
+          <div class="info-panel"><h3>Need help more than once?</h3><p>Share the kind of support you need and how often it comes up. I’ll confirm whether I can help and agree the scope, timing and pricing with you before making any commitment.</p><a class="text-link" href="#contact">Discuss support for your business</a></div>
+        </div>
+      </section>
       <section class="content pricing" id="pricing" aria-labelledby="pricing-title">
         <div class="wrap">
           <div class="section-heading"><p class="eyebrow">Clear pricing</p><h2 id="pricing-title">Know the cost before work begins</h2><p>Every computer issue is a little different, so I’ll first understand what’s happening and explain the recommended next step.</p></div>
@@ -319,6 +346,8 @@
             <details class="faq-item"><summary>What does PC maintenance include?</summary><p class="faq-answer">Typical maintenance includes installing updates, checking startup and available storage, reviewing basic device health and optimising everyday performance. The exact checks depend on your computer and what it needs.</p></details>
             <details class="faq-item"><summary>Do you clean laptop interiors?</summary><p class="faq-answer">PC interior cleaning is for desktop PCs. I carefully remove dust inside the desktop to help keep airflow clear.</p></details>
             <details class="faq-item"><summary>Can you help remotely?</summary><p class="faq-answer">Yes, when the issue is suitable for remote support. We'll discuss the problem first, and I'll only arrange remote access with your permission. Never send passwords, one-time codes or banking details.</p></details>
+            <details class="faq-item"><summary>Should I back up my files before support?</summary><p class="faq-answer">If you can, make a current backup before repair or maintenance, especially if the device contains important files. If the computer is not working well enough to back up, tell me before we start so we can discuss the safest next step. Don’t send passwords or recovery codes in the form.</p></details>
+            <details class="faq-item"><summary>Can you support a small business?</summary><p class="faq-answer">Yes. I help small businesses with PC and laptop troubleshooting, device setup, software, networking, malware cleanup and maintenance. Contact me with the number of devices and the issue, and I’ll confirm scope, availability and pricing before work begins.</p></details>
             <details class="faq-item"><summary>Where do you offer on-site support?</summary><p class="faq-answer">On-site visits are available by arrangement in Somerset West, Strand and Gordon's Bay.</p></details>
             <details class="faq-item"><summary>How much does support cost?</summary><p class="faq-answer">Pricing is provided per quote based on the issue and work involved. I’ll discuss the cost with you before work begins.</p></details>
             <details class="faq-item"><summary>When can I expect a reply?</summary><p class="faq-answer">I aim to reply to new enquiries within one business day during posted business hours. Messages received outside those hours are handled when I reopen.</p></details>
@@ -338,8 +367,10 @@
             <h2 id="contact-title">Tell me what needs fixing</h2>
             <p>Share a few details about the device and the issue. I’ll get in touch to discuss what to do next.</p>
             <p class="response-note">I aim to reply to new enquiries within one business day during posted business hours.</p>
+            <p class="urgent-note"><strong>Time-sensitive issue?</strong> Call or WhatsApp for the quickest way to reach me. Availability varies, so I’ll confirm whether I can assist before arranging urgent work.</p>
             <div class="hero-actions direct-actions" role="group" aria-label="Call or WhatsApp CompuSoft"><a class="button button-secondary" href="tel:+27820593491" aria-label="Call CompuSoft on 082 059 3491">Call 082 059 3491</a><a class="button button-secondary" href="https://wa.me/27820593491" aria-label="WhatsApp CompuSoft" target="_blank" rel="noopener noreferrer">WhatsApp</a></div>
             <form id="help-form" novalidate>
+              <div class="contact-checklist"><h3>Helpful details to include</h3><p>A few specifics help me understand the problem and suggest a next step:</p><ul><li>Device type and model, if you know it</li><li>What you see or the exact error message</li><li>When the problem started and what you have tried</li><li>Whether remote help or an on-site visit suits you</li></ul></div>
               <p class="contact-requirement"><strong>At least one contact method is required:</strong> provide your email address, phone number, or both.</p>
               <label for="name">First name <span>(required)</span><input id="name" name="name" type="text" autocomplete="given-name" maxlength="120" required /><span class="field-error" id="name-error">Enter your first name.</span></label>
               <label for="surname">Surname <span>(optional)</span><input id="surname" name="surname" type="text" autocomplete="family-name" maxlength="120" /></label>
@@ -349,6 +380,7 @@
               <p class="hint" id="problem-hint">Please leave out passwords, one-time codes and banking details.</p>
               <label class="trap" aria-hidden="true">Leave this field empty<input name="website" tabindex="-1" autocomplete="off" /></label>
               <button class="button" type="submit">Send my support request</button>
+              <p class="hint">By sending this request, you’re asking CompuSoft to use these details to respond. See the <a href="privacy.html">Privacy notice</a> for information about storage and providers.</p>
               <p id="form-status" role="status" aria-live="polite" aria-atomic="true"></p>
             </form>
           </div>
@@ -356,7 +388,7 @@
         </div>
       </section>
     </main>
-    <footer><div class="wrap"><strong>CompuSoft Computer Support</strong><span>Somerset West, Western Cape</span><a href="mailto:mail@compusoft.co.za">mail@compusoft.co.za</a></div></footer>
+    <footer><div class="wrap"><strong>CompuSoft Computer Support</strong><span>Somerset West, Western Cape</span><a href="mailto:mail@compusoft.co.za">mail@compusoft.co.za</a><a href="privacy.html">Privacy notice</a></div></footer>
     <div class="mobile-contact-bar" id="mobile-contact-bar" role="group" aria-label="Quick contact" hidden>
       <a class="button button-secondary" href="tel:+27820593491" aria-label="Call CompuSoft on 082 059 3491">Call 082 059 3491</a>
       <a class="button" href="https://wa.me/27820593491" aria-label="WhatsApp CompuSoft" target="_blank" rel="noopener noreferrer">WhatsApp</a>
