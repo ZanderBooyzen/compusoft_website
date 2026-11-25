@@ -12,6 +12,28 @@
     <meta property="og:description" content="Friendly remote and on-site IT support for homes and small businesses in Somerset West, Strand and Gordon's Bay." />
     <meta property="og:url" content="https://www.compusoft.co.za/" />
     <meta property="og:image" content="https://www.compusoft.co.za/og-compusoft.png" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ComputerRepair",
+        "name": "CompuSoft Computer Support",
+        "url": "https://www.compusoft.co.za/",
+        "image": "https://www.compusoft.co.za/og-compusoft.png",
+        "email": "mail@compusoft.co.za",
+        "telephone": "+27820593491",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Somerset West",
+          "addressRegion": "Western Cape",
+          "addressCountry": "ZA"
+        },
+        "areaServed": ["Somerset West", "Strand", "Gordon's Bay"],
+        "openingHoursSpecification": [
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "09:00", "closes": "17:00" },
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "09:00", "closes": "12:00" }
+        ]
+      }
+    </script>
     <title>Local computer support in Somerset West | CompuSoft</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -30,6 +52,7 @@
       .brand img { display: block; width: 190px; height: auto; }
       nav { display: flex; align-items: center; gap: clamp(14px, 2.5vw, 30px); }
       nav a { color: #34445a; font-size: 14px; font-weight: 700; text-decoration: none; }
+      nav a:not(.nav-cta) { min-height: 44px; display: inline-flex; align-items: center; }
       nav a:hover, .text-link:hover { color: #0f54ad; text-decoration: underline; text-underline-offset: 4px; }
       .nav-cta, .button { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; border: 0; border-radius: 9px; padding: 12px 19px; background: #1769cf; color: #fff; font: inherit; font-size: 14px; font-weight: 700; text-decoration: none; cursor: pointer; box-shadow: 0 7px 16px rgba(23,105,207,.18); }
       .nav-cta:hover, .button:hover { background: #0f54ad; }
@@ -135,7 +158,7 @@
       }
       @media (max-width: 900px) { .hero-inner { min-height: 430px; } h1 { font-size: clamp(40px, 6vw, 56px); } .service { grid-column: span 6; } .service:nth-child(n+5) { grid-column: span 6; } .service:last-child { grid-column: 4 / span 6; } }
       @media (max-width: 760px) { .wrap { width: min(100% - 40px, 680px); } .header-inner { min-height: 72px; gap: 10px; } .brand img { width: 145px; } nav { gap: 10px; } nav a { font-size: 12px; } nav .nav-cta { min-height: 40px; padding: 9px 11px; font-size: 12px; } .hero-inner { min-height: 0; padding-inline: 0; } .hero-content { width: min(100% - 40px, 680px); margin-inline: auto; padding-block: 56px 36px; } .hero-visual { inset: 0 16px; width: auto; height: auto; margin: 0; border-radius: 0; } .hero-visual img { object-position: center center; } .trust-strip { gap: 6px; padding-inline: 10px; } .trust-item { gap: 8px; font-size: 13px; } .trust-item svg { width: 23px; height: 23px; } .service-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .service,.service:nth-child(n+5) { grid-column: auto; } .service:last-child { grid-column: auto; } .contact-grid, .about-inner { grid-template-columns: 1fr; gap: 30px; } .about-mark { width: min(70%, 260px); } }
-      @media (max-width: 520px) { .wrap { width: min(100% - 32px, 1080px); } .header-inner { align-items: flex-start; flex-direction: column; padding-block: 12px; } nav { width: 100%; justify-content: space-between; gap: 6px; } nav a { font-size: 11px; } nav .nav-cta { padding-inline: 8px; } .hero-content { width: calc(100% - 32px); padding-block: 46px 30px; } .hero-visual { height: auto; } h1 { font-size: clamp(40px, 12vw, 54px); } .trust-strip { grid-template-columns: 1fr; justify-items: stretch; gap: 0; margin-top: 16px; padding: 8px 16px; } .trust-item { justify-content: flex-start; padding: 11px 4px; font-size: 14px; } .trust-item + .trust-item { border-top: 1px solid #bbd5f2; border-left: 0; } .trust-item svg { width: 25px; height: 25px; } .service-grid, .steps { grid-template-columns: 1fr; } .service,.service:nth-child(n+5) { grid-column: auto; min-height: 0; } .hero-actions { align-items: flex-start; flex-direction: row; gap: 16px; } .hero-actions .button { padding-inline: 14px; } footer .wrap { flex-direction: column; align-items: flex-start; } }
+      @media (max-width: 520px) { .wrap { width: min(100% - 32px, 1080px); } .header-inner { align-items: center; flex-direction: row; flex-wrap: wrap; padding-block: 10px; } .brand img { width: 132px; } nav { flex: 1 1 100%; width: 100%; justify-content: space-between; gap: 4px; } nav a:not(.nav-cta) { font-size: 12px; } nav .nav-cta { min-height: 44px; padding-inline: 10px; } .hero-content { width: calc(100% - 32px); padding-block: 46px 30px; } .hero-visual { height: auto; } h1 { font-size: clamp(40px, 12vw, 54px); } .trust-strip { grid-template-columns: 1fr; justify-items: stretch; gap: 0; margin-top: 16px; padding: 8px 16px; } .trust-item { justify-content: flex-start; padding: 11px 4px; font-size: 14px; } .trust-item + .trust-item { border-top: 1px solid #bbd5f2; border-left: 0; } .trust-item svg { width: 25px; height: 25px; } .service-grid, .steps { grid-template-columns: 1fr; } .service,.service:nth-child(n+5) { grid-column: auto; min-height: 0; } .hero-actions { align-items: flex-start; flex-direction: row; gap: 16px; } .hero-actions .button { padding-inline: 14px; } footer .wrap { flex-direction: column; align-items: flex-start; } }
       @media (prefers-reduced-motion: reduce) { :root { scroll-behavior: auto; } *, *::before, *::after { transition-duration: .01ms !important; } }
       /* Mockup-matched section rhythm and review treatment. */
       .section-heading .eyebrow { color: #1769cf; }
@@ -181,15 +204,13 @@
         :is(a.button, .nav-cta, button:not(:disabled)):hover { transform: translateY(-1px); }
         .brand:hover img { filter: drop-shadow(0 3px 7px rgba(23,105,207,.22)); }
       }
-      @keyframes request-support-pulse {
-        0%, 100% { transform: scale(1); outline-color: rgba(0,0,0,0); outline-offset: 1px; box-shadow: 0 7px 16px rgba(23,105,207,.18); }
-        50% { transform: scale(1.045); outline-color: rgba(0,0,0,.95); outline-offset: 3px; box-shadow: 0 9px 23px rgba(23,105,207,.34); }
-      }
-      .request-support-cta { outline: 3px solid transparent; animation: request-support-pulse 2s ease-in-out infinite; }
-      .request-support-cta:focus-visible { animation: none; }
-      @media (prefers-reduced-motion: reduce) {
-        .request-support-cta { animation: none; outline: 3px solid #111827; outline-offset: 3px; box-shadow: 0 7px 16px rgba(23,105,207,.22); }
-      }
+      .request-support-cta { animation: none; outline: 0; }
+      .pricing { background: #f5f8fc; }
+      .pricing-card { max-width: 760px; padding: clamp(24px, 4vw, 38px); border: 1px solid #dce6ef; border-radius: 18px; background: #fff; box-shadow: 0 8px 28px rgba(17,45,82,.06); }
+      .pricing-card p { margin: 0; color: #45536a; font-size: 16px; line-height: 1.75; }
+      .pricing-card p + p { margin-top: 12px; }
+      .pricing-card strong { color: #142b45; }
+      .pricing-card .button { margin-top: 20px; }
     </style>
   </head>
   <body>
@@ -200,6 +221,7 @@
         <nav aria-label="Main navigation">
           <a href="#services">Services</a>
           <a href="#how-it-works">How it works</a>
+          <a href="#pricing">Pricing</a>
           <a href="#faq">FAQ</a>
           <a href="#contact">Contact</a>
           <a class="nav-cta request-support-cta" href="#contact">Request support</a>
@@ -241,6 +263,12 @@
           </div>
         </div>
       </section>
+      <section class="content pricing" id="pricing" aria-labelledby="pricing-title">
+        <div class="wrap">
+          <div class="section-heading"><p class="eyebrow">Clear pricing</p><h2 id="pricing-title">Know the cost before work begins</h2><p>Every computer issue is a little different, so I’ll first understand what’s happening and explain the recommended next step.</p></div>
+          <div class="pricing-card"><p><strong>You’ll receive a quote before any repair or paid work starts.</strong> Pricing depends on the issue, the time involved and whether support is remote or on-site.</p><p>If diagnosis is needed, I’ll explain any assessment fee and get your agreement before proceeding. There’s no obligation to continue with recommended work.</p><a class="button" href="#contact">Describe your issue for a quote</a></div>
+        </div>
+      </section>
       <section class="content" id="how-it-works" aria-labelledby="how-title">
         <div class="wrap">
           <div class="how-panel">
@@ -270,7 +298,7 @@
       <section class="content reviews" aria-labelledby="reviews-title">
         <div class="wrap">
           <div class="section-heading"><p class="eyebrow">Google review</p><h2 id="reviews-title">A five-star review</h2></div>
-          <div class="review-card"><div class="review-content"><span class="review-stars" role="img" aria-label="5 out of 5 stars">★★★★★</span><a class="review-name" aria-label="View CompuSoft’s 5-star Google profile" href="https://www.google.com/maps/place/CompuSoft/@-34.096858,18.8312731,17z/data=!4m6!3m5!1s0xa304d8a3f5d3b595:0x9fbce82681d5e9a2!8m2!3d-34.096858!4d18.8312731!16s%2Fg%2F11zz_n3fmt" target="_blank" rel="noopener noreferrer">Rated 5 stars on Google</a></div></div>
+          <div class="review-card"><div class="review-content"><span class="review-stars" role="img" aria-label="5 out of 5 stars">★★★★★</span><a class="review-name" aria-label="View CompuSoft’s Google profile and reviews" href="https://www.google.com/maps/place/CompuSoft/@-34.096858,18.8312731,17z/data=!4m6!3m5!1s0xa304d8a3f5d3b595:0x9fbce82681d5e9a2!8m2!3d-34.096858!4d18.8312731!16s%2Fg%2F11zz_n3fmt" target="_blank" rel="noopener noreferrer">See CompuSoft’s Google reviews</a></div></div>
         </div>
       </section>
       <section class="content about" aria-labelledby="about-title">
