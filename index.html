@@ -32,7 +32,6 @@
             "image": "https://www.compusoft.co.za/og-compusoft.png",
             "logo": "https://www.compusoft.co.za/assets/compusoft-logo.webp",
             "email": "mail@compusoft.co.za",
-            "telephone": "+27820593491",
             "address": {
               "@type": "PostalAddress",
               "addressLocality": "Somerset West",
@@ -75,7 +74,12 @@
     <style>
       :root { color-scheme: light; font-family: "DM Sans", Arial, sans-serif; color: #111827; background: #fff; font-synthesis: none; scroll-behavior: smooth; }
       * { box-sizing: border-box; }
-      body { min-height: 100vh; margin: 0; background: #fff; }
+      body { position: relative; isolation: isolate; min-height: 100vh; margin: 0; background: #fff; }
+      .ghost-backdrop { position: fixed; z-index: 3; inset: 82px 0 0; display: grid; place-items: center; overflow: hidden; pointer-events: none; opacity: 0; visibility: hidden; transition: opacity .25s ease, visibility .25s ease; }
+      body.show-tower-backdrop .ghost-backdrop { opacity: 1; visibility: visible; }
+      .ghost-backdrop img { display: block; width: min(62vw, 740px); max-height: 70vh; object-fit: contain; opacity: .12; mix-blend-mode: multiply; filter: grayscale(1) saturate(.65); mask-image: radial-gradient(ellipse at center, #000 18%, rgba(0,0,0,.76) 52%, transparent 78%); }
+      main, footer { position: relative; z-index: 2; }
+      @media (max-width: 760px) { .ghost-backdrop { inset-block-start: 72px; } .ghost-backdrop img { width: 88vw; max-height: 62vh; opacity: .09; } }
       a { color: inherit; }
       .wrap { width: min(1260px, calc(100% - 56px)); margin-inline: auto; }
       .skip-link { position: fixed; top: 12px; left: 12px; z-index: 20; padding: 12px 16px; border-radius: 8px; background: #142b45; color: #fff; font-weight: 700; text-decoration: none; transform: translateY(calc(-100% - 16px)); box-shadow: 0 6px 18px rgba(17,40,67,.2); }
@@ -148,11 +152,22 @@
       .about { background: #fff; }
       .about-inner { display: grid; grid-template-columns: minmax(0, 900px); justify-content: center; align-items: center; gap: 0; }
       .contact { background: #eff5fb; }
-      .contact-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .85fr); align-items: start; gap: 32px; }
-      .contact-card { padding: clamp(20px, 3vw, 30px); border: 1px solid #dce6ef; border-radius: 18px; background: #fff; box-shadow: 0 18px 48px rgba(17,45,82,.08); }
-      .contact-card h2 { margin: 0 0 8px; font-size: clamp(26px, 3.5vw, 34px); letter-spacing: -.04em; }
-      .contact-card > p { margin: 0 0 24px; color: #596579; font-size: 14px; line-height: 1.65; }
-      .contact-card > .response-note { margin: -12px 0 16px; color: #596579; font-size: 14px; line-height: 1.6; }
+      .contact-grid { display: grid; grid-template-columns: minmax(0, 1fr); align-items: start; gap: 24px; }
+      .contact-card { padding: clamp(22px, 4vw, 42px); border: 1px solid #dce6ef; border-radius: 22px; background: linear-gradient(145deg, #fff 0%, #fbfdff 100%); box-shadow: 0 20px 55px rgba(17,45,82,.1); }
+      .contact-card h2 { margin: 0 0 10px; color: #142b45; font-size: clamp(28px, 4vw, 40px); letter-spacing: -.045em; }
+      .contact-card > p { max-width: 760px; margin: 0 0 14px; color: #596579; font-size: 15px; line-height: 1.65; }
+      .contact-card > .response-note { margin: 0 0 16px; color: #596579; font-size: 14px; line-height: 1.6; }
+      .contact-card form { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; column-gap: 18px; row-gap: 18px; }
+      .contact-card form > .contact-requirement { grid-column: 1 / -1; }
+      .contact-card form > label[for="problem"] { grid-column: 1 / -1; width: 100%; }
+      .contact-card form > #problem-hint, .contact-card form > .trap, .contact-card form > button, .contact-card form > .hint, .contact-card form > #form-status { grid-column: 1 / -1; }
+      .contact-card form > label[for="name"], .contact-card form > label[for="surname"], .contact-card form > label[for="email"], .contact-card form > label[for="phone"] { grid-column: span 1; }
+      .contact-card .hero-actions { margin: 18px 0 24px; }
+      .contact-card .hero-actions .button { min-width: 156px; }
+      .hero-actions.direct-actions > .button:only-child { grid-column: 1 / -1; }
+      .contact-card form > label { align-self: start; }
+      .contact-card form > label[for="problem"] textarea { min-height: 145px; }
+      .contact-card form > button { min-height: 50px; padding-inline: 24px; }
       form { display: grid; gap: 17px; }
       label { display: grid; gap: 7px; color: #243648; font-size: 13px; font-weight: 700; }
       label span { color: #657487; font-size: 12px; font-weight: 400; }
@@ -176,6 +191,12 @@
       .contact-direct h3 { margin: 0 0 12px; font-size: 21px; }
       .contact-direct p { color: #596579; font-size: 15px; line-height: 1.7; }
       .contact-direct a { color: #155bb2; font-weight: 700; }
+      .save-contact-card { position: fixed; z-index: 4; top: 102px; right: 20px; display: grid; grid-template-columns: 116px minmax(0, 1fr); align-items: center; gap: 14px; width: min(360px, calc(100vw - 40px)); padding: 16px; border: 1px solid #dce6ef; border-radius: 16px; background: rgba(255,255,255,.97); box-shadow: 0 12px 36px rgba(17,45,82,.2); backdrop-filter: blur(12px); }
+      .save-contact-card img { display: block; width: 116px; height: 116px; image-rendering: pixelated; }
+      .save-contact-card h3 { margin: 0 0 6px; font-size: 18px; }
+      .save-contact-card p { margin: 0 0 10px; color: #596579; font-size: 13px; line-height: 1.5; }
+      @media (max-width: 760px) { .save-contact-card { top: 86px; right: 12px; grid-template-columns: 82px minmax(0, 1fr); gap: 10px; width: min(310px, calc(100vw - 24px)); padding: 11px; } .save-contact-card img { width: 82px; height: 82px; } .save-contact-card h3 { font-size: 16px; } .save-contact-card p { margin-bottom: 7px; font-size: 12px; } .save-contact-card .button { min-height: 38px; padding: 8px 10px; font-size: 12px; } }
+      @media (max-width: 380px) { .save-contact-card { grid-template-columns: 68px minmax(0, 1fr); width: min(290px, calc(100vw - 20px)); right: 10px; } .save-contact-card img { width: 68px; height: 68px; } }
       .availability-hours { margin: 20px 0; padding: 15px 18px; border: 1px solid #dce6ef; border-radius: 12px; background: #fff; }
       .availability-hours h4 { margin: 0 0 7px; color: #142b45; font: 700 16px "Manrope", Arial, sans-serif; }
       .availability-hours dl { margin: 0; }
@@ -188,6 +209,7 @@
       footer a { color: #155bb2; font-weight: 700; }
       .mobile-contact-bar { display: none; }
       .mobile-contact-bar[hidden] { display: none; }
+      .mobile-contact-bar .button:only-child { grid-column: 1 / -1; }
       .menu-toggle { display: none; }
       @media (max-width: 760px) {
         .mobile-contact-bar:not([hidden]) { position: fixed; z-index: 6; right: 12px; bottom: calc(10px + env(safe-area-inset-bottom, 0px)); left: 12px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; padding: 9px; border: 1px solid #dce6ef; border-radius: 14px; background: rgba(255,255,255,.96); box-shadow: 0 8px 28px rgba(17,45,82,.18); backdrop-filter: blur(12px); }
@@ -256,8 +278,11 @@
         .trust-item { justify-content: flex-start; }
         .contact-grid { justify-items: center; }
         .contact-card, .contact-direct { width: 100%; }
+        .contact-card form { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .contact-card form > .contact-requirement { grid-column: 1 / -1; }
         footer .wrap { align-items: flex-start; }
       }
+      @media (max-width: 520px) { .contact-card { padding: 22px 18px; border-radius: 18px; } .contact-card form { grid-template-columns: 1fr; } .contact-card form > label[for="name"], .contact-card form > label[for="surname"], .contact-card form > label[for="email"], .contact-card form > label[for="phone"] { grid-column: 1; } .contact-card .hero-actions .button { min-width: 0; } }
           /* Shared hover feedback for interactive controls. */
       :is(a, button, summary, input, textarea, select, [role="button"]) { transition: color .18s ease, background-color .18s ease, border-color .18s ease, box-shadow .18s ease; }
       a:not(.button):not(.nav-cta):hover { color: #0f54ad; text-decoration-thickness: 2px; text-underline-offset: 4px; }
@@ -289,6 +314,7 @@
   </head>
   <body>
     <a class="skip-link" href="#home">Skip to main content</a>
+    <div class="ghost-backdrop" aria-hidden="true"><img src="assets/products/desktop.png" alt="" /></div>
     <header class="site-header">
       <div class="wrap header-inner">
         <a class="brand" href="#home" aria-label="CompuSoft home"><img src="assets/compusoft-logo.webp" alt="" width="1086" height="288" /></a>
@@ -312,7 +338,7 @@
             <h1 id="hero-title"><span class="hero-title-line">Friendly computer support for</span><span class="hero-title-line">homes and small businesses</span></h1>
             <p class="hero-copy">Remote and on-site help for everyday computer problems.</p>
             <div class="hero-actions"><a class="button request-support-cta" href="#contact">Request support</a><a class="button button-secondary" href="mailto:mail@compusoft.co.za">Email CompuSoft</a></div>
-            <div class="hero-actions direct-actions" role="group" aria-label="Call or WhatsApp CompuSoft"><a class="button button-secondary" href="tel:+27820593491" aria-label="Call CompuSoft on 082 059 3491">Call 082 059 3491</a><a class="button button-secondary" href="https://wa.me/27820593491" aria-label="WhatsApp CompuSoft" target="_blank" rel="noopener noreferrer">WhatsApp</a></div>
+            <div class="hero-actions direct-actions" role="group" aria-label="Message CompuSoft on WhatsApp"><a class="button button-secondary" href="https://wa.me/27820593491" aria-label="WhatsApp CompuSoft" target="_blank" rel="noopener noreferrer">WhatsApp us</a></div>
           </div>
         </div>
       </section>
@@ -323,6 +349,31 @@
           <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 2-6h14l2 6"/><path d="M4 10v10h16V10M3 10h18"/><path d="M9 10v3a3 3 0 0 0 6 0v-3"/></svg><span>Homes &amp; small businesses</span></div>
         </div>
       </div>
+      <section class="content contact" id="contact" aria-labelledby="contact-title">
+        <div class="wrap contact-grid">
+          <div class="contact-card">
+            <h2 id="contact-title">How can we help?</h2>
+            <p>Share a few details about the device and the issue. I’ll get in touch to discuss what to do next.</p>
+            <p class="response-note">I aim to reply to new enquiries within one business day during posted business hours.</p>
+            <p class="urgent-note"><strong>Need help quickly?</strong> Message us on WhatsApp. Availability varies, so we’ll confirm whether we can assist before arranging urgent work.</p>
+            <div class="hero-actions direct-actions" role="group" aria-label="Message CompuSoft on WhatsApp"><a class="button button-secondary" href="https://wa.me/27820593491" aria-label="WhatsApp CompuSoft" target="_blank" rel="noopener noreferrer">WhatsApp us</a></div>
+            <form id="help-form" novalidate>
+              <p class="contact-requirement"><strong>At least one contact method is required:</strong> provide your email address, phone number, or both.</p>
+              <label for="name">First name <span>(required)</span><input id="name" name="name" type="text" autocomplete="given-name" maxlength="120" required /><span class="field-error" id="name-error">Enter your first name.</span></label>
+              <label for="surname">Surname <span>(optional)</span><input id="surname" name="surname" type="text" autocomplete="family-name" maxlength="120" /></label>
+              <label for="email">Email address <span>(optional if you provide a phone number)</span><input id="email" name="email" type="email" autocomplete="email" maxlength="200" /><span class="field-error" id="email-error">Enter a valid email address or leave this blank if you provide a phone number.</span></label>
+              <label for="phone">Phone number <span>(optional if you provide an email address)</span><input id="phone" name="phone" type="tel" autocomplete="tel" maxlength="40" /></label>
+              <label for="problem">Problem description <span>(required)</span><textarea id="problem" name="problem" required maxlength="3000" aria-describedby="problem-hint" placeholder="What’s happening? Include the device and any error message you can see."></textarea><span class="field-error" id="problem-error">Describe the problem so I can help.</span></label>
+              <p class="hint" id="problem-hint">Please leave out passwords, one-time codes and banking details.</p>
+              <label class="trap" aria-hidden="true">Leave this field empty<input name="website" tabindex="-1" autocomplete="off" /></label>
+              <button class="button" type="submit">Send my support request</button>
+              <p class="hint">By sending this request, you’re asking CompuSoft to use these details to respond. See the <a href="privacy.html">Privacy notice</a> for information about storage and providers.</p>
+              <p id="form-status" role="status" aria-live="polite" aria-atomic="true"></p>
+            </form>
+          </div>
+          <aside class="contact-direct"><p class="eyebrow">Direct email</p><h3>Prefer to email me?</h3><p>You can contact me directly at <a href="mailto:mail@compusoft.co.za">mail@compusoft.co.za</a>.</p><div class="availability-hours"><h4>Business hours</h4><dl><div><dt>Monday–Friday</dt><dd>09:00–17:00</dd></div><div><dt>Saturday</dt><dd>09:00–12:00</dd></div><div><dt>Sunday</dt><dd>Closed</dd></div></dl></div><p>Remote support is available further afield where suitable. If remote help won’t work, an on-site visit may be arranged in Somerset West and nearby areas. Ask me about device drop-off by arrangement.</p></aside>
+        </div>
+      </section>
       <section class="content services" id="services" aria-labelledby="services-title">
         <div class="wrap">
           <div class="section-heading"><p class="eyebrow">Services</p><h2 id="services-title">Practical help for everyday tech</h2></div>
@@ -381,7 +432,7 @@
             <details class="faq-item"><summary>When can I get on-site support?</summary><p class="faq-answer">I’ll first check whether remote support is suitable. If it won’t work or isn’t appropriate, an on-site visit may be arranged in Somerset West and nearby areas.</p></details>
             <details class="faq-item"><summary>How much does support cost?</summary><p class="faq-answer">Pricing is provided per quote based on the issue and work involved. I’ll discuss the cost with you before work begins.</p></details>
             <details class="faq-item"><summary>When can I expect a reply?</summary><p class="faq-answer">I aim to reply to new enquiries within one business day during posted business hours. Messages received outside those hours are handled when I reopen.</p></details>
-            <details class="faq-item"><summary>How do I arrange support?</summary><p class="faq-answer">Use the <a href="#contact">support form</a>, email <a href="mailto:mail@compusoft.co.za">mail@compusoft.co.za</a>, call <a href="tel:+27820593491">082 059 3491</a> or <a href="https://wa.me/27820593491" target="_blank" rel="noopener noreferrer">WhatsApp me</a>. Briefly describe the device and issue, and leave out passwords, one-time codes and banking details.</p></details>
+            <details class="faq-item"><summary>How do I arrange support?</summary><p class="faq-answer">Use the <a href="#contact">support form</a>, email <a href="mailto:mail@compusoft.co.za">mail@compusoft.co.za</a> or <a href="https://wa.me/27820593491" target="_blank" rel="noopener noreferrer">message us on WhatsApp</a>. Briefly describe the device and issue, and leave out passwords, one-time codes and banking details.</p></details>
           </div>
         </div>
       </section>
@@ -390,36 +441,9 @@
           <div><p class="eyebrow">About CompuSoft</p><div class="section-heading"><h2 id="about-title">Personal, practical IT support</h2><p>I’m based in Somerset West and help homes and small businesses nearby, with remote support available further afield when suitable. I keep the advice clear and focus on practical help for the problem in front of us.</p><p class="body-copy">For remote support, I’ll explain the session and arrange access with your permission before connecting.</p></div></div>
         </div>
       </section>
-      <section class="content contact" id="contact" aria-labelledby="contact-title">
-        <div class="wrap contact-grid">
-          <div class="contact-card">
-            <h2 id="contact-title">Tell me what needs fixing</h2>
-            <p>Share a few details about the device and the issue. I’ll get in touch to discuss what to do next.</p>
-            <p class="response-note">I aim to reply to new enquiries within one business day during posted business hours.</p>
-            <p class="urgent-note"><strong>Time-sensitive issue?</strong> Call or WhatsApp for the quickest way to reach me. Availability varies, so I’ll confirm whether I can assist before arranging urgent work.</p>
-            <div class="hero-actions direct-actions" role="group" aria-label="Call or WhatsApp CompuSoft"><a class="button button-secondary" href="tel:+27820593491" aria-label="Call CompuSoft on 082 059 3491">Call 082 059 3491</a><a class="button button-secondary" href="https://wa.me/27820593491" aria-label="WhatsApp CompuSoft" target="_blank" rel="noopener noreferrer">WhatsApp</a></div>
-            <form id="help-form" novalidate>
-              <div class="contact-checklist"><h3>Helpful details to include</h3><p>A few specifics help me understand the problem and suggest a next step:</p><ul><li>Device type and model, if you know it</li><li>What you see or the exact error message</li><li>When the problem started and what you have tried</li><li>Whether remote help or an on-site visit suits you</li></ul></div>
-              <p class="contact-requirement"><strong>At least one contact method is required:</strong> provide your email address, phone number, or both.</p>
-              <label for="name">First name <span>(required)</span><input id="name" name="name" type="text" autocomplete="given-name" maxlength="120" required /><span class="field-error" id="name-error">Enter your first name.</span></label>
-              <label for="surname">Surname <span>(optional)</span><input id="surname" name="surname" type="text" autocomplete="family-name" maxlength="120" /></label>
-              <label for="email">Email address <span>(optional if you provide a phone number)</span><input id="email" name="email" type="email" autocomplete="email" maxlength="200" /><span class="field-error" id="email-error">Enter a valid email address or leave this blank if you provide a phone number.</span></label>
-              <label for="phone">Phone number <span>(optional if you provide an email address)</span><input id="phone" name="phone" type="tel" autocomplete="tel" maxlength="40" /></label>
-              <label for="problem">Problem description <span>(required)</span><textarea id="problem" name="problem" required maxlength="3000" aria-describedby="problem-hint" placeholder="What’s happening? Include the device and any error message you can see."></textarea><span class="field-error" id="problem-error">Describe the problem so I can help.</span></label>
-              <p class="hint" id="problem-hint">Please leave out passwords, one-time codes and banking details.</p>
-              <label class="trap" aria-hidden="true">Leave this field empty<input name="website" tabindex="-1" autocomplete="off" /></label>
-              <button class="button" type="submit">Send my support request</button>
-              <p class="hint">By sending this request, you’re asking CompuSoft to use these details to respond. See the <a href="privacy.html">Privacy notice</a> for information about storage and providers.</p>
-              <p id="form-status" role="status" aria-live="polite" aria-atomic="true"></p>
-            </form>
-          </div>
-          <aside class="contact-direct"><p class="eyebrow">Direct email</p><h3>Prefer to email me?</h3><p>You can contact me directly at <a href="mailto:mail@compusoft.co.za">mail@compusoft.co.za</a>.</p><div class="availability-hours"><h4>Business hours</h4><dl><div><dt>Monday–Friday</dt><dd>09:00–17:00</dd></div><div><dt>Saturday</dt><dd>09:00–12:00</dd></div><div><dt>Sunday</dt><dd>Closed</dd></div></dl></div><p>Remote support is available further afield where suitable. If remote help won’t work, an on-site visit may be arranged in Somerset West and nearby areas. Ask me about device drop-off by arrangement.</p></aside>
-        </div>
-      </section>
     </main>
     <footer><div class="wrap"><strong>CompuSoft Computer Support</strong><span>Somerset West, Western Cape</span><a href="mailto:mail@compusoft.co.za">mail@compusoft.co.za</a><a href="privacy.html">Privacy notice</a></div></footer>
     <div class="mobile-contact-bar" id="mobile-contact-bar" role="group" aria-label="Quick contact" hidden>
-      <a class="button button-secondary" href="tel:+27820593491" aria-label="Call CompuSoft on 082 059 3491">Call 082 059 3491</a>
       <a class="button" href="https://wa.me/27820593491" aria-label="WhatsApp CompuSoft" target="_blank" rel="noopener noreferrer">WhatsApp</a>
     </div>
     <script>
@@ -453,6 +477,29 @@
         setNavigationMode();
       }
       const mobileContactBar = document.getElementById("mobile-contact-bar");
+      const contactCard = [
+        "BEGIN:VCARD", "VERSION:3.0", "N:;CompuSoft Computer Support;;;", "FN:CompuSoft Computer Support",
+        "ORG:CompuSoft Computer Support", "EMAIL;TYPE=WORK:mail@compusoft.co.za",
+        "URL:https://www.compusoft.co.za/", "ADR;TYPE=WORK:;;Somerset West;Western Cape;;;South Africa",
+        "NOTE:Computer support in Somerset West, Strand and Gordon's Bay.", "END:VCARD",
+      ].join("\r\n");
+      const qr = document.getElementById("contact-qr");
+      if (qr) qr.src = `https://api.qrserver.com/v1/create-qr-code/?size=288x288&data=${encodeURIComponent(contactCard)}`;
+      const heroSection = document.querySelector(".hero");
+      const towerBackdrop = document.querySelector(".ghost-backdrop");
+      if (heroSection && towerBackdrop && "IntersectionObserver" in window) {
+        const updateTowerBackdrop = new IntersectionObserver(([entry]) => {
+          document.body.classList.toggle("show-tower-backdrop", !entry.isIntersecting);
+        }, { threshold: 0 });
+        updateTowerBackdrop.observe(heroSection);
+      }
+      const floatingContactCard = document.createElement("aside");
+      floatingContactCard.className = "save-contact-card";
+      floatingContactCard.setAttribute("aria-label", "Save CompuSoft contact details");
+      floatingContactCard.innerHTML = '<img id="contact-qr" alt="QR code to save CompuSoft contact details" width="144" height="144"><div><h3>Save my contact</h3><p>Scan with your phone to add CompuSoft to your contacts.</p><a class="button button-secondary" href="compusoft-contact.vcf" download>Download contact</a></div>';
+      const floatingQr = floatingContactCard.querySelector("img");
+      floatingQr.src = `https://api.qrserver.com/v1/create-qr-code/?size=288x288&data=${encodeURIComponent(contactCard)}`;
+      document.body.append(floatingContactCard);
       const mobileBarHideTargets = [document.querySelector(".hero"), document.getElementById("contact"), document.querySelector("footer")].filter(Boolean);
       if (mobileContactBar && "IntersectionObserver" in window && mobileBarHideTargets.length) {
         const intersectingSections = new Set();

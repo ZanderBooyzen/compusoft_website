@@ -1,0 +1,10 @@
+BEGIN:VCARD
+VERSION:3.0
+N:;CompuSoft Computer Support;;;
+FN:CompuSoft Computer Support
+ORG:CompuSoft Computer Support
+EMAIL;TYPE=WORK:mail@compusoft.co.za
+URL:https://www.compusoft.co.za/
+ADR;TYPE=WORK:;;Somerset West;Western Cape;;;South Africa
+NOTE:Computer support in Somerset West, Strand and Gordon's Bay.
+END:VCARD
